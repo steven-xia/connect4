@@ -55,17 +55,23 @@ def iter_moves(b: int) -> typing.Iterator[int]:
 
 # main class for board representation.
 class Board(object):
-    def __init__(self):
+    def __init__(self, ybb: int = 0, rbb: int = 0, t: int = YELLOW):
         """
         wrapper class for the bitboard board representation. contains multiple
         utility methods for easy utilisation of the board.
+        :param ybb: bitboard for yellow pieces
+        :param rbb: bitboard for red pieces
+        :param t: turn indicator
         """
 
         # piece bitboards for both players. the yellow player goes first.
-        self.yellow_bitboard: int = 0
-        self.red_bitboard: int = 0
+        self.yellow_bitboard: int = ybb
+        self.red_bitboard: int = rbb
 
-        self.turn: int = YELLOW
+        self.turn: int = t
+
+    def __copy__(self):
+        return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
 
     def get_legal_moves(self) -> int:
         """
