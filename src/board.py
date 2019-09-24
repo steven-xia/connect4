@@ -89,7 +89,11 @@ class Board(object):
         :return: None
         """
 
-        self.yellow_bitboard if self.turn == YELLOW else self.red_bitboard += m
+        if self.turn == YELLOW:
+            self.yellow_bitboard += m
+        else:
+            self.red_bitboard += m
+
         self.turn = RED if self.turn == YELLOW else YELLOW
 
 
