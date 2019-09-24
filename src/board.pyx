@@ -53,7 +53,7 @@ cdef int popcount(bitboard b):
     return n
 
 
-cdef bitboard shift(bitboard b, d: int):
+cdef bitboard shift(const bitboard b, const int d):
     """
     returns a copy of the bitboard `b` after shifting by direction `d`.
     :param b: the bitboard to shift
@@ -64,7 +64,7 @@ cdef bitboard shift(bitboard b, d: int):
     return b << d
 
 
-cpdef split_bitboard(bitboard b):
+cpdef split_bitboard(const bitboard b):
     """
     returns a list of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.
@@ -87,7 +87,8 @@ cdef class Board(object):
     cdef public int turn
     cdef readonly list past_moves
 
-    def __init__(self, bitboard ybb = 0, bitboard rbb = 0, int t = YELLOW):
+    def __init__(self, const bitboard ybb = 0, const bitboard rbb = 0,
+                 const int t = YELLOW):
         """
         wrapper class for the bitboard board representation. contains multiple
         utility methods for easy utilisation of the board.
@@ -118,7 +119,7 @@ cdef class Board(object):
         cdef bitboard pieces = self.yellow_bitboard | self.red_bitboard | EMPTY_BOARD
         return shift(pieces, UP) & (~pieces)
 
-    cpdef void make_move(self, bitboard m):
+    cpdef void make_move(self, const bitboard m):
         """
         makes a move on the current game position.
         :param m: bitboard representation of the move.
