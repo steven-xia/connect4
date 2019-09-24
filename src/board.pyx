@@ -85,6 +85,7 @@ cpdef split_bitboard(bitboard b):
 cdef class Board(object):
     cdef public bitboard yellow_bitboard, red_bitboard
     cdef public int turn
+    cdef readonly list past_moves
 
     def __init__(self, bitboard ybb = 0, bitboard rbb = 0, int t = YELLOW):
         """
@@ -100,6 +101,7 @@ cdef class Board(object):
         self.red_bitboard = rbb
 
         self.turn = t
+        self.past_moves = []
 
     def __copy__(self):
         return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
@@ -123,11 +125,26 @@ cdef class Board(object):
         :return: None
         """
 
+        self.past_moves.append(m)
+
         if self.turn == YELLOW:
             self.yellow_bitboard += m
             self.turn = RED
         else:
             self.red_bitboard += m
+            self.turn = YELLOW
+
+    cpdef void undo_move(self):
+        """
+        undoes a move from the current game state.
+        :return: None
+        """
+
+        if self.turn == YELLOW:
+            self.red_bitboard -= self.past_moves.pop()
+            self.turn = RED
+        else:
+            self.yellow_bitboard -= self.past_moves.pop()
             self.turn = YELLOW
 
 

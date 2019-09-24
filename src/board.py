@@ -86,6 +86,7 @@ class Board(object):
         self.red_bitboard: int = rbb
 
         self.turn: int = t
+        self.past_moves = []
 
     def __copy__(self):
         return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
@@ -109,11 +110,26 @@ class Board(object):
         :return: None
         """
 
+        self.past_moves.append(m)
+
         if self.turn == YELLOW:
             self.yellow_bitboard += m
             self.turn = RED
         else:
             self.red_bitboard += m
+            self.turn = YELLOW
+
+    def undo_move(self) -> None:
+        """
+        undoes a move from the current game state.
+        :return: None
+        """
+
+        if self.turn == YELLOW:
+            self.red_bitboard -= self.past_moves.pop()
+            self.turn = RED
+        else:
+            self.yellow_bitboard -= self.past_moves.pop()
             self.turn = YELLOW
 
 
