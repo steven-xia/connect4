@@ -73,6 +73,9 @@ class Board(object):
     def __copy__(self):
         return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
 
+    def __deepcopy__(self):
+        return self.__copy__()
+
     def get_legal_moves(self) -> int:
         """
         generates all legal moves from the current board position.
