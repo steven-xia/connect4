@@ -19,6 +19,9 @@ EMPTY_BOARD: int = sum(
     if x
 )
 
+# define bit list (list of all bits)
+BIT_LIST: typing.Tuple[int] = tuple(1 << i for i in range(49))
+
 # directions for shifting the bitboard representation.
 UP: int = 1
 RIGHT: int = 7
@@ -64,7 +67,7 @@ def split_bitboard(b: int) -> typing.Iterator[int]:
     :return: iterator of all moves
     """
 
-    return (x for x in (b & (1 << i) for i in range(49)) if x)
+    return (x for x in (b & bit for bit in BIT_LIST) if x)
 
 
 # main class for board representation.
