@@ -6,35 +6,35 @@ file: board.py
 description: contains code for board representation and move generation.
 """
 
-import typing
+ctypedef long long bitboard
 
 # set utility constants
-YELLOW = 0
-RED = 1
+cdef int YELLOW = 0
+cdef int RED = 1
 
 # the board will be represented with a 7x7 bitboard with the bottom as a
 # placeholder/helper for move generation. the representation will be from
 # bottom left (msb) to top right (lsb).
-EMPTY_BOARD: int = sum(
+cdef bitboard EMPTY_BOARD = sum(
     1 << i
     for i, x in enumerate(0 if i % 7 else 1 for i in range(49))
     if x
 )
 
 # directions for shifting the bitboard representation.
-UP: int = 1
-RIGHT: int = 7
-DOWN: int = -UP
-LEFT: int = -RIGHT
+cdef int UP = 1
+cdef int RIGHT = 7
+cdef int DOWN = -UP
+cdef int LEFT = -RIGHT
 
-UP_RIGHT: int = UP + RIGHT
-UP_LEFT: int = UP + LEFT
-DOWN_RIGHT: int = DOWN + RIGHT
-DOWN_LEFT: int = DOWN + LEFT
+cdef int UP_RIGHT = UP + RIGHT
+cdef int UP_LEFT = UP + LEFT
+cdef int DOWN_RIGHT = DOWN + RIGHT
+cdef int DOWN_LEFT = DOWN + LEFT
 
 
 # define utility functions here.
-def shift(b: int, d: int) -> int:
+cdef bitboard shift(bitboard b, d: int):
     """
     returns a copy of the bitboard `b` after shifting by direction `d`.
     :param b: the bitboard to shift
@@ -45,7 +45,7 @@ def shift(b: int, d: int) -> int:
     return b << d
 
 
-def iter_moves(b: int) -> typing.Iterator[int]:
+def iter_moves(bitboard b):
     """
     returns an iterable of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.
@@ -56,8 +56,11 @@ def iter_moves(b: int) -> typing.Iterator[int]:
 
 
 # main class for board representation.
-class Board(object):
-    def __init__(self, ybb: int = 0, rbb: int = 0, t: int = YELLOW):
+cdef class Board(object):
+    cdef public bitboard yellow_bitboard, red_bitboard
+    cdef public int turn
+
+    def __init__(self, bitboard ybb = 0, bitboard rbb = 0, int t = YELLOW):
         """
         wrapper class for the bitboard board representation. contains multiple
         utility methods for easy utilisation of the board.
@@ -67,10 +70,10 @@ class Board(object):
         """
 
         # piece bitboards for both players. the yellow player goes first.
-        self.yellow_bitboard: int = ybb
-        self.red_bitboard: int = rbb
+        self.yellow_bitboard = ybb
+        self.red_bitboard = rbb
 
-        self.turn: int = t
+        self.turn = t
 
     def __copy__(self):
         return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
@@ -78,16 +81,16 @@ class Board(object):
     def __deepcopy__(self):
         return self.__copy__()
 
-    def get_legal_moves(self) -> int:
+    def get_legal_moves(self):
         """
         generates all legal moves from the current board position.
         :return: bitboard representation of all legal moves
         """
 
-        pieces: int = self.yellow_bitboard | self.red_bitboard | EMPTY_BOARD
+        cdef bitboard pieces = self.yellow_bitboard | self.red_bitboard | EMPTY_BOARD
         return shift(pieces, UP) & (~pieces)
 
-    def make_move(self, m: int) -> None:
+    def make_move(self, bitboard m):
         """
         makes a move on the current game position.
         :param m: bitboard representation of the move.
