@@ -12,6 +12,8 @@ ctypedef unsigned long long bitboard
 cdef int YELLOW = 0
 cdef int RED = 1
 
+cdef bitboard ONE = 1
+
 # the board will be represented with a 7x7 bitboard with the bottom as a
 # placeholder/helper for move generation. the representation will be from
 # bottom left (msb) to top right (lsb).
@@ -66,10 +68,10 @@ cpdef split_bitboard(bitboard b):
     :return: list of all moves
     """
 
-    moves = []
-    cdef bitboard x
+    cdef list moves = []
+    cdef bitboard i, x
     for i in range(49):
-        x = b & (1 << i)
+        x = b & (ONE << i)
         if x:
             moves.append(x)
 
