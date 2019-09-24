@@ -32,6 +32,20 @@ DOWN_LEFT: int = DOWN + LEFT
 
 
 # define utility functions here.
+def popcount(b: int) -> int:
+    """
+    counts the number of bits in bitboard `b`.
+    :param b: bitboard to count
+    :return: number of bits
+    """
+
+    n: int = 0
+    while b:
+        b &= b - 1
+        n += 1
+    return n
+
+
 def shift(b: int, d: int) -> int:
     """
     returns a copy of the bitboard `b` after shifting by direction `d`.

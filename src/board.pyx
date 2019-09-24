@@ -34,6 +34,20 @@ cdef int DOWN_LEFT = DOWN + LEFT
 
 
 # define utility functions here.
+cdef int popcount(bitboard b):
+    """
+    counts the number of bits in bitboard `b`.
+    :param b: bitboard to count
+    :return: number of bits
+    """
+
+    cdef int n = 0
+    while b:
+        b &= b - 1
+        n += 1
+    return n
+
+
 cdef bitboard shift(bitboard b, d: int):
     """
     returns a copy of the bitboard `b` after shifting by direction `d`.
