@@ -88,7 +88,7 @@ cdef class Board(object):
     def __deepcopy__(self):
         return self.__copy__()
 
-    def get_legal_moves(self):
+    cpdef bitboard get_legal_moves(self):
         """
         generates all legal moves from the current board position.
         :return: bitboard representation of all legal moves
@@ -97,7 +97,7 @@ cdef class Board(object):
         cdef bitboard pieces = self.yellow_bitboard | self.red_bitboard | EMPTY_BOARD
         return shift(pieces, UP) & (~pieces)
 
-    def make_move(self, bitboard m):
+    cpdef void make_move(self, bitboard m):
         """
         makes a move on the current game position.
         :param m: bitboard representation of the move.
