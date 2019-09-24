@@ -43,7 +43,7 @@ def shift(b: int, d: int) -> int:
     return b << d
 
 
-def iter_moves(b: int) -> typing.Iterator[int]:
+def split_bitboard(b: int) -> typing.Iterator[int]:
     """
     returns an iterable of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.
@@ -103,5 +103,5 @@ class Board(object):
 if __name__ == "__main__":
     board = Board()
     print(tuple(
-        iter_moves(board.get_legal_moves())
+        split_bitboard(board.get_legal_moves())
     ))

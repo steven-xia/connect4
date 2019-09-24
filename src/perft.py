@@ -12,7 +12,7 @@ def perft_func(b: board.Board, d: int = 0) -> int:
         return 1
 
     positions = 0
-    for move in board.iter_moves(b.get_legal_moves()):
+    for move in board.split_bitboard(b.get_legal_moves()):
         temp_b = b.__copy__()
         temp_b.make_move(move)
         positions += perft_func(temp_b, d - 1)

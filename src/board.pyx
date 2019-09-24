@@ -45,14 +45,21 @@ cdef bitboard shift(bitboard b, d: int):
     return b << d
 
 
-def iter_moves(bitboard b):
+cpdef split_bitboard(bitboard b):
     """
-    returns an iterable of the possible moves from the given bitboards.
+    returns a list of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.
-    :return: iterator of all moves
+    :return: list of all moves
     """
 
-    return (x for x in (b & (1 << i) for i in range(49)) if x)
+    moves = []
+    cdef bitboard x
+    for i in range(49):
+        x = b & (1 << i)
+        if x:
+            moves.append(x)
+
+    return moves
 
 
 # main class for board representation.
