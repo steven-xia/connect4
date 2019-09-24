@@ -14,7 +14,7 @@ if __name__ == "__main__":
             setuptools.extension.Extension(
                 name="board",
                 sources=["board.pyx"],
-                # extra_compile_args=["/O2"]
+                extra_compile_args=["/O2"]
             ),
         )
     )
