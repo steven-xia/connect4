@@ -23,6 +23,9 @@ cdef bitboard EMPTY_BOARD = sum(
     if x
 )
 
+# define bit list (list of all bits)
+cdef list BIT_LIST = [ONE << i for i in range(49)]
+
 # directions for shifting the bitboard representation.
 cdef int UP = 1
 cdef int RIGHT = 7
@@ -69,9 +72,9 @@ cpdef split_bitboard(bitboard b):
     """
 
     cdef list moves = []
-    cdef bitboard i, x
-    for i in range(49):
-        x = b & (ONE << i)
+    cdef bitboard bit, x
+    for bit in BIT_LIST:
+        x = b & bit
         if x:
             moves.append(x)
 
