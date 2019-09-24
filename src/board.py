@@ -91,10 +91,10 @@ class Board(object):
 
         if self.turn == YELLOW:
             self.yellow_bitboard += m
+            self.turn = RED
         else:
             self.red_bitboard += m
-
-        self.turn = RED if self.turn == YELLOW else YELLOW
+            self.turn = YELLOW
 
 
 if __name__ == "__main__":
