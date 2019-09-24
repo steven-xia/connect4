@@ -6,7 +6,7 @@ file: board.py
 description: contains code for board representation and move generation.
 """
 
-ctypedef long long bitboard
+ctypedef unsigned long long bitboard
 
 # set utility constants
 cdef int YELLOW = 0
