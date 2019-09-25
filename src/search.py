@@ -36,10 +36,3 @@ def negamax(b: board.Board, e: typing.Callable, d: int, c: int) \
             pv = child_pv
 
     return score, [best_move] + pv, nodes
-
-
-if __name__ == "__main__":
-    import evaluate
-
-    b = board.Board()
-    print(negamax(b, evaluate.evaluate, 6, board.YELLOW))
