@@ -9,8 +9,8 @@ description: contains code for board representation and move generation.
 ctypedef unsigned long long bitboard
 
 # set utility constants
-cdef int YELLOW = 0
-cdef int RED = 1
+cdef int YELLOW = 1
+cdef int RED = -1
 
 cdef bitboard ONE = 1
 

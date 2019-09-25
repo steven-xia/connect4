@@ -7,8 +7,8 @@ description: contains code for board representation and move generation.
 import typing
 
 # set utility constants
-YELLOW: int = 0
-RED: int = 1
+YELLOW: int = 1
+RED: int = -1
 
 # the board will be represented with a 7x7 bitboard with the bottom as a
 # placeholder/helper for move generation. the representation will be from
