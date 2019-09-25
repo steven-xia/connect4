@@ -106,6 +106,11 @@ class Board(object):
         return shift(pieces, UP) & (~pieces)
 
     def is_game_over(self) -> bool:
+        """
+        checks whether or not the current game position is over.
+        :return: whether the game is over
+        """
+
         if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
             return True
 
