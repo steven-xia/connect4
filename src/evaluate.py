@@ -1,6 +1,5 @@
 import board
 
-
 _piece_table: list = [
     0, 23, 31,  49,  49, 31, 23,
     0, 31, 43,  61,  61, 43, 31,
@@ -11,14 +10,20 @@ _piece_table: list = [
     0, 23, 31,  49,  49, 31, 23,
 ]
 
+_piece_table_values = set(_piece_table)
+
+_temp_piece_table: dict = {s: 0 for s in _piece_table_values}
+for i in range(49):
+    _temp_piece_table[_piece_table[i]] += (1 << i)
+
 PIECE_TABLE: list = [
-    (1 << i, _piece_table[i]) for i in range(49) if i % 7
+    (v, k) for k, v in _temp_piece_table.items()
 ]
 
 
 def evaluate(b: board.Board) -> int:
     score: int = 0
-    for bit, s in PIECE_TABLE:
-        score += (b.yellow_bitboard & bit != 0) * s
-        score -= (b.red_bitboard & bit != 0) * s
+    for bits, s in PIECE_TABLE:
+        score += board.popcount(b.yellow_bitboard & bits) * s
+        score -= board.popcount(b.red_bitboard & bits) * s
     return score

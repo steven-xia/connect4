@@ -42,7 +42,7 @@ cdef int DOWN_LEFT = DOWN + LEFT
 
 
 # define utility functions here.
-cdef int popcount(bitboard b):
+cpdef int popcount(bitboard b):
     """
     counts the number of bits in bitboard `b`.
     :param b: bitboard to count
