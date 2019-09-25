@@ -14,9 +14,7 @@ RED: int = -1
 # placeholder/helper for move generation. the representation will be from
 # bottom left (msb) to top right (lsb).
 EMPTY_BOARD: int = sum(
-    1 << i
-    for i, x in enumerate(0 if i % 7 else 1 for i in range(49))
-    if x
+    1 << i for i, x in enumerate(not i % 7 for i in range(49)) if x
 )
 
 FULL_BOARD: int = ~EMPTY_BOARD

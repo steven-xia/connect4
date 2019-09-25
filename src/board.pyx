@@ -21,9 +21,7 @@ cdef bitboard ONE = 1
 # placeholder/helper for move generation. the representation will be from
 # bottom left (msb) to top right (lsb).
 cdef bitboard EMPTY_BOARD = sum(
-    1 << i
-    for i, x in enumerate(0 if i % 7 else 1 for i in range(49))
-    if x
+    1 << i for i, x in enumerate(not i % 7 for i in range(49)) if x
 )
 
 cdef bitboard FULL_BOARD = ~EMPTY_BOARD
