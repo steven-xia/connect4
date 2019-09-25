@@ -67,7 +67,7 @@ cdef bitboard shift(const bitboard b, const int d):
     return b << d
 
 
-cpdef split_bitboard(const bitboard b):
+cpdef list split_bitboard(const bitboard b):
     """
     returns a list of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.
