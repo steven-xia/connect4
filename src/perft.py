@@ -8,7 +8,7 @@ import board
 
 
 def perft_func(b: board.Board, d: int = 0) -> int:
-    if d == 0:
+    if d == 0 or b.is_game_over():
         return 1
 
     positions = 0
