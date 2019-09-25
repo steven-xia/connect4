@@ -4,24 +4,13 @@ file: perft.py
 description: script to do a performance test on the board implementation.
 """
 
-import board
-
-
-def perft_func(b: board.Board, d: int = 0) -> int:
-    if d == 0 or b.is_game_over():
-        return 1
-
-    positions = 0
-    for move in board.split_bitboard(b.get_legal_moves()):
-        b.make_move(move)
-        positions += perft_func(b, d - 1)
-        b.undo_move()
-    return positions
-
-
 if __name__ == "__main__":
     import sys
     import time
+
+    import board
+    import evaluate
+    import search
 
     sys.stdout.write("depth".rjust(6))
     sys.stdout.write("time (ms)".rjust(11))
@@ -30,11 +19,16 @@ if __name__ == "__main__":
     sys.stdout.write("\n")
     sys.stdout.flush()
 
-    max_depth = 9
+    max_depth = 7
 
     for depth in range(max_depth):
         start_time = time.time()
-        nodes_searched = perft_func(board.Board(), depth + 1)
+        _, pv, nodes_searched = search.negamax(
+            board.Board(),
+            evaluate.evaluate,
+            depth + 1,
+            board.YELLOW
+        )
         end_time = time.time()
 
         time_taken = end_time - start_time
