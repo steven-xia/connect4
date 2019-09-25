@@ -103,6 +103,48 @@ class Board(object):
         pieces: int = self.yellow_bitboard | self.red_bitboard | EMPTY_BOARD
         return shift(pieces, UP) & (~pieces)
 
+    def is_game_over(self) -> bool:
+        if self.turn == YELLOW:
+            current_pieces = self.red_bitboard
+        else:
+            current_pieces = self.yellow_bitboard
+
+        if (current_pieces
+                & shift(current_pieces, UP)
+                & shift(current_pieces, 2 * UP)
+                & shift(current_pieces, 3 * UP)) \
+                or (current_pieces
+                    & shift(current_pieces, DOWN)
+                    & shift(current_pieces, 2 * DOWN)
+                    & shift(current_pieces, 3 * DOWN)) \
+                or (current_pieces
+                    & shift(current_pieces, LEFT)
+                    & shift(current_pieces, 2 * LEFT)
+                    & shift(current_pieces, 3 * LEFT)) \
+                or (current_pieces
+                    & shift(current_pieces, RIGHT)
+                    & shift(current_pieces, 2 * RIGHT)
+                    & shift(current_pieces, 3 * RIGHT)) \
+                or (current_pieces
+                    & shift(current_pieces, UP_LEFT)
+                    & shift(current_pieces, 2 * UP_LEFT)
+                    & shift(current_pieces, 3 * UP_LEFT)) \
+                or (current_pieces
+                    & shift(current_pieces, UP_RIGHT)
+                    & shift(current_pieces, 2 * UP_RIGHT)
+                    & shift(current_pieces, 3 * UP_RIGHT)) \
+                or (current_pieces
+                    & shift(current_pieces, DOWN_LEFT)
+                    & shift(current_pieces, 2 * DOWN_LEFT)
+                    & shift(current_pieces, 3 * DOWN_LEFT)) \
+                or (current_pieces
+                    & shift(current_pieces, DOWN_RIGHT)
+                    & shift(current_pieces, 2 * DOWN_RIGHT)
+                    & shift(current_pieces, 3 * DOWN_RIGHT)):
+            return True
+
+        return False
+
     def make_move(self, m: int) -> None:
         """
         makes a move on the current game position.
