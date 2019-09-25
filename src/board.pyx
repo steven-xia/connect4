@@ -151,6 +151,4 @@ cdef class Board(object):
 
 if __name__ == "__main__":
     board = Board()
-    print(tuple(
-        split_bitboard(board.get_legal_moves())
-    ))
+    print(split_bitboard(board.get_legal_moves()))
