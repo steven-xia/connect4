@@ -2,6 +2,14 @@
 file: perft.py
 
 description: script to do a performance test on the board implementation.
+
+ipython usage (~15 minutes):
+```
+cd src\
+ipython
+import perft
+%timeit -r 1000 perft.perft_func(4)
+```
 """
 
 import board
