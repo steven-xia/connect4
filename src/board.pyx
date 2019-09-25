@@ -26,6 +26,8 @@ cdef bitboard EMPTY_BOARD = sum(
     if x
 )
 
+cdef bitboard FULL_BOARD = ~EMPTY_BOARD
+
 # define bit list (list of all bits)
 cdef list BIT_LIST = [ONE << i for i in range(49)]
 
@@ -123,6 +125,9 @@ cdef class Board(object):
         return shift(pieces, UP) & (~pieces)
 
     cpdef int is_game_over(self):
+        if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
+            return True
+
         cdef bitboard current_pieces
         if self.turn == _yellow:
             current_pieces = self.red_bitboard

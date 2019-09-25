@@ -19,6 +19,8 @@ EMPTY_BOARD: int = sum(
     if x
 )
 
+FULL_BOARD: int = ~EMPTY_BOARD
+
 # define bit list (list of all bits)
 BIT_LIST: typing.Tuple[int] = tuple(1 << i for i in range(49))
 
@@ -104,6 +106,9 @@ class Board(object):
         return shift(pieces, UP) & (~pieces)
 
     def is_game_over(self) -> bool:
+        if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
+            return True
+
         if self.turn == YELLOW:
             current_pieces = self.red_bitboard
         else:
