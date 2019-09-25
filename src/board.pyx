@@ -9,8 +9,11 @@ description: contains code for board representation and move generation.
 ctypedef unsigned long long bitboard
 
 # set utility constants
-cdef int YELLOW = 1
-cdef int RED = -1
+YELLOW = 1
+RED = -1
+
+cdef int _yellow = 1
+cdef int _red = -1
 
 cdef bitboard ONE = 1
 
@@ -88,7 +91,7 @@ cdef class Board(object):
     cdef readonly list past_moves
 
     def __init__(self, const bitboard ybb = 0, const bitboard rbb = 0,
-                 const int t = YELLOW):
+                 const int t = _yellow):
         """
         wrapper class for the bitboard board representation. contains multiple
         utility methods for easy utilisation of the board.
@@ -128,12 +131,12 @@ cdef class Board(object):
 
         self.past_moves.append(m)
 
-        if self.turn == YELLOW:
+        if self.turn == _yellow:
             self.yellow_bitboard += m
-            self.turn = RED
+            self.turn = _red
         else:
             self.red_bitboard += m
-            self.turn = YELLOW
+            self.turn = _yellow
 
     cpdef void undo_move(self):
         """
@@ -141,12 +144,12 @@ cdef class Board(object):
         :return: None
         """
 
-        if self.turn == YELLOW:
+        if self.turn == _yellow:
             self.red_bitboard -= self.past_moves.pop()
-            self.turn = RED
+            self.turn = _red
         else:
             self.yellow_bitboard -= self.past_moves.pop()
-            self.turn = YELLOW
+            self.turn = _yellow
 
 
 if __name__ == "__main__":
