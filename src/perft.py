@@ -8,7 +8,7 @@ ipython usage (~15 minutes):
 cd src\
 ipython
 import perft
-%timeit -r 1000 perft.perft_func(4)
+%timeit -r 1000 -n 10 perft.perft_func(6)
 ```
 """
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     sys.stdout.write("\n")
     sys.stdout.flush()
 
-    max_depth = 7
+    max_depth = 9
 
     for depth in range(max_depth):
         start_time = time.time()
