@@ -10,7 +10,7 @@ _piece_table: list = [
     0, 23, 31,  49,  49, 31, 23,
 ]
 
-_piece_table_values = set(_piece_table)
+_piece_table_values: set = set(_piece_table)
 
 _temp_piece_table: dict = {s: 0 for s in _piece_table_values}
 for i in range(49):
