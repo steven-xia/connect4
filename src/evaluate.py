@@ -1,5 +1,12 @@
+"""
+file: evaluate.py
+
+description: contains code for evaluating a game position.
+"""
+
 import board
 
+# define piece square table
 _piece_table: list = [
     0, 23, 31,  49,  49, 31, 23,
     0, 31, 43,  61,  61, 43, 31,
