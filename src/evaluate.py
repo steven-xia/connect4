@@ -28,9 +28,24 @@ PIECE_TABLE: list = [
 ]
 
 
+# define utility functions here.
+def popcount(b: int) -> int:
+    """
+    counts the number of bits in bitboard `b`.
+    :param b: bitboard to count
+    :return: number of bits
+    """
+
+    n: int = 0
+    while b:
+        b &= b - 1
+        n += 1
+    return n
+
+
 def evaluate(b: board.Board) -> int:
     score: int = 0
     for bits, s in PIECE_TABLE:
-        score += board.popcount(b.yellow_bitboard & bits) * s
-        score -= board.popcount(b.red_bitboard & bits) * s
+        score += popcount(b.yellow_bitboard & bits) * s
+        score -= popcount(b.red_bitboard & bits) * s
     return score
