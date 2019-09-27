@@ -18,3 +18,13 @@ if __name__ == "__main__":
             ),
         )
     )
+
+    setuptools.setup(
+        ext_modules=Cython.Build.cythonize(
+            setuptools.extension.Extension(
+                name="evaluate",
+                sources=["evaluate.pyx"],
+                extra_compile_args=["/O2"]
+            ),
+        )
+    )
