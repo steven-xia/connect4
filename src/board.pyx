@@ -1,4 +1,5 @@
 # cython: language_level=3
+# distutils: language = c++
 
 """
 file: board.py
@@ -6,7 +7,10 @@ file: board.py
 description: contains code for board representation and move generation.
 """
 
+from libcpp.vector cimport vector
+
 ctypedef unsigned long long bitboard
+ctypedef vector[unsigned long long] bit_list
 
 # set utility constants
 YELLOW = 1
@@ -27,7 +31,7 @@ cdef bitboard EMPTY_BOARD = sum(
 cdef bitboard FULL_BOARD = ~EMPTY_BOARD
 
 # define bit list (list of all bits)
-cdef list BIT_LIST = [ONE << i for i in range(49)]
+cdef bit_list BIT_LIST = [ONE << i for i in range(49)]
 
 # directions for shifting the bitboard representation.
 cdef int UP = 1
@@ -53,19 +57,21 @@ cdef bitboard shift(const bitboard b, const int d):
     return b << d
 
 
-cpdef list split_bitboard(const bitboard b):
+cpdef bit_list split_bitboard(const bitboard b):
     """
     returns a list of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.
     :return: list of all moves
     """
 
-    cdef list moves = []
+    cdef bit_list moves = []
+    moves.reserve(7)
+
     cdef bitboard bit, x
     for bit in BIT_LIST:
         x = b & bit
         if x:
-            moves.append(x)
+            moves.push_back(x)
 
     return moves
 
@@ -73,8 +79,8 @@ cpdef list split_bitboard(const bitboard b):
 # main class for board representation.
 cdef class Board(object):
     cdef public bitboard yellow_bitboard, red_bitboard
-    cdef public int turn
-    cdef readonly list past_moves
+    cdef public int turn, turn_number
+    cdef readonly bit_list past_moves
 
     def __init__(self, const bitboard ybb = 0, const bitboard rbb = 0,
                  const int t = _yellow):
@@ -91,7 +97,9 @@ cdef class Board(object):
         self.red_bitboard = rbb
 
         self.turn = t
+        self.turn_number = 1
         self.past_moves = []
+        self.past_moves.reserve(42)
 
     def __copy__(self):
         return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
@@ -166,7 +174,8 @@ cdef class Board(object):
         :return: None
         """
 
-        self.past_moves.append(m)
+        self.past_moves[self.turn_number] = m
+        self.turn_number += 1
 
         if self.turn == _yellow:
             self.yellow_bitboard += m
@@ -181,11 +190,15 @@ cdef class Board(object):
         :return: None
         """
 
+        self.turn_number -= 1
+
         if self.turn == _yellow:
-            self.red_bitboard -= self.past_moves.pop()
+            self.red_bitboard -= self.past_moves[self.turn_number]
+            self.past_moves.pop_back()
             self.turn = _red
         else:
-            self.yellow_bitboard -= self.past_moves.pop()
+            self.yellow_bitboard -= self.past_moves[self.turn_number]
+            self.past_moves.pop_back()
             self.turn = _yellow
 
 
