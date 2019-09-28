@@ -14,7 +14,13 @@ if __name__ == "__main__":
     }
 
     directives = {
-
+        "boundscheck": False,
+        "wraparound": False,
+        "initializedcheck": False,
+        "nonecheck": False,
+        "overflowcheck": False,
+        "cdivision": False,
+        "infer_types": False
     }
 
     setuptools.setup(
