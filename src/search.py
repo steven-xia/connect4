@@ -1,3 +1,9 @@
+"""
+file: search.py
+
+description: contains code for the search implementation.
+"""
+
 import typing
 
 import board
