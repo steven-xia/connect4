@@ -84,5 +84,7 @@ if __name__ == "__main__":
             sys.stdout.write("\n")
             sys.stdout.flush()
     else:
-        print("Benchmark for: 3600s/24×d7")
-        time_search(t=3600, d=7, r=24)
+        RUN_SECONDS = 3600
+        DEPTH = 7
+        print(f"Benchmark for: {RUN_SECONDS}s/24×d{DEPTH}")
+        time_search(t=RUN_SECONDS, d=DEPTH, r=24)
