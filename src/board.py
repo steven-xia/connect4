@@ -57,7 +57,7 @@ def shift(b: int, d: int) -> int:
     :return: copy of shifted bitboard
     """
 
-    return b << d
+    return b << d if d >= 0 else b >> -d
 
 
 def split_bitboard(b: int) -> typing.Iterator[int]:
