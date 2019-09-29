@@ -31,7 +31,7 @@ for i in range(49):
     _temp_piece_table[_piece_table[i]] += (ONE << i)
 
 cdef list PIECE_TABLE = [
-    (v, k) for k, v in _temp_piece_table.items()
+    (v, k) for k, v in _temp_piece_table.items() if k != 0
 ]
 
 
