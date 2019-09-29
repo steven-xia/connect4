@@ -44,6 +44,10 @@ def popcount(b: int) -> int:
 
 
 def evaluate(b: board.Board) -> int:
+    if b.game_result != board.UNKNOWN:
+        print(b.game_result)
+        return b.game_result * 4200
+
     score: int = 0
     for bits, s in PIECE_TABLE:
         score += popcount(b.yellow_bitboard & bits) * s

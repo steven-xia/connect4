@@ -10,6 +10,9 @@ import typing
 YELLOW: int = 1
 RED: int = -1
 
+UNKNOWN: int = 42
+DRAW: int = 0
+
 # the board will be represented with a 7x7 bitboard with the bottom as a
 # placeholder/helper for move generation. the representation will be from
 # bottom left (msb) to top right (lsb).
@@ -87,6 +90,7 @@ class Board(object):
 
         self.turn: int = t
         self.past_moves = []
+        self.game_result = UNKNOWN
 
     def __copy__(self):
         return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
@@ -110,11 +114,14 @@ class Board(object):
         """
 
         if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
+            self.game_result = DRAW
             return True
 
         if self.turn == YELLOW:
+            win_result = RED
             current_pieces = self.red_bitboard
         else:
+            win_result = YELLOW
             current_pieces = self.yellow_bitboard
 
         if (current_pieces
@@ -149,8 +156,10 @@ class Board(object):
                     & shift(current_pieces, DOWN_RIGHT)
                     & shift(current_pieces, 2 * DOWN_RIGHT)
                     & shift(current_pieces, 3 * DOWN_RIGHT)):
+            self.game_result = win_result
             return True
 
+        self.game_result = UNKNOWN
         return False
 
     def make_move(self, m: int) -> None:

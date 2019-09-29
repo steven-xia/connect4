@@ -16,8 +16,14 @@ ctypedef vector[unsigned long long] bit_list
 YELLOW = 1
 RED = -1
 
+UNKNOWN = 42
+DRAW = 0
+
 cdef int _yellow = 1
 cdef int _red = -1
+
+cdef int _unknown = 42
+cdef int _draw = 0
 
 cdef bitboard ONE = 1
 
@@ -79,7 +85,7 @@ cpdef bit_list split_bitboard(const bitboard b):
 # main class for board representation.
 cdef class Board(object):
     cdef public bitboard yellow_bitboard, red_bitboard
-    cdef public int turn, turn_number
+    cdef public int turn, turn_number, game_result
     cdef readonly bit_list past_moves
 
     def __init__(self, const bitboard ybb = 0, const bitboard rbb = 0,
@@ -100,6 +106,7 @@ cdef class Board(object):
         self.turn_number = 1
         self.past_moves = []
         self.past_moves.reserve(42)
+        self.game_result = _unknown
 
     def __copy__(self):
         return Board(self.yellow_bitboard, self.red_bitboard, self.turn)
@@ -123,12 +130,16 @@ cdef class Board(object):
         """
 
         if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
+            self.game_result = _draw
             return True
 
+        cdef int win_result
         cdef bitboard current_pieces
         if self.turn == _yellow:
+            win_result = _red
             current_pieces = self.red_bitboard
         else:
+            win_result = _yellow
             current_pieces = self.yellow_bitboard
 
         if (current_pieces
@@ -163,8 +174,10 @@ cdef class Board(object):
                     & shift(current_pieces, DOWN_RIGHT)
                     & shift(current_pieces, 2 * DOWN_RIGHT)
                     & shift(current_pieces, 3 * DOWN_RIGHT)):
+            self.game_result = win_result
             return True
 
+        self.game_result = _unknown
         return False
 
     cpdef void make_move(self, const bitboard m):
