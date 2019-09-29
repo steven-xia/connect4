@@ -24,7 +24,7 @@ for i in range(49):
     _temp_piece_table[_piece_table[i]] += (1 << i)
 
 PIECE_TABLE: list = [
-    (v, k) for k, v in _temp_piece_table.items()
+    (v, k) for k, v in _temp_piece_table.items() if k != 0
 ]
 
 
