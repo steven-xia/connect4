@@ -11,9 +11,9 @@ import board
 INFINITY: int = 1 << 31
 
 
-def negamax(b: board.Board, e: typing.Callable, d: int,
-            alpha: int = -INFINITY, beta: int = INFINITY,
-            c: int = board.YELLOW) -> (int, typing.List[int]):
+def _negamax(b: board.Board, e: typing.Callable, d: int,
+             alpha: int = -INFINITY, beta: int = INFINITY,
+             c: int = board.YELLOW) -> (int, typing.List[int]):
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
@@ -33,7 +33,7 @@ def negamax(b: board.Board, e: typing.Callable, d: int,
     nodes: int = 0
     for move in board.split_bitboard(b.get_legal_moves()):
         b.make_move(move)
-        child_score, child_pv, child_nodes = negamax(
+        child_score, child_pv, child_nodes = _negamax(
             b, e, d - 1, -beta, -alpha, -c
         )
         b.undo_move()
@@ -51,3 +51,7 @@ def negamax(b: board.Board, e: typing.Callable, d: int,
                 break
 
     return score, [best_move] + pv, nodes
+
+
+def search(b: board.Board, e: typing.Callable, d: int) -> (int, typing.List[int]):
+    return _negamax(b, e, d, c=b.turn)

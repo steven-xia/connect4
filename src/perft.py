@@ -20,7 +20,7 @@ except IndexError:
 
 
 def perft_func(d):
-    return search.negamax(board.Board(), evaluate.evaluate, d, board.YELLOW)
+    return search.search(board.Board(), evaluate.evaluate, d)
 
 
 def time_search(t, d, r=24, v=True):
