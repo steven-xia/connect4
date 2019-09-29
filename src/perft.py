@@ -40,11 +40,16 @@ def time_search(t, d, r=24, v=True):
             std = sum((n - avg) ** 2 for n in past_times)
             std = math.sqrt(std / len(past_times))
 
-            sys.stdout.write("\rProgress {}%:  {} ms ± {} ms (95%)".format(
+            output = "\rProgress {}%:  {} ms +- {} ms (95%)".format(
                 round(pct, 1),
                 round(1000 * avg, 1),
                 round(2 * 1000 * std, 1)
-            ))
+            )
+            try:
+                sys.stdout.write(output.replace("+-", "±"))
+            except UnicodeEncodeError:
+                sys.stdout.write(output)
+
             sys.stdout.flush()
 
     if v:
@@ -86,5 +91,11 @@ if __name__ == "__main__":
     else:
         RUN_SECONDS = 3600
         DEPTH = 7
-        print(f"Benchmark for: {RUN_SECONDS}s/24×d{DEPTH}")
+
+        initial_message = f"Benchmark for: {RUN_SECONDS}s/24*d{DEPTH}"
+        try:
+            print(initial_message.replace("*", "×"))
+        except UnicodeEncodeError:
+            print(initial_message)
+
         time_search(t=RUN_SECONDS, d=DEPTH, r=24)
