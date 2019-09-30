@@ -33,6 +33,10 @@ if __name__ == "__main__":
                 name="evaluate",
                 sources=["evaluate.pyx"],
                 **kwargs
+            ), setuptools.extension.Extension(
+                name="search",
+                sources=["search.pyx"],
+                **kwargs
             )],
             nthreads=8,
             force=True,
