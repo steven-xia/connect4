@@ -27,9 +27,9 @@ cdef list order_moves(list moves_list):
     return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
 
 
-cdef _negamax(b: board.Board, e: typing.Callable, int d,
-             alpha: int = -INFINITY, beta: int = INFINITY,
-             c: int = board.YELLOW):
+cdef tuple _negamax(b: board.Board, e: typing.Callable, int d,
+             int alpha = -INFINITY, int beta = INFINITY,
+             int c = board.YELLOW):
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
@@ -41,7 +41,7 @@ cdef _negamax(b: board.Board, e: typing.Callable, int d,
     :return: (score, best moves, nodes)
     """
 
-    key = (b.yellow_bitboard, b.red_bitboard)
+    cdef tuple key = (b.yellow_bitboard, b.red_bitboard)
 
     try:
         return TRANSPOSITION_TABLE[key]
@@ -53,10 +53,13 @@ cdef _negamax(b: board.Board, e: typing.Callable, int d,
         TRANSPOSITION_TABLE[key] = return_value
         return return_value
 
-    score: int = -INFINITY
-    best_move: int = 0
-    nodes: int = 0
-    legal_moves = board.split_bitboard(b.get_legal_moves())
+    cdef int score = -INFINITY
+    cdef bitboard best_move = 0
+    cdef int nodes = 0
+    cdef list legal_moves = board.split_bitboard(b.get_legal_moves())
+
+    cdef int child_score, child_nodes
+    cdef list child_pv
     for move in order_moves(legal_moves):
         b.make_move(move)
         child_score, child_pv, child_nodes = _negamax(
