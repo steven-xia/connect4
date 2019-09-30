@@ -35,7 +35,9 @@ def _negamax(b: board.Board, e: typing.Callable, d: int,
         pass
 
     if not d or b.is_game_over():
-        return e(b) * c, [], 1
+        return_value = e(b) * c, [], 1
+        TRANSPOSITION_TABLE[key] = return_value
+        return return_value
 
     score: int = -INFINITY
     best_move: int = 0
