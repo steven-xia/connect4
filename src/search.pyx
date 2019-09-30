@@ -11,21 +11,25 @@ import typing
 
 import board
 
-INFINITY: int = 1 << 31
-MOVES_LOOKUP = {
-    1 << i: 3 - abs(3 - (i // 7)) for i in range(49)
+# set utility constants
+ctypedef unsigned long long bitboard
+cdef bitboard ONE = 1
+
+cdef int INFINITY = 1 << 15
+cdef dict MOVES_LOOKUP = {
+    ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
 }
 
-TRANSPOSITION_TABLE: typing.Dict[(typing.Tuple[int, int], int)] = {}
+cdef dict TRANSPOSITION_TABLE = {}
 
 
-def order_moves(moves_list: typing.Iterable) -> list:
+cdef list order_moves(list moves_list):
     return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
 
 
-def _negamax(b: board.Board, e: typing.Callable, d: int,
+cdef _negamax(b: board.Board, e: typing.Callable, int d,
              alpha: int = -INFINITY, beta: int = INFINITY,
-             c: int = board.YELLOW) -> (int, typing.List[int]):
+             c: int = board.YELLOW):
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
@@ -81,4 +85,4 @@ def search(b: board.Board, e: typing.Callable, d: int) -> (int, typing.List[int]
     global TRANSPOSITION_TABLE
     TRANSPOSITION_TABLE = {}
 
-    return _negamax(b, e, d, c=b.turn)
+    return _negamax(b, e, d, c=b.turn, alpha=-INFINITY, beta=INFINITY)
