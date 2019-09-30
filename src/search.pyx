@@ -27,7 +27,7 @@ cdef list order_moves(list moves_list):
     return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
 
 
-cdef tuple _negamax(b: board.Board, e: typing.Callable, int d,
+cdef tuple _negamax(object b, object e, int d,
              int alpha = -INFINITY, int beta = INFINITY,
              int c = board.YELLOW):
     """
