@@ -89,13 +89,14 @@ if __name__ == "__main__":
             sys.stdout.write("\n")
             sys.stdout.flush()
     else:
-        RUN_SECONDS = 3600
+        RUN_SECONDS = 300
+        RUN_TIMES = 1
         DEPTH = 7
 
-        initial_message = f"Benchmark for: {RUN_SECONDS}s/24*d{DEPTH}"
+        initial_message = f"Benchmark for: {RUN_SECONDS}s/{RUN_TIMES}*d{DEPTH}"
         try:
             print(initial_message.replace("*", "×"))
         except UnicodeEncodeError:
             print(initial_message)
 
-        time_search(t=RUN_SECONDS, d=DEPTH, r=24)
+        time_search(t=RUN_SECONDS, d=DEPTH, r=RUN_TIMES)
