@@ -10,6 +10,8 @@ import board
 
 INFINITY: int = 1 << 31
 
+TRANSPOSITION_TABLE: typing.Dict[(typing.Tuple[int, int], int)] = {}
+
 
 def _negamax(b: board.Board, e: typing.Callable, d: int,
              alpha: int = -INFINITY, beta: int = INFINITY,
@@ -24,6 +26,11 @@ def _negamax(b: board.Board, e: typing.Callable, d: int,
     :param c: perspective to search by
     :return: (score, best moves, nodes)
     """
+
+    try:
+        return TRANSPOSITION_TABLE[(b.yellow_bitboard, b.red_bitboard)]
+    except KeyError:
+        pass
 
     if not d or b.is_game_over():
         return e(b) * c, [], 1
@@ -50,8 +57,13 @@ def _negamax(b: board.Board, e: typing.Callable, d: int,
             if alpha >= beta:
                 break
 
+    TRANSPOSITION_TABLE[(b.yellow_bitboard, b.red_bitboard)] = score, pv, 1
+
     return score, [best_move] + pv, nodes
 
 
 def search(b: board.Board, e: typing.Callable, d: int) -> (int, typing.List[int]):
+    global TRANSPOSITION_TABLE
+    TRANSPOSITION_TABLE = {}
+
     return _negamax(b, e, d, c=b.turn)
