@@ -27,8 +27,10 @@ def _negamax(b: board.Board, e: typing.Callable, d: int,
     :return: (score, best moves, nodes)
     """
 
+    key = (b.yellow_bitboard, b.red_bitboard)
+
     try:
-        return TRANSPOSITION_TABLE[(b.yellow_bitboard, b.red_bitboard)]
+        return TRANSPOSITION_TABLE[key]
     except KeyError:
         pass
 
@@ -57,7 +59,7 @@ def _negamax(b: board.Board, e: typing.Callable, d: int,
             if alpha >= beta:
                 break
 
-    TRANSPOSITION_TABLE[(b.yellow_bitboard, b.red_bitboard)] = score, pv, 1
+    TRANSPOSITION_TABLE[key] = score, pv, 1
 
     return score, [best_move] + pv, nodes
 
