@@ -73,7 +73,7 @@ if __name__ == "__main__":
         sys.stdout.write("\n")
         sys.stdout.flush()
 
-        max_depth = 9
+        max_depth = 13
 
         for depth in range(max_depth):
             start_time = time.time()
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     else:
         RUN_SECONDS = 300
         RUN_TIMES = 1
-        DEPTH = 7
+        DEPTH = 11
 
         initial_message = f"Benchmark for: {RUN_SECONDS}s/{RUN_TIMES}*d{DEPTH}"
         try:

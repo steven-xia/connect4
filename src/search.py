@@ -9,8 +9,15 @@ import typing
 import board
 
 INFINITY: int = 1 << 31
+MOVES_LOOKUP = {
+    1 << i: 3 - abs(3 - (i // 7)) for i in range(49)
+}
 
 TRANSPOSITION_TABLE: typing.Dict[(typing.Tuple[int, int], int)] = {}
+
+
+def order_moves(moves_list: typing.Iterable) -> list:
+    return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
 
 
 def _negamax(b: board.Board, e: typing.Callable, d: int,
@@ -42,7 +49,8 @@ def _negamax(b: board.Board, e: typing.Callable, d: int,
     score: int = -INFINITY
     best_move: int = 0
     nodes: int = 0
-    for move in board.split_bitboard(b.get_legal_moves()):
+    legal_moves = board.split_bitboard(b.get_legal_moves())
+    for move in order_moves(legal_moves):
         b.make_move(move)
         child_score, child_pv, child_nodes = _negamax(
             b, e, d - 1, -beta, -alpha, -c
