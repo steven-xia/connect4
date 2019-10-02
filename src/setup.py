@@ -40,7 +40,6 @@ if __name__ == "__main__":
                 **kwargs
             )],
             nthreads=8,
-            force=True,
             annotate=True,
             compiler_directives=directives
         )
