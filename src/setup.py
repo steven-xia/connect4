@@ -5,12 +5,13 @@ description: script to build the Cython components.
 """
 
 if __name__ == "__main__":
+    import platform
     import setuptools
 
     import Cython.Build
 
     kwargs = {
-        "extra_compile_args": ["/O2"],
+        "extra_compile_args": ["/O2"] if platform.system() == "Windows" else "-O3",
     }
 
     directives = {
