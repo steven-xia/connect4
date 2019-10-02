@@ -22,14 +22,12 @@ cdef dict MOVES_LOOKUP = {
 
 cdef dict TRANSPOSITION_TABLE = {}
 
-
 cdef list order_moves(list moves_list):
     return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
 
-
 cdef tuple _negamax(object b, object e, int d,
-             int alpha = -INFINITY, int beta = INFINITY,
-             int c = board.YELLOW):
+                    int alpha = -INFINITY, int beta = INFINITY,
+                    int c = board.YELLOW):
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
@@ -82,7 +80,6 @@ cdef tuple _negamax(object b, object e, int d,
     TRANSPOSITION_TABLE[key] = score, pv, 1
 
     return score, [best_move] + pv, nodes
-
 
 def search(b: board.Board, e: typing.Callable, d: int) -> (int, typing.List[int]):
     global TRANSPOSITION_TABLE

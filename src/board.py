@@ -125,9 +125,9 @@ class Board(object):
             current_pieces = self.yellow_bitboard
 
         if (current_pieces
-                & shift(current_pieces, UP)
-                & shift(current_pieces, 2 * UP)
-                & shift(current_pieces, 3 * UP)) \
+            & shift(current_pieces, UP)
+            & shift(current_pieces, 2 * UP)
+            & shift(current_pieces, 3 * UP)) \
                 or (current_pieces
                     & shift(current_pieces, DOWN)
                     & shift(current_pieces, 2 * DOWN)

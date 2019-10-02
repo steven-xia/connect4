@@ -45,7 +45,6 @@ cdef int UP_LEFT = UP + LEFT
 cdef int DOWN_RIGHT = DOWN + RIGHT
 cdef int DOWN_LEFT = DOWN + LEFT
 
-
 # define utility functions here.
 cdef bitboard shift(const bitboard b, const int d):
     """
@@ -56,7 +55,6 @@ cdef bitboard shift(const bitboard b, const int d):
     """
 
     return b << d
-
 
 cpdef bit_list split_bitboard(const bitboard b):
     """
@@ -75,7 +73,6 @@ cpdef bit_list split_bitboard(const bitboard b):
             moves.push_back(x)
 
     return moves
-
 
 # main class for board representation.
 cdef class Board(object):
@@ -134,9 +131,9 @@ cdef class Board(object):
             current_pieces = self.yellow_bitboard
 
         if (current_pieces
-                & shift(current_pieces, UP)
-                & shift(current_pieces, 2 * UP)
-                & shift(current_pieces, 3 * UP)) \
+            & shift(current_pieces, UP)
+            & shift(current_pieces, 2 * UP)
+            & shift(current_pieces, 3 * UP)) \
                 or (current_pieces
                     & shift(current_pieces, DOWN)
                     & shift(current_pieces, 2 * DOWN)
@@ -204,7 +201,6 @@ cdef class Board(object):
             self.yellow_bitboard -= self.past_moves[self.turn_number]
             self.past_moves.pop_back()
             self.turn = _yellow
-
 
 if __name__ == "__main__":
     board = Board()

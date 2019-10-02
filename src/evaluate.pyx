@@ -18,13 +18,13 @@ cdef struct bits_score_pair:
 
 # define piece square table
 cdef list _piece_table = [
-    0, 23, 31,  49,  49, 31, 23,
-    0, 31, 43,  61,  61, 43, 31,
-    0, 49, 61,  88,  88, 61, 49,
+    0, 23, 31, 49, 49, 31, 23,
+    0, 31, 43, 61, 61, 43, 31,
+    0, 49, 61, 88, 88, 61, 49,
     0, 81, 93, 120, 120, 93, 81,
-    0, 49, 61,  88,  88, 61, 49,
-    0, 31, 43,  61,  61, 43, 31,
-    0, 23, 31,  49,  49, 31, 23,
+    0, 49, 61, 88, 88, 61, 49,
+    0, 31, 43, 61, 61, 43, 31,
+    0, 23, 31, 49, 49, 31, 23,
 ]
 
 cdef set _piece_table_values = set(_piece_table)
@@ -42,7 +42,6 @@ for k, v in _temp_piece_table.items():
     pair.score = k
     PIECE_TABLE.push_back(pair)
 
-
 # define utility functions here.
 cdef int popcount(board.bitboard b):
     """
@@ -56,7 +55,6 @@ cdef int popcount(board.bitboard b):
         b &= b - 1
         n += 1
     return n
-
 
 # main evaluation function
 cpdef int evaluate(board.Board b):
