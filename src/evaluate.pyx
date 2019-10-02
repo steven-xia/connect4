@@ -59,7 +59,7 @@ cdef int popcount(board.bitboard b):
 
 
 # main evaluation function
-cpdef int evaluate(b: board.Board):
+cpdef int evaluate(board.Board b):
     if b.game_result != board.UNKNOWN:
         return b.game_result * 4200
 
