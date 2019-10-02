@@ -629,7 +629,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "stdexcept"
 #include "typeinfo"
 #include <utility>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #ifdef _OPENMP
 #include <omp.h>
@@ -1393,7 +1393,7 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.utility' */
 
-/* Module declarations from 'libcpp.map' */
+/* Module declarations from 'libcpp.unordered_map' */
 
 /* Module declarations from 'libcpp.vector' */
 
@@ -1433,13 +1433,13 @@ static __pyx_t_5board_bit_list (*__pyx_f_5board_split_bitboard)(__pyx_t_5board_b
 
 /* Module declarations from 'search' */
 static int __pyx_v_6search_INFINITY;
-static std::map<__pyx_t_5board_bitboard,int>  __pyx_v_6search_MOVES_LOOKUP;
+static std::unordered_map<__pyx_t_5board_bitboard,int>  __pyx_v_6search_MOVES_LOOKUP;
 static PyObject *__pyx_v_6search_TRANSPOSITION_TABLE = 0;
 static PyObject *__pyx_7genexpr__pyx_v_6search_i;
 static PyObject *__pyx_f_6search_order_moves(PyObject *); /*proto*/
 static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *, PyObject *, int, struct __pyx_opt_args_6search__negamax *__pyx_optional_args); /*proto*/
 static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *, PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
-static std::map<__pyx_t_5board_bitboard,int>  __pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int(PyObject *); /*proto*/
+static std::unordered_map<__pyx_t_5board_bitboard,int>  __pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int(PyObject *); /*proto*/
 static PyObject *__pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(const std::vector<unsigned PY_LONG_LONG>  &); /*proto*/
 #define __Pyx_MODULE_NAME "search"
 extern int __pyx_module_is_main_search;
@@ -2386,18 +2386,18 @@ static PyObject *__pyx_pf_6search_search(CYTHON_UNUSED PyObject *__pyx_self, str
 
 /* "map.from_py":174
  * 
- * @cname("__pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int")
- * cdef map[X,Y] __pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int(object o) except *:             # <<<<<<<<<<<<<<
+ * @cname("__pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int")
+ * cdef map[X,Y] __pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int(object o) except *:             # <<<<<<<<<<<<<<
  *     cdef dict d = o
  *     cdef map[X,Y] m
  */
 
-static std::map<__pyx_t_5board_bitboard,int>  __pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int(PyObject *__pyx_v_o) {
+static std::unordered_map<__pyx_t_5board_bitboard,int>  __pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int(PyObject *__pyx_v_o) {
   PyObject *__pyx_v_d = 0;
-  std::map<__pyx_t_5board_bitboard,int>  __pyx_v_m;
+  std::unordered_map<__pyx_t_5board_bitboard,int>  __pyx_v_m;
   PyObject *__pyx_v_key = 0;
   PyObject *__pyx_v_value = 0;
-  std::map<__pyx_t_5board_bitboard,int>  __pyx_r;
+  std::unordered_map<__pyx_t_5board_bitboard,int>  __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   Py_ssize_t __pyx_t_2;
@@ -2407,11 +2407,11 @@ static std::map<__pyx_t_5board_bitboard,int>  __pyx_convert_map_from_py___pyx_t_
   PyObject *__pyx_t_6 = NULL;
   int __pyx_t_7;
   __pyx_t_5board_bitboard __pyx_t_8;
-  __Pyx_RefNannySetupContext("__pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int", 0);
+  __Pyx_RefNannySetupContext("__pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int", 0);
 
   /* "map.from_py":175
- * @cname("__pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int")
- * cdef map[X,Y] __pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int(object o) except *:
+ * @cname("__pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int")
+ * cdef map[X,Y] __pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int(object o) except *:
  *     cdef dict d = o             # <<<<<<<<<<<<<<
  *     cdef map[X,Y] m
  *     for key, value in d.iteritems():
@@ -2475,8 +2475,8 @@ static std::map<__pyx_t_5board_bitboard,int>  __pyx_convert_map_from_py___pyx_t_
 
   /* "map.from_py":174
  * 
- * @cname("__pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int")
- * cdef map[X,Y] __pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int(object o) except *:             # <<<<<<<<<<<<<<
+ * @cname("__pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int")
+ * cdef map[X,Y] __pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int(object o) except *:             # <<<<<<<<<<<<<<
  *     cdef dict d = o
  *     cdef map[X,Y] m
  */
@@ -2486,7 +2486,7 @@ static std::map<__pyx_t_5board_bitboard,int>  __pyx_convert_map_from_py___pyx_t_
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("map.from_py.__pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("map.from_py.__pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_pretend_to_initialize(&__pyx_r);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_d);
@@ -2903,7 +2903,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_search(PyObject *__pyx_pyinit_modu
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  std::map<__pyx_t_5board_bitboard,int>  __pyx_t_6;
+  std::unordered_map<__pyx_t_5board_bitboard,int>  __pyx_t_6;
   __Pyx_RefNannyDeclarations
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
@@ -3024,7 +3024,7 @@ if (!__Pyx_RefNanny) {
  * 
  * # set utility constants
  * cdef int INFINITY = 1 << 15             # <<<<<<<<<<<<<<
- * cdef map[board.bitboard, int] MOVES_LOOKUP = {
+ * cdef unordered_map[board.bitboard, int] MOVES_LOOKUP = {
  *     board.ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
  */
   __pyx_v_6search_INFINITY = 0x8000;
@@ -3032,7 +3032,7 @@ if (!__Pyx_RefNanny) {
   /* "search.pyx":18
  * # set utility constants
  * cdef int INFINITY = 1 << 15
- * cdef map[board.bitboard, int] MOVES_LOOKUP = {             # <<<<<<<<<<<<<<
+ * cdef unordered_map[board.bitboard, int] MOVES_LOOKUP = {             # <<<<<<<<<<<<<<
  *     board.ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
  * }
  */
@@ -3042,7 +3042,7 @@ if (!__Pyx_RefNanny) {
 
     /* "search.pyx":19
  * cdef int INFINITY = 1 << 15
- * cdef map[board.bitboard, int] MOVES_LOOKUP = {
+ * cdef unordered_map[board.bitboard, int] MOVES_LOOKUP = {
  *     board.ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)             # <<<<<<<<<<<<<<
  * }
  * 
@@ -3087,11 +3087,11 @@ if (!__Pyx_RefNanny) {
   /* "search.pyx":18
  * # set utility constants
  * cdef int INFINITY = 1 << 15
- * cdef map[board.bitboard, int] MOVES_LOOKUP = {             # <<<<<<<<<<<<<<
+ * cdef unordered_map[board.bitboard, int] MOVES_LOOKUP = {             # <<<<<<<<<<<<<<
  *     board.ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
  * }
  */
-  __pyx_t_6 = __pyx_convert_map_from_py___pyx_t_5board_bitboard__and_int(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_6 = __pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_6search_MOVES_LOOKUP = __pyx_t_6;
 

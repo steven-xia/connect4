@@ -7,7 +7,7 @@ file: search.py
 description: contains code for the search implementation.
 """
 
-from libcpp.map cimport map
+from libcpp.unordered_map cimport unordered_map
 
 cimport board
 
@@ -15,7 +15,7 @@ import typing
 
 # set utility constants
 cdef int INFINITY = 1 << 15
-cdef map[board.bitboard, int] MOVES_LOOKUP = {
+cdef unordered_map[board.bitboard, int] MOVES_LOOKUP = {
     board.ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
 }
 
