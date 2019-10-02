@@ -7,17 +7,12 @@ file: board.py
 description: contains code for board representation and move generation.
 """
 
-from libcpp.vector cimport vector
-
-ctypedef unsigned long long bitboard
-ctypedef vector[unsigned long long] bit_list
-
 # set utility constants
 YELLOW = 1
 RED = -1
 
-UNKNOWN = 42
-DRAW = 0
+cdef UNKNOWN = 42
+cdef DRAW = 0
 
 cdef int _yellow = 1
 cdef int _red = -1
@@ -84,10 +79,6 @@ cpdef bit_list split_bitboard(const bitboard b):
 
 # main class for board representation.
 cdef class Board(object):
-    cdef public bitboard yellow_bitboard, red_bitboard
-    cdef public int turn, turn_number, game_result
-    cdef readonly bit_list past_moves
-
     def __init__(self, const bitboard ybb = 0, const bitboard rbb = 0,
                  const int t = _yellow):
         """

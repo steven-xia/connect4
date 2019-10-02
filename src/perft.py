@@ -92,7 +92,7 @@ if __name__ == "__main__":
     else:
         RUN_SECONDS = 300
         RUN_TIMES = 1
-        DEPTH = 11
+        DEPTH = 12
 
         initial_message = f"Benchmark for: {RUN_SECONDS}s/{RUN_TIMES}*d{DEPTH}"
         try:
