@@ -7,17 +7,14 @@ file: search.py
 description: contains code for the search implementation.
 """
 
+cimport board
+
 import typing
 
-import board
-
 # set utility constants
-ctypedef unsigned long long bitboard
-cdef bitboard ONE = 1
-
 cdef int INFINITY = 1 << 15
 cdef dict MOVES_LOOKUP = {
-    ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
+    board.ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
 }
 
 cdef dict TRANSPOSITION_TABLE = {}
@@ -25,7 +22,7 @@ cdef dict TRANSPOSITION_TABLE = {}
 cdef list order_moves(list moves_list):
     return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
 
-cdef tuple _negamax(object b, object e, int d,
+cdef tuple _negamax(board.Board b, object e, int d,
                     int alpha = -INFINITY, int beta = INFINITY,
                     int c = board.YELLOW):
     """
@@ -52,7 +49,7 @@ cdef tuple _negamax(object b, object e, int d,
         return return_value
 
     cdef int score = -INFINITY
-    cdef bitboard best_move = 0
+    cdef board.bitboard best_move = 0
     cdef int nodes = 0
     cdef list legal_moves = board.split_bitboard(b.get_legal_moves())
 
@@ -81,7 +78,7 @@ cdef tuple _negamax(object b, object e, int d,
 
     return score, [best_move] + pv, nodes
 
-def search(b: board.Board, e: typing.Callable, d: int) -> (int, typing.List[int]):
+cpdef search(board.Board b, e: typing.Callable, d: int):
     global TRANSPOSITION_TABLE
     TRANSPOSITION_TABLE = {}
 

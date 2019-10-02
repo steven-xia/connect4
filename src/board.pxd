@@ -5,7 +5,7 @@ from libcpp.vector cimport vector
 ctypedef unsigned long long bitboard
 ctypedef vector[unsigned long long] bit_list
 
-cdef int UNKNOWN, DRAW
+cdef int YELLOW, RED, UNKNOWN, DRAW
 cdef int UP, RIGHT, DOWN, LEFT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT
 cdef bitboard ONE, EMPTY_BOARD, FULL_BOARD
 
