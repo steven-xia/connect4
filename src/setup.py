@@ -11,7 +11,7 @@ if __name__ == "__main__":
     import Cython.Build
 
     kwargs = {
-        "extra_compile_args": ["/O2"] if platform.system() == "Windows" else "-O3",
+        "extra_compile_args": ["/O2"] if platform.system() == "Windows" else ["-O3"],
     }
 
     directives = {
