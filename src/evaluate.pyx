@@ -16,6 +16,9 @@ cdef struct bits_score_pair:
     board.bitboard bits
     int score
 
+# define evaluation weights
+cdef int TEMPO_VALUE = 24
+
 # define piece square table
 cdef list _piece_table = [
     0, 23, 31, 49, 49, 31, 23,
@@ -62,6 +65,11 @@ cpdef int evaluate(board.Board b):
         return b.game_result * 4200
 
     cdef int score = 0
+
+    if b.turn == board.YELLOW:
+        score += TEMPO_VALUE
+    else:
+        score -= TEMPO_VALUE
 
     cdef int s
     cdef board.bitboard bits

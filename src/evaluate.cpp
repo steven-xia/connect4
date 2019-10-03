@@ -1409,6 +1409,7 @@ static __pyx_t_5board_bitboard *__pyx_vp_5board_FULL_BOARD = 0;
 #define __pyx_v_5board_FULL_BOARD (*__pyx_vp_5board_FULL_BOARD)
 
 /* Module declarations from 'evaluate' */
+static int __pyx_v_8evaluate_TEMPO_VALUE;
 static PyObject *__pyx_v_8evaluate__piece_table = 0;
 static PyObject *__pyx_v_8evaluate__piece_table_values = 0;
 static PyObject *__pyx_v_8evaluate__temp_piece_table = 0;
@@ -1478,7 +1479,7 @@ static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 /* Late includes */
 
-/* "evaluate.pyx":46
+/* "evaluate.pyx":49
  * 
  * # define utility functions here.
  * cdef int popcount(board.bitboard b):             # <<<<<<<<<<<<<<
@@ -1493,7 +1494,7 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("popcount", 0);
 
-  /* "evaluate.pyx":53
+  /* "evaluate.pyx":56
  *     """
  * 
  *     cdef int n = 0             # <<<<<<<<<<<<<<
@@ -1502,7 +1503,7 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
  */
   __pyx_v_n = 0;
 
-  /* "evaluate.pyx":54
+  /* "evaluate.pyx":57
  * 
  *     cdef int n = 0
  *     while b:             # <<<<<<<<<<<<<<
@@ -1513,7 +1514,7 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
     __pyx_t_1 = (__pyx_v_b != 0);
     if (!__pyx_t_1) break;
 
-    /* "evaluate.pyx":55
+    /* "evaluate.pyx":58
  *     cdef int n = 0
  *     while b:
  *         b &= b - 1             # <<<<<<<<<<<<<<
@@ -1522,7 +1523,7 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
  */
     __pyx_v_b = (__pyx_v_b & (__pyx_v_b - 1));
 
-    /* "evaluate.pyx":56
+    /* "evaluate.pyx":59
  *     while b:
  *         b &= b - 1
  *         n += 1             # <<<<<<<<<<<<<<
@@ -1532,7 +1533,7 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
     __pyx_v_n = (__pyx_v_n + 1);
   }
 
-  /* "evaluate.pyx":57
+  /* "evaluate.pyx":60
  *         b &= b - 1
  *         n += 1
  *     return n             # <<<<<<<<<<<<<<
@@ -1542,7 +1543,7 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
   __pyx_r = __pyx_v_n;
   goto __pyx_L0;
 
-  /* "evaluate.pyx":46
+  /* "evaluate.pyx":49
  * 
  * # define utility functions here.
  * cdef int popcount(board.bitboard b):             # <<<<<<<<<<<<<<
@@ -1556,7 +1557,7 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
   return __pyx_r;
 }
 
-/* "evaluate.pyx":60
+/* "evaluate.pyx":63
  * 
  * # main evaluation function
  * cpdef int evaluate(board.Board b):             # <<<<<<<<<<<<<<
@@ -1575,7 +1576,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
   struct __pyx_t_8evaluate_bits_score_pair __pyx_t_3;
   __Pyx_RefNannySetupContext("evaluate", 0);
 
-  /* "evaluate.pyx":61
+  /* "evaluate.pyx":64
  * # main evaluation function
  * cpdef int evaluate(board.Board b):
  *     if b.game_result != board.UNKNOWN:             # <<<<<<<<<<<<<<
@@ -1585,7 +1586,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
   __pyx_t_1 = ((__pyx_v_b->game_result != __pyx_v_5board_UNKNOWN) != 0);
   if (__pyx_t_1) {
 
-    /* "evaluate.pyx":62
+    /* "evaluate.pyx":65
  * cpdef int evaluate(board.Board b):
  *     if b.game_result != board.UNKNOWN:
  *         return b.game_result * 4200             # <<<<<<<<<<<<<<
@@ -1595,7 +1596,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
     __pyx_r = (__pyx_v_b->game_result * 0x1068);
     goto __pyx_L0;
 
-    /* "evaluate.pyx":61
+    /* "evaluate.pyx":64
  * # main evaluation function
  * cpdef int evaluate(board.Board b):
  *     if b.game_result != board.UNKNOWN:             # <<<<<<<<<<<<<<
@@ -1604,16 +1605,57 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
  */
   }
 
-  /* "evaluate.pyx":64
+  /* "evaluate.pyx":67
  *         return b.game_result * 4200
  * 
  *     cdef int score = 0             # <<<<<<<<<<<<<<
  * 
- *     cdef int s
+ *     if b.turn == board.YELLOW:
  */
   __pyx_v_score = 0;
 
   /* "evaluate.pyx":69
+ *     cdef int score = 0
+ * 
+ *     if b.turn == board.YELLOW:             # <<<<<<<<<<<<<<
+ *         score += TEMPO_VALUE
+ *     else:
+ */
+  __pyx_t_1 = ((__pyx_v_b->turn == __pyx_v_5board_YELLOW) != 0);
+  if (__pyx_t_1) {
+
+    /* "evaluate.pyx":70
+ * 
+ *     if b.turn == board.YELLOW:
+ *         score += TEMPO_VALUE             # <<<<<<<<<<<<<<
+ *     else:
+ *         score -= TEMPO_VALUE
+ */
+    __pyx_v_score = (__pyx_v_score + __pyx_v_8evaluate_TEMPO_VALUE);
+
+    /* "evaluate.pyx":69
+ *     cdef int score = 0
+ * 
+ *     if b.turn == board.YELLOW:             # <<<<<<<<<<<<<<
+ *         score += TEMPO_VALUE
+ *     else:
+ */
+    goto __pyx_L4;
+  }
+
+  /* "evaluate.pyx":72
+ *         score += TEMPO_VALUE
+ *     else:
+ *         score -= TEMPO_VALUE             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int s
+ */
+  /*else*/ {
+    __pyx_v_score = (__pyx_v_score - __pyx_v_8evaluate_TEMPO_VALUE);
+  }
+  __pyx_L4:;
+
+  /* "evaluate.pyx":77
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1627,7 +1669,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
     ++__pyx_t_2;
     __pyx_v_pair = __pyx_t_3;
 
-    /* "evaluate.pyx":70
+    /* "evaluate.pyx":78
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1636,7 +1678,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
  */
     __pyx_v_score = (__pyx_v_score + (__pyx_f_8evaluate_popcount((__pyx_v_b->yellow_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":71
+    /* "evaluate.pyx":79
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1645,7 +1687,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
  */
     __pyx_v_score = (__pyx_v_score - (__pyx_f_8evaluate_popcount((__pyx_v_b->red_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":69
+    /* "evaluate.pyx":77
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1654,7 +1696,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
  */
   }
 
-  /* "evaluate.pyx":73
+  /* "evaluate.pyx":81
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score
  * 
  *     return score             # <<<<<<<<<<<<<<
@@ -1662,7 +1704,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
   __pyx_r = __pyx_v_score;
   goto __pyx_L0;
 
-  /* "evaluate.pyx":60
+  /* "evaluate.pyx":63
  * 
  * # main evaluation function
  * cpdef int evaluate(board.Board b):             # <<<<<<<<<<<<<<
@@ -1682,7 +1724,7 @@ static PyObject *__pyx_pw_8evaluate_1evaluate(PyObject *__pyx_self, PyObject *__
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("evaluate (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b), __pyx_ptype_5board_Board, 1, "b", 0))) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b), __pyx_ptype_5board_Board, 1, "b", 0))) __PYX_ERR(0, 63, __pyx_L1_error)
   __pyx_r = __pyx_pf_8evaluate_evaluate(__pyx_self, ((struct __pyx_obj_5board_Board *)__pyx_v_b));
 
   /* function exit code */
@@ -1700,7 +1742,7 @@ static PyObject *__pyx_pf_8evaluate_evaluate(CYTHON_UNUSED PyObject *__pyx_self,
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("evaluate", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_8evaluate_evaluate(__pyx_v_b, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_8evaluate_evaluate(__pyx_v_b, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2191,7 +2233,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 36, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 14, __pyx_L1_error)
   __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) __PYX_ERR(1, 18, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 19, __pyx_L1_error)
@@ -2562,12 +2604,21 @@ if (!__Pyx_RefNanny) {
 
   /* "evaluate.pyx":20
  * 
+ * # define evaluation weights
+ * cdef int TEMPO_VALUE = 24             # <<<<<<<<<<<<<<
+ * 
+ * # define piece square table
+ */
+  __pyx_v_8evaluate_TEMPO_VALUE = 24;
+
+  /* "evaluate.pyx":23
+ * 
  * # define piece square table
  * cdef list _piece_table = [             # <<<<<<<<<<<<<<
  *     0, 23, 31, 49, 49, 31, 23,
  *     0, 31, 43, 61, 61, 43, 31,
  */
-  __pyx_t_1 = PyList_New(49); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(49); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
@@ -2721,21 +2772,21 @@ if (!__Pyx_RefNanny) {
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "evaluate.pyx":30
+  /* "evaluate.pyx":33
  * ]
  * 
  * cdef set _piece_table_values = set(_piece_table)             # <<<<<<<<<<<<<<
  * 
  * cdef dict _temp_piece_table = {s: 0 for s in _piece_table_values}
  */
-  __pyx_t_1 = PySet_New(__pyx_v_8evaluate__piece_table); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_1 = PySet_New(__pyx_v_8evaluate__piece_table); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(__pyx_v_8evaluate__piece_table_values);
   __Pyx_DECREF_SET(__pyx_v_8evaluate__piece_table_values, ((PyObject*)__pyx_t_1));
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "evaluate.pyx":32
+  /* "evaluate.pyx":35
  * cdef set _piece_table_values = set(_piece_table)
  * 
  * cdef dict _temp_piece_table = {s: 0 for s in _piece_table_values}             # <<<<<<<<<<<<<<
@@ -2743,10 +2794,10 @@ if (!__Pyx_RefNanny) {
  *     _temp_piece_table[_piece_table[i]] += (board.ONE << i)
  */
   { /* enter inner scope */
-    __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L4_error)
+    __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L4_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = 0;
-    __pyx_t_6 = __Pyx_set_iterator(__pyx_v_8evaluate__piece_table_values, 1, (&__pyx_t_4), (&__pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 32, __pyx_L4_error)
+    __pyx_t_6 = __Pyx_set_iterator(__pyx_v_8evaluate__piece_table_values, 1, (&__pyx_t_4), (&__pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 35, __pyx_L4_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_2);
     __pyx_t_2 = __pyx_t_6;
@@ -2754,13 +2805,13 @@ if (!__Pyx_RefNanny) {
     while (1) {
       __pyx_t_7 = __Pyx_set_iter_next(__pyx_t_2, __pyx_t_4, &__pyx_t_3, &__pyx_t_6, __pyx_t_5);
       if (unlikely(__pyx_t_7 == 0)) break;
-      if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 32, __pyx_L4_error)
+      if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 35, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_XGOTREF(__pyx_7genexpr__pyx_v_8evaluate_s);
       __Pyx_DECREF_SET(__pyx_7genexpr__pyx_v_8evaluate_s, __pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_6);
       __pyx_t_6 = 0;
-      if (unlikely(PyDict_SetItem(__pyx_t_1, (PyObject*)__pyx_7genexpr__pyx_v_8evaluate_s, (PyObject*)__pyx_int_0))) __PYX_ERR(0, 32, __pyx_L4_error)
+      if (unlikely(PyDict_SetItem(__pyx_t_1, (PyObject*)__pyx_7genexpr__pyx_v_8evaluate_s, (PyObject*)__pyx_int_0))) __PYX_ERR(0, 35, __pyx_L4_error)
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_7genexpr__pyx_v_8evaluate_s);
@@ -2777,7 +2828,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "evaluate.pyx":33
+  /* "evaluate.pyx":36
  * 
  * cdef dict _temp_piece_table = {s: 0 for s in _piece_table_values}
  * for i in range(49):             # <<<<<<<<<<<<<<
@@ -2785,12 +2836,12 @@ if (!__Pyx_RefNanny) {
  * 
  */
   for (__pyx_t_8 = 0; __pyx_t_8 < 49; __pyx_t_8+=1) {
-    __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_i, __pyx_t_1) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_i, __pyx_t_1) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "evaluate.pyx":34
+    /* "evaluate.pyx":37
  * cdef dict _temp_piece_table = {s: 0 for s in _piece_table_values}
  * for i in range(49):
  *     _temp_piece_table[_piece_table[i]] += (board.ONE << i)             # <<<<<<<<<<<<<<
@@ -2799,61 +2850,61 @@ if (!__Pyx_RefNanny) {
  */
     if (unlikely(__pyx_v_8evaluate__temp_piece_table == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 34, __pyx_L1_error)
+      __PYX_ERR(0, 37, __pyx_L1_error)
     }
     __Pyx_INCREF(__pyx_v_8evaluate__temp_piece_table);
     __pyx_t_9 = __pyx_v_8evaluate__temp_piece_table;
     if (unlikely(__pyx_v_8evaluate__piece_table == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 34, __pyx_L1_error)
+      __PYX_ERR(0, 37, __pyx_L1_error)
     }
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_8evaluate__piece_table, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_8evaluate__piece_table, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(__pyx_t_9 == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 34, __pyx_L1_error)
+      __PYX_ERR(0, 37, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_5board_ONE); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_5board_ONE); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_11 = PyNumber_Lshift(__pyx_t_6, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_11 = PyNumber_Lshift(__pyx_t_6, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_10 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     if (unlikely(__pyx_t_9 == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 34, __pyx_L1_error)
+      __PYX_ERR(0, 37, __pyx_L1_error)
     }
-    if (unlikely(PyDict_SetItem(__pyx_t_9, __pyx_t_2, __pyx_t_10) < 0)) __PYX_ERR(0, 34, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_t_9, __pyx_t_2, __pyx_t_10) < 0)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
 
-  /* "evaluate.pyx":36
+  /* "evaluate.pyx":39
  *     _temp_piece_table[_piece_table[i]] += (board.ONE << i)
  * 
  * cdef vector[bits_score_pair] PIECE_TABLE = []             # <<<<<<<<<<<<<<
  * cdef bits_score_pair pair
  * for k, v in _temp_piece_table.items():
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_12 = __pyx_convert_vector_from_py_struct____pyx_t_8evaluate_bits_score_pair(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_12 = __pyx_convert_vector_from_py_struct____pyx_t_8evaluate_bits_score_pair(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_8evaluate_PIECE_TABLE = __pyx_t_12;
 
-  /* "evaluate.pyx":38
+  /* "evaluate.pyx":41
  * cdef vector[bits_score_pair] PIECE_TABLE = []
  * cdef bits_score_pair pair
  * for k, v in _temp_piece_table.items():             # <<<<<<<<<<<<<<
@@ -2863,9 +2914,9 @@ if (!__Pyx_RefNanny) {
   __pyx_t_4 = 0;
   if (unlikely(__pyx_v_8evaluate__temp_piece_table == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 38, __pyx_L1_error)
+    __PYX_ERR(0, 41, __pyx_L1_error)
   }
-  __pyx_t_10 = __Pyx_dict_iterator(__pyx_v_8evaluate__temp_piece_table, 1, __pyx_n_s_items, (&__pyx_t_3), (&__pyx_t_5)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_dict_iterator(__pyx_v_8evaluate__temp_piece_table, 1, __pyx_n_s_items, (&__pyx_t_3), (&__pyx_t_5)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_2);
   __pyx_t_2 = __pyx_t_10;
@@ -2873,31 +2924,31 @@ if (!__Pyx_RefNanny) {
   while (1) {
     __pyx_t_7 = __Pyx_dict_iter_next(__pyx_t_2, __pyx_t_3, &__pyx_t_4, &__pyx_t_10, &__pyx_t_11, NULL, __pyx_t_5);
     if (unlikely(__pyx_t_7 == 0)) break;
-    if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 38, __pyx_L1_error)
+    if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 41, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GOTREF(__pyx_t_11);
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_k, __pyx_t_10) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_k, __pyx_t_10) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_v, __pyx_t_11) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_v, __pyx_t_11) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-    /* "evaluate.pyx":39
+    /* "evaluate.pyx":42
  * cdef bits_score_pair pair
  * for k, v in _temp_piece_table.items():
  *     if k == 0:             # <<<<<<<<<<<<<<
  *         continue
  *     pair.bits = v
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_k); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 39, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_k); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 42, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyInt_EqObjC(__pyx_t_11, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 39, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyInt_EqObjC(__pyx_t_11, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 42, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     if (__pyx_t_13) {
 
-      /* "evaluate.pyx":40
+      /* "evaluate.pyx":43
  * for k, v in _temp_piece_table.items():
  *     if k == 0:
  *         continue             # <<<<<<<<<<<<<<
@@ -2906,7 +2957,7 @@ if (!__Pyx_RefNanny) {
  */
       goto __pyx_L10_continue;
 
-      /* "evaluate.pyx":39
+      /* "evaluate.pyx":42
  * cdef bits_score_pair pair
  * for k, v in _temp_piece_table.items():
  *     if k == 0:             # <<<<<<<<<<<<<<
@@ -2915,33 +2966,33 @@ if (!__Pyx_RefNanny) {
  */
     }
 
-    /* "evaluate.pyx":41
+    /* "evaluate.pyx":44
  *     if k == 0:
  *         continue
  *     pair.bits = v             # <<<<<<<<<<<<<<
  *     pair.score = k
  *     PIECE_TABLE.push_back(pair)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_v); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_v); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_14 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_t_10); if (unlikely((__pyx_t_14 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_t_10); if (unlikely((__pyx_t_14 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __pyx_v_8evaluate_pair.bits = __pyx_t_14;
 
-    /* "evaluate.pyx":42
+    /* "evaluate.pyx":45
  *         continue
  *     pair.bits = v
  *     pair.score = k             # <<<<<<<<<<<<<<
  *     PIECE_TABLE.push_back(pair)
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_k); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_k); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 45, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_10); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_10); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 45, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __pyx_v_8evaluate_pair.score = __pyx_t_7;
 
-    /* "evaluate.pyx":43
+    /* "evaluate.pyx":46
  *     pair.bits = v
  *     pair.score = k
  *     PIECE_TABLE.push_back(pair)             # <<<<<<<<<<<<<<
@@ -2952,7 +3003,7 @@ if (!__Pyx_RefNanny) {
       __pyx_v_8evaluate_PIECE_TABLE.push_back(__pyx_v_8evaluate_pair);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 43, __pyx_L1_error)
+      __PYX_ERR(0, 46, __pyx_L1_error)
     }
     __pyx_L10_continue:;
   }
