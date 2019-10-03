@@ -35,7 +35,7 @@ cdef tuple _negamax(board.Board b, object e, int d,
     :param alpha: parameter for alpha-beta pruning
     :param beta: parameter for alpha-beta pruning
     :param c: perspective to search by
-    :return: (score, best moves, nodes)
+    :return: (score, best move, nodes)
     """
 
     cdef tuple key = (b.yellow_bitboard, b.red_bitboard)
@@ -46,7 +46,7 @@ cdef tuple _negamax(board.Board b, object e, int d,
         pass
 
     if not d or b.is_game_over():
-        return_value = e(b) * c, [], 1
+        return_value = e(b) * c, 0, 1
         TRANSPOSITION_TABLE[key] = return_value
         return return_value
 
@@ -56,10 +56,10 @@ cdef tuple _negamax(board.Board b, object e, int d,
     cdef list legal_moves = board.split_bitboard(b.get_legal_moves())
 
     cdef int child_score, child_nodes
-    cdef list child_pv
+    cdef board.bitboard child_best_move
     for move in order_moves(legal_moves):
         b.make_move(move)
-        child_score, child_pv, child_nodes = _negamax(
+        child_score, child_best_move, child_nodes = _negamax(
             b, e, d - 1, -beta, -alpha, -c
         )
         b.undo_move()
@@ -70,15 +70,14 @@ cdef tuple _negamax(board.Board b, object e, int d,
         if child_score > score:
             score = child_score
             best_move = move
-            pv = child_pv
 
             alpha = child_score
             if alpha >= beta:
                 break
 
-    TRANSPOSITION_TABLE[key] = score, pv, 1
+    TRANSPOSITION_TABLE[key] = score, best_move, 1
 
-    return score, [best_move] + pv, nodes
+    return score, best_move, nodes
 
 cpdef search(board.Board b, e: typing.Callable, d: int):
     global TRANSPOSITION_TABLE

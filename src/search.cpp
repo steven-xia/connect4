@@ -1167,9 +1167,6 @@ static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
 /* RaiseNoneIterError.proto */
 static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void);
 
-/* None.proto */
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
-
 /* RaiseArgTupleInvalid.proto */
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
@@ -1488,6 +1485,7 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_typing;
 static PyObject *__pyx_lambda_funcdef_lambda(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_m); /* proto */
 static PyObject *__pyx_pf_6search_search(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5board_Board *__pyx_v_b, PyObject *__pyx_v_e, PyObject *__pyx_v_d); /* proto */
+static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_3;
 static PyObject *__pyx_int_7;
@@ -1629,9 +1627,8 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
   PyObject *__pyx_v_legal_moves = 0;
   int __pyx_v_child_score;
   int __pyx_v_child_nodes;
-  PyObject *__pyx_v_child_pv = 0;
+  CYTHON_UNUSED __pyx_t_5board_bitboard __pyx_v_child_best_move;
   PyObject *__pyx_v_move = 0;
-  PyObject *__pyx_v_pv = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1776,7 +1773,7 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
  *         pass
  * 
  *     if not d or b.is_game_over():             # <<<<<<<<<<<<<<
- *         return_value = e(b) * c, [], 1
+ *         return_value = e(b) * c, 0, 1
  *         TRANSPOSITION_TABLE[key] = return_value
  */
   __pyx_t_9 = ((!(__pyx_v_d != 0)) != 0);
@@ -1793,7 +1790,7 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
     /* "search.pyx":49
  * 
  *     if not d or b.is_game_over():
- *         return_value = e(b) * c, [], 1             # <<<<<<<<<<<<<<
+ *         return_value = e(b) * c, 0, 1             # <<<<<<<<<<<<<<
  *         TRANSPOSITION_TABLE[key] = return_value
  *         return return_value
  */
@@ -1819,25 +1816,23 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_1);
-    PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_GIVEREF(__pyx_int_0);
+    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_0);
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_GIVEREF(__pyx_int_1);
-    PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_int_1);
+    PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_int_1);
     __pyx_t_1 = 0;
+    __pyx_v_return_value = __pyx_t_2;
     __pyx_t_2 = 0;
-    __pyx_v_return_value = __pyx_t_3;
-    __pyx_t_3 = 0;
 
     /* "search.pyx":50
  *     if not d or b.is_game_over():
- *         return_value = e(b) * c, [], 1
+ *         return_value = e(b) * c, 0, 1
  *         TRANSPOSITION_TABLE[key] = return_value             # <<<<<<<<<<<<<<
  *         return return_value
  * 
@@ -1849,7 +1844,7 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
     if (unlikely(PyDict_SetItem(__pyx_v_6search_TRANSPOSITION_TABLE, __pyx_v_key, __pyx_v_return_value) < 0)) __PYX_ERR(0, 50, __pyx_L1_error)
 
     /* "search.pyx":51
- *         return_value = e(b) * c, [], 1
+ *         return_value = e(b) * c, 0, 1
  *         TRANSPOSITION_TABLE[key] = return_value
  *         return return_value             # <<<<<<<<<<<<<<
  * 
@@ -1865,7 +1860,7 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
  *         pass
  * 
  *     if not d or b.is_game_over():             # <<<<<<<<<<<<<<
- *         return_value = e(b) * c, [], 1
+ *         return_value = e(b) * c, 0, 1
  *         TRANSPOSITION_TABLE[key] = return_value
  */
   }
@@ -1904,43 +1899,43 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
  * 
  *     cdef int child_score, child_nodes
  */
-  __pyx_t_3 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_f_5board_split_bitboard(((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->get_legal_moves(__pyx_v_b, 0), 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 56, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 56, __pyx_L1_error)
-  __pyx_v_legal_moves = ((PyObject*)__pyx_t_3);
-  __pyx_t_3 = 0;
+  __pyx_t_2 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_f_5board_split_bitboard(((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->get_legal_moves(__pyx_v_b, 0), 0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (!(likely(PyList_CheckExact(__pyx_t_2))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_v_legal_moves = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
 
   /* "search.pyx":60
  *     cdef int child_score, child_nodes
- *     cdef list child_pv
+ *     cdef board.bitboard child_best_move
  *     for move in order_moves(legal_moves):             # <<<<<<<<<<<<<<
  *         b.make_move(move)
- *         child_score, child_pv, child_nodes = _negamax(
+ *         child_score, child_best_move, child_nodes = _negamax(
  */
-  __pyx_t_3 = __pyx_f_6search_order_moves(__pyx_v_legal_moves); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(__pyx_t_3 == Py_None)) {
+  __pyx_t_2 = __pyx_f_6search_order_moves(__pyx_v_legal_moves); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (unlikely(__pyx_t_2 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
     __PYX_ERR(0, 60, __pyx_L1_error)
   }
-  __pyx_t_2 = __pyx_t_3; __Pyx_INCREF(__pyx_t_2); __pyx_t_10 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_1 = __pyx_t_2; __Pyx_INCREF(__pyx_t_1); __pyx_t_10 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   for (;;) {
-    if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_2)) break;
+    if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 60, __pyx_L1_error)
     #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
     #endif
-    __Pyx_XDECREF_SET(__pyx_v_move, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_move, __pyx_t_2);
+    __pyx_t_2 = 0;
 
     /* "search.pyx":61
- *     cdef list child_pv
+ *     cdef board.bitboard child_best_move
  *     for move in order_moves(legal_moves):
  *         b.make_move(move)             # <<<<<<<<<<<<<<
- *         child_score, child_pv, child_nodes = _negamax(
+ *         child_score, child_best_move, child_nodes = _negamax(
  *             b, e, d - 1, -beta, -alpha, -c
  */
     __pyx_t_11 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_v_move); if (unlikely((__pyx_t_11 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L1_error)
@@ -1949,7 +1944,7 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
     /* "search.pyx":62
  *     for move in order_moves(legal_moves):
  *         b.make_move(move)
- *         child_score, child_pv, child_nodes = _negamax(             # <<<<<<<<<<<<<<
+ *         child_score, child_best_move, child_nodes = _negamax(             # <<<<<<<<<<<<<<
  *             b, e, d - 1, -beta, -alpha, -c
  *         )
  */
@@ -1957,10 +1952,10 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
     __pyx_t_12.alpha = (-__pyx_v_beta);
     __pyx_t_12.beta = (-__pyx_v_alpha);
     __pyx_t_12.c = (-__pyx_v_c);
-    __pyx_t_3 = __pyx_f_6search__negamax(__pyx_v_b, __pyx_v_e, (__pyx_v_d - 1), &__pyx_t_12); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    if (likely(__pyx_t_3 != Py_None)) {
-      PyObject* sequence = __pyx_t_3;
+    __pyx_t_2 = __pyx_f_6search__negamax(__pyx_v_b, __pyx_v_e, (__pyx_v_d - 1), &__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    if (likely(__pyx_t_2 != Py_None)) {
+      PyObject* sequence = __pyx_t_2;
       Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
       if (unlikely(size != 3)) {
         if (size > 3) __Pyx_RaiseTooManyValuesError(3);
@@ -1968,32 +1963,32 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
         __PYX_ERR(0, 62, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
       __pyx_t_13 = PyTuple_GET_ITEM(sequence, 1); 
       __pyx_t_14 = PyTuple_GET_ITEM(sequence, 2); 
-      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_13);
       __Pyx_INCREF(__pyx_t_14);
       #else
-      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_13 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 62, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __pyx_t_14 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 62, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       #endif
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
       __Pyx_RaiseNoneNotIterableError(); __PYX_ERR(0, 62, __pyx_L1_error)
     }
-    __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(PyList_CheckExact(__pyx_t_13))||((__pyx_t_13) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_13)->tp_name), 0))) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_11 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_t_13); if (unlikely((__pyx_t_11 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __pyx_t_15 = __Pyx_PyInt_As_int(__pyx_t_14); if (unlikely((__pyx_t_15 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __pyx_v_child_score = __pyx_t_7;
-    __Pyx_XDECREF_SET(__pyx_v_child_pv, ((PyObject*)__pyx_t_13));
-    __pyx_t_13 = 0;
+    __pyx_v_child_best_move = __pyx_t_11;
     __pyx_v_child_nodes = __pyx_t_15;
 
     /* "search.pyx":65
@@ -2038,7 +2033,7 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
  *         if child_score > score:
  *             score = child_score             # <<<<<<<<<<<<<<
  *             best_move = move
- *             pv = child_pv
+ * 
  */
       __pyx_v_score = __pyx_v_child_score;
 
@@ -2046,24 +2041,14 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
  *         if child_score > score:
  *             score = child_score
  *             best_move = move             # <<<<<<<<<<<<<<
- *             pv = child_pv
  * 
+ *             alpha = child_score
  */
       __pyx_t_11 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_v_move); if (unlikely((__pyx_t_11 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
       __pyx_v_best_move = __pyx_t_11;
 
-      /* "search.pyx":73
- *             score = child_score
+      /* "search.pyx":74
  *             best_move = move
- *             pv = child_pv             # <<<<<<<<<<<<<<
- * 
- *             alpha = child_score
- */
-      __Pyx_INCREF(__pyx_v_child_pv);
-      __Pyx_XDECREF_SET(__pyx_v_pv, __pyx_v_child_pv);
-
-      /* "search.pyx":75
- *             pv = child_pv
  * 
  *             alpha = child_score             # <<<<<<<<<<<<<<
  *             if alpha >= beta:
@@ -2071,7 +2056,7 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
  */
       __pyx_v_alpha = __pyx_v_child_score;
 
-      /* "search.pyx":76
+      /* "search.pyx":75
  * 
  *             alpha = child_score
  *             if alpha >= beta:             # <<<<<<<<<<<<<<
@@ -2081,16 +2066,16 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
       __pyx_t_8 = ((__pyx_v_alpha >= __pyx_v_beta) != 0);
       if (__pyx_t_8) {
 
-        /* "search.pyx":77
+        /* "search.pyx":76
  *             alpha = child_score
  *             if alpha >= beta:
  *                 break             # <<<<<<<<<<<<<<
  * 
- *     TRANSPOSITION_TABLE[key] = score, pv, 1
+ *     TRANSPOSITION_TABLE[key] = score, best_move, 1
  */
         goto __pyx_L13_break;
 
-        /* "search.pyx":76
+        /* "search.pyx":75
  * 
  *             alpha = child_score
  *             if alpha >= beta:             # <<<<<<<<<<<<<<
@@ -2110,77 +2095,69 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
 
     /* "search.pyx":60
  *     cdef int child_score, child_nodes
- *     cdef list child_pv
+ *     cdef board.bitboard child_best_move
  *     for move in order_moves(legal_moves):             # <<<<<<<<<<<<<<
  *         b.make_move(move)
- *         child_score, child_pv, child_nodes = _negamax(
+ *         child_score, child_best_move, child_nodes = _negamax(
  */
   }
   __pyx_L13_break:;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "search.pyx":79
+  /* "search.pyx":78
  *                 break
  * 
- *     TRANSPOSITION_TABLE[key] = score, pv, 1             # <<<<<<<<<<<<<<
+ *     TRANSPOSITION_TABLE[key] = score, best_move, 1             # <<<<<<<<<<<<<<
  * 
- *     return score, [best_move] + pv, nodes
+ *     return score, best_move, nodes
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_score); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_score); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_best_move); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(!__pyx_v_pv)) { __Pyx_RaiseUnboundLocalError("pv"); __PYX_ERR(0, 79, __pyx_L1_error) }
-  __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 79, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_14 = PyTuple_New(3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
-  __Pyx_INCREF(__pyx_v_pv);
-  __Pyx_GIVEREF(__pyx_v_pv);
-  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_pv);
+  PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_2);
   __Pyx_INCREF(__pyx_int_1);
   __Pyx_GIVEREF(__pyx_int_1);
-  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_int_1);
+  PyTuple_SET_ITEM(__pyx_t_14, 2, __pyx_int_1);
+  __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   if (unlikely(__pyx_v_6search_TRANSPOSITION_TABLE == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 79, __pyx_L1_error)
+    __PYX_ERR(0, 78, __pyx_L1_error)
   }
-  if (unlikely(PyDict_SetItem(__pyx_v_6search_TRANSPOSITION_TABLE, __pyx_v_key, __pyx_t_3) < 0)) __PYX_ERR(0, 79, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(PyDict_SetItem(__pyx_v_6search_TRANSPOSITION_TABLE, __pyx_v_key, __pyx_t_14) < 0)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-  /* "search.pyx":81
- *     TRANSPOSITION_TABLE[key] = score, pv, 1
+  /* "search.pyx":80
+ *     TRANSPOSITION_TABLE[key] = score, best_move, 1
  * 
- *     return score, [best_move] + pv, nodes             # <<<<<<<<<<<<<<
+ *     return score, best_move, nodes             # <<<<<<<<<<<<<<
  * 
  * cpdef search(board.Board b, e: typing.Callable, d: int):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_score); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_best_move); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_14 = PyList_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyInt_From_int(__pyx_v_score); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyList_SET_ITEM(__pyx_t_14, 0, __pyx_t_2);
-  __pyx_t_2 = 0;
-  if (unlikely(!__pyx_v_pv)) { __Pyx_RaiseUnboundLocalError("pv"); __PYX_ERR(0, 81, __pyx_L1_error) }
-  __pyx_t_2 = PyNumber_Add(__pyx_t_14, __pyx_v_pv); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_best_move); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-  __pyx_t_14 = __Pyx_PyInt_From_int(__pyx_v_nodes); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 81, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_nodes); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_14);
+  PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_14);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_14);
-  PyTuple_SET_ITEM(__pyx_t_13, 2, __pyx_t_14);
-  __pyx_t_3 = 0;
-  __pyx_t_2 = 0;
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_13, 2, __pyx_t_1);
   __pyx_t_14 = 0;
+  __pyx_t_2 = 0;
+  __pyx_t_1 = 0;
   __pyx_r = ((PyObject*)__pyx_t_13);
   __pyx_t_13 = 0;
   goto __pyx_L0;
@@ -2206,16 +2183,14 @@ static PyObject *__pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v
   __Pyx_XDECREF(__pyx_v_key);
   __Pyx_XDECREF(__pyx_v_return_value);
   __Pyx_XDECREF(__pyx_v_legal_moves);
-  __Pyx_XDECREF(__pyx_v_child_pv);
   __Pyx_XDECREF(__pyx_v_move);
-  __Pyx_XDECREF(__pyx_v_pv);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "search.pyx":83
- *     return score, [best_move] + pv, nodes
+/* "search.pyx":82
+ *     return score, best_move, nodes
  * 
  * cpdef search(board.Board b, e: typing.Callable, d: int):             # <<<<<<<<<<<<<<
  *     global TRANSPOSITION_TABLE
@@ -2232,41 +2207,41 @@ static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *__pyx_v_b
   struct __pyx_opt_args_6search__negamax __pyx_t_4;
   __Pyx_RefNannySetupContext("search", 0);
 
-  /* "search.pyx":85
+  /* "search.pyx":84
  * cpdef search(board.Board b, e: typing.Callable, d: int):
  *     global TRANSPOSITION_TABLE
  *     TRANSPOSITION_TABLE = {}             # <<<<<<<<<<<<<<
  * 
  *     return _negamax(b, e, d, c=b.turn, alpha=-INFINITY, beta=INFINITY)
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(__pyx_v_6search_TRANSPOSITION_TABLE);
   __Pyx_DECREF_SET(__pyx_v_6search_TRANSPOSITION_TABLE, ((PyObject*)__pyx_t_1));
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "search.pyx":87
+  /* "search.pyx":86
  *     TRANSPOSITION_TABLE = {}
  * 
  *     return _negamax(b, e, d, c=b.turn, alpha=-INFINITY, beta=INFINITY)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = (-__pyx_v_6search_INFINITY);
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_d); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_d); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L1_error)
   __pyx_t_4.__pyx_n = 3;
   __pyx_t_4.alpha = __pyx_t_2;
   __pyx_t_4.beta = __pyx_v_6search_INFINITY;
   __pyx_t_4.c = __pyx_v_b->turn;
-  __pyx_t_1 = __pyx_f_6search__negamax(__pyx_v_b, __pyx_v_e, __pyx_t_3, &__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6search__negamax(__pyx_v_b, __pyx_v_e, __pyx_t_3, &__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "search.pyx":83
- *     return score, [best_move] + pv, nodes
+  /* "search.pyx":82
+ *     return score, best_move, nodes
  * 
  * cpdef search(board.Board b, e: typing.Callable, d: int):             # <<<<<<<<<<<<<<
  *     global TRANSPOSITION_TABLE
@@ -2318,17 +2293,17 @@ static PyObject *__pyx_pw_6search_1search(PyObject *__pyx_self, PyObject *__pyx_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_e)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("search", 1, 3, 3, 1); __PYX_ERR(0, 83, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("search", 1, 3, 3, 1); __PYX_ERR(0, 82, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_d)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("search", 1, 3, 3, 2); __PYX_ERR(0, 83, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("search", 1, 3, 3, 2); __PYX_ERR(0, 82, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "search") < 0)) __PYX_ERR(0, 83, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "search") < 0)) __PYX_ERR(0, 82, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -2343,13 +2318,13 @@ static PyObject *__pyx_pw_6search_1search(PyObject *__pyx_self, PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("search", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 83, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("search", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 82, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("search.search", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b), __pyx_ptype_5board_Board, 1, "b", 0))) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b), __pyx_ptype_5board_Board, 1, "b", 0))) __PYX_ERR(0, 82, __pyx_L1_error)
   __pyx_r = __pyx_pf_6search_search(__pyx_self, __pyx_v_b, __pyx_v_e, __pyx_v_d);
 
   /* function exit code */
@@ -2367,7 +2342,7 @@ static PyObject *__pyx_pf_6search_search(CYTHON_UNUSED PyObject *__pyx_self, str
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("search", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6search_search(__pyx_v_b, __pyx_v_e, __pyx_v_d, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6search_search(__pyx_v_b, __pyx_v_e, __pyx_v_d, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2691,6 +2666,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_3 = PyInt_FromLong(3); if (unlikely(!__pyx_int_3)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_7 = PyInt_FromLong(7); if (unlikely(!__pyx_int_7)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -4253,11 +4229,6 @@ static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
 /* RaiseNoneIterError */
 static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-}
-
-/* None */
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
-    PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
 }
 
 /* RaiseArgTupleInvalid */

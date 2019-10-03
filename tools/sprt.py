@@ -70,7 +70,7 @@ def time_search(o, d, r=24, elo0=0.0, elo1=100.0):
 
 
 if __name__ == "__main__":
-    OLD_PERFORMANCE = 385.0
+    OLD_PERFORMANCE = 283.0
     RUN_LENGTH = 1
     DEPTH = 12
 
