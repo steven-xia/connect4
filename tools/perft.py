@@ -70,6 +70,7 @@ if __name__ == "__main__":
         sys.stdout.write("time (ms)".rjust(12))
         sys.stdout.write("nodes".rjust(12))
         sys.stdout.write("nps".rjust(11))
+        sys.stdout.write("score".rjust(10))
         sys.stdout.write("\n")
         sys.stdout.flush()
 
@@ -77,7 +78,7 @@ if __name__ == "__main__":
 
         for depth in range(max_depth):
             start_time = time.time()
-            _, pv, nodes_searched = perft_func(depth + 1)
+            score, pv, nodes_searched = perft_func(depth + 1)
             end_time = time.time()
 
             time_taken = end_time - start_time
@@ -87,6 +88,7 @@ if __name__ == "__main__":
             sys.stdout.write(str(round(1000 * time_taken)).rjust(12))
             sys.stdout.write(str(nodes_searched).rjust(12))
             sys.stdout.write(str(round(speed)).rjust(11))
+            sys.stdout.write(str(score / 100).rjust(10))
             sys.stdout.write("\n")
             sys.stdout.flush()
     else:
