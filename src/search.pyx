@@ -7,11 +7,21 @@ file: search.py
 description: contains code for the search implementation.
 """
 
+from libcpp.map cimport map
 from libcpp.unordered_map cimport unordered_map
 
 cimport board
+cimport evaluate
 
-import typing
+# define typedefs
+cdef struct tt_key:
+    board.bitboard yellow_bitboard
+    board.bitboard red_bitboard
+
+cdef struct tt_value:
+    int score
+    board.bitboard best_move
+    int nodes
 
 # set utility constants
 cdef int INFINITY = 1 << 15
@@ -24,9 +34,9 @@ cdef dict TRANSPOSITION_TABLE = {}
 cdef list order_moves(list moves_list):
     return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
 
-cdef tuple _negamax(board.Board b, object e, int d,
-                    int alpha = -INFINITY, int beta = INFINITY,
-                    int c = board.YELLOW):
+cdef tt_value _negamax(board.Board b, int d,
+                       int alpha = -INFINITY, int beta = INFINITY,
+                       int c = board.YELLOW):
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
@@ -45,42 +55,46 @@ cdef tuple _negamax(board.Board b, object e, int d,
     except KeyError:
         pass
 
+    cdef tt_value return_value
     if not d or b.is_game_over():
-        return_value = e(b) * c, 0, 1
+        return_value.score = evaluate.evaluate(b) * c
+        return_value.nodes = 1
         TRANSPOSITION_TABLE[key] = return_value
         return return_value
 
-    cdef int score = -INFINITY
-    cdef board.bitboard best_move = 0
-    cdef int nodes = 0
+    return_value.score = -INFINITY
+    return_value.best_move = 0
+    return_value.nodes = 0
     cdef list legal_moves = board.split_bitboard(b.get_legal_moves())
 
-    cdef int child_score, child_nodes
-    cdef board.bitboard child_best_move
+    cdef int child_score
+    cdef tt_value child_return_value
     for move in order_moves(legal_moves):
         b.make_move(move)
-        child_score, child_best_move, child_nodes = _negamax(
-            b, e, d - 1, -beta, -alpha, -c
-        )
+        child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)
         b.undo_move()
 
-        nodes += child_nodes
-        child_score *= -1
+        child_score = -child_return_value.score
+        return_value.nodes += child_return_value.nodes
 
-        if child_score > score:
-            score = child_score
-            best_move = move
+        if child_score > return_value.score:
+            return_value.score = child_score
+            return_value.best_move = move
 
             alpha = child_score
             if alpha >= beta:
                 break
 
-    TRANSPOSITION_TABLE[key] = score, best_move, 1
+    child_return_value.score = return_value.score
+    child_return_value.best_move = return_value.best_move
+    child_return_value.nodes = 1
+    TRANSPOSITION_TABLE[key] = child_return_value
 
-    return score, best_move, nodes
+    return return_value
 
-cpdef search(board.Board b, e: typing.Callable, d: int):
+cpdef tuple search(board.Board b, d: int):
     global TRANSPOSITION_TABLE
     TRANSPOSITION_TABLE = {}
 
-    return _negamax(b, e, d, c=b.turn, alpha=-INFINITY, beta=INFINITY)
+    xD = _negamax(b, d, c=b.turn, alpha=-INFINITY, beta=INFINITY)
+    return xD["score"], xD["best_move"], xD["nodes"]

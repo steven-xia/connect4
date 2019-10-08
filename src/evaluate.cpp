@@ -1366,6 +1366,9 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 /* CheckBinaryVersion.proto */
 static int __Pyx_check_binary_version(void);
 
+/* FunctionExport.proto */
+static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *sig);
+
 /* VoidPtrImport.proto */
 static int __Pyx_ImportVoidPtr(PyObject *module, const char *name, void **p, const char *sig);
 
@@ -1416,8 +1419,8 @@ static PyObject *__pyx_v_8evaluate__temp_piece_table = 0;
 static std::vector<struct __pyx_t_8evaluate_bits_score_pair>  __pyx_v_8evaluate_PIECE_TABLE;
 static struct __pyx_t_8evaluate_bits_score_pair __pyx_v_8evaluate_pair;
 static PyObject *__pyx_7genexpr__pyx_v_8evaluate_s;
-static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard); /*proto*/
 static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch); /*proto*/
+static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard); /*proto*/
 static struct __pyx_t_8evaluate_bits_score_pair __pyx_convert__from_py_struct____pyx_t_8evaluate_bits_score_pair(PyObject *); /*proto*/
 static std::vector<struct __pyx_t_8evaluate_bits_score_pair>  __pyx_convert_vector_from_py_struct____pyx_t_8evaluate_bits_score_pair(PyObject *); /*proto*/
 #define __Pyx_MODULE_NAME "evaluate"
@@ -2323,8 +2326,12 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
+  if (__Pyx_ExportFunction("evaluate", (void (*)(void))__pyx_f_8evaluate_evaluate, "int (struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
+  __pyx_L1_error:;
+  __Pyx_RefNannyFinishContext();
+  return -1;
 }
 
 static int __Pyx_modinit_type_init_code(void) {
@@ -2592,7 +2599,7 @@ if (!__Pyx_RefNanny) {
   /*--- Global type/function init code ---*/
   (void)__Pyx_modinit_global_init_code();
   (void)__Pyx_modinit_variable_export_code();
-  (void)__Pyx_modinit_function_export_code();
+  if (unlikely(__Pyx_modinit_function_export_code() != 0)) goto __pyx_L1_error;
   (void)__Pyx_modinit_type_init_code();
   if (unlikely(__Pyx_modinit_type_import_code() != 0)) goto __pyx_L1_error;
   if (unlikely(__Pyx_modinit_variable_import_code() != 0)) goto __pyx_L1_error;
@@ -5461,6 +5468,43 @@ static int __Pyx_check_binary_version(void) {
         return PyErr_WarnEx(NULL, message, 1);
     }
     return 0;
+}
+
+/* FunctionExport */
+static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *sig) {
+    PyObject *d = 0;
+    PyObject *cobj = 0;
+    union {
+        void (*fp)(void);
+        void *p;
+    } tmp;
+    d = PyObject_GetAttrString(__pyx_m, (char *)"__pyx_capi__");
+    if (!d) {
+        PyErr_Clear();
+        d = PyDict_New();
+        if (!d)
+            goto bad;
+        Py_INCREF(d);
+        if (PyModule_AddObject(__pyx_m, (char *)"__pyx_capi__", d) < 0)
+            goto bad;
+    }
+    tmp.fp = f;
+#if PY_VERSION_HEX >= 0x02070000
+    cobj = PyCapsule_New(tmp.p, sig, 0);
+#else
+    cobj = PyCObject_FromVoidPtrAndDesc(tmp.p, (void *)sig, 0);
+#endif
+    if (!cobj)
+        goto bad;
+    if (PyDict_SetItemString(d, name, cobj) < 0)
+        goto bad;
+    Py_DECREF(cobj);
+    Py_DECREF(d);
+    return 0;
+bad:
+    Py_XDECREF(cobj);
+    Py_XDECREF(d);
+    return -1;
 }
 
 /* VoidPtrImport */
