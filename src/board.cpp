@@ -865,7 +865,7 @@ struct __pyx_obj_5board___pyx_scope_struct_1_genexpr;
  */
 typedef std::vector<unsigned PY_LONG_LONG>  __pyx_t_5board_bit_list;
 
-/* "board.pxd":15
+/* "board.pxd":16
  * cpdef bit_list split_bitboard(const bitboard b)
  * 
  * cdef class Board(object):             # <<<<<<<<<<<<<<
@@ -1503,11 +1503,11 @@ static int __pyx_v_5board_DOWN_LEFT;
 static __pyx_t_5board_bitboard __pyx_v_5board_ONE;
 static __pyx_t_5board_bitboard __pyx_v_5board_EMPTY_BOARD;
 static __pyx_t_5board_bitboard __pyx_v_5board_FULL_BOARD;
+static __pyx_t_5board_bit_list __pyx_v_5board_BIT_LIST;
 static int __pyx_v_5board__yellow;
 static int __pyx_v_5board__red;
 static int __pyx_v_5board__unknown;
 static int __pyx_v_5board__draw;
-static __pyx_t_5board_bit_list __pyx_v_5board_BIT_LIST;
 static PyObject *__pyx_8genexpr2__pyx_v_5board_i;
 static __pyx_t_5board_bitboard __pyx_f_5board_shift(__pyx_t_5board_bitboard const , int const ); /*proto*/
 static __pyx_t_5board_bit_list __pyx_f_5board_split_bitboard(__pyx_t_5board_bitboard const , int __pyx_skip_dispatch); /*proto*/
@@ -1556,6 +1556,7 @@ static const char __pyx_k_update[] = "update";
 static const char __pyx_k_UNKNOWN[] = "UNKNOWN";
 static const char __pyx_k_UP_LEFT[] = "UP_LEFT";
 static const char __pyx_k_genexpr[] = "genexpr";
+static const char __pyx_k_BIT_LIST[] = "BIT_LIST";
 static const char __pyx_k_UP_RIGHT[] = "UP_RIGHT";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_pyx_capi[] = "__pyx_capi__";
@@ -1585,6 +1586,7 @@ static const char __pyx_k_pyx_unpickle_Board[] = "__pyx_unpickle_Board";
 static const char __pyx_k_genexpr_locals_genexpr[] = "genexpr.<locals>.genexpr";
 static const char __pyx_k_file_board_py_description_conta[] = "\nfile: board.py\n\ndescription: contains code for board representation and move generation.\n";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xbf[] = "Incompatible checksums (%s vs 0xbfb55dd = (game_result, past_moves, red_bitboard, turn, turn_number, yellow_bitboard))";
+static PyObject *__pyx_n_s_BIT_LIST;
 static PyObject *__pyx_n_s_Board;
 static PyObject *__pyx_n_s_DOWN;
 static PyObject *__pyx_n_s_DOWN_LEFT;
@@ -3479,7 +3481,7 @@ static PyObject *__pyx_pf_5board_5Board_12undo_move(struct __pyx_obj_5board_Boar
   return __pyx_r;
 }
 
-/* "board.pxd":16
+/* "board.pxd":17
  * 
  * cdef class Board(object):
  *     cdef public bitboard yellow_bitboard, red_bitboard             # <<<<<<<<<<<<<<
@@ -3506,7 +3508,7 @@ static PyObject *__pyx_pf_5board_5Board_15yellow_bitboard___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_self->yellow_bitboard); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_self->yellow_bitboard); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3541,7 +3543,7 @@ static int __pyx_pf_5board_5Board_15yellow_bitboard_2__set__(struct __pyx_obj_5b
   __Pyx_RefNannyDeclarations
   __pyx_t_5board_bitboard __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L1_error)
   __pyx_v_self->yellow_bitboard = __pyx_t_1;
 
   /* function exit code */
@@ -3574,7 +3576,7 @@ static PyObject *__pyx_pf_5board_5Board_12red_bitboard___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_self->red_bitboard); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_self->red_bitboard); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3609,7 +3611,7 @@ static int __pyx_pf_5board_5Board_12red_bitboard_2__set__(struct __pyx_obj_5boar
   __Pyx_RefNannyDeclarations
   __pyx_t_5board_bitboard __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L1_error)
   __pyx_v_self->red_bitboard = __pyx_t_1;
 
   /* function exit code */
@@ -3623,7 +3625,7 @@ static int __pyx_pf_5board_5Board_12red_bitboard_2__set__(struct __pyx_obj_5boar
   return __pyx_r;
 }
 
-/* "board.pxd":17
+/* "board.pxd":18
  * cdef class Board(object):
  *     cdef public bitboard yellow_bitboard, red_bitboard
  *     cdef public int turn, turn_number, game_result             # <<<<<<<<<<<<<<
@@ -3650,7 +3652,7 @@ static PyObject *__pyx_pf_5board_5Board_4turn___get__(struct __pyx_obj_5board_Bo
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->turn); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->turn); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3685,7 +3687,7 @@ static int __pyx_pf_5board_5Board_4turn_2__set__(struct __pyx_obj_5board_Board *
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L1_error)
   __pyx_v_self->turn = __pyx_t_1;
 
   /* function exit code */
@@ -3718,7 +3720,7 @@ static PyObject *__pyx_pf_5board_5Board_11turn_number___get__(struct __pyx_obj_5
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->turn_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->turn_number); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3753,7 +3755,7 @@ static int __pyx_pf_5board_5Board_11turn_number_2__set__(struct __pyx_obj_5board
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L1_error)
   __pyx_v_self->turn_number = __pyx_t_1;
 
   /* function exit code */
@@ -3786,7 +3788,7 @@ static PyObject *__pyx_pf_5board_5Board_11game_result___get__(struct __pyx_obj_5
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->game_result); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->game_result); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3821,7 +3823,7 @@ static int __pyx_pf_5board_5Board_11game_result_2__set__(struct __pyx_obj_5board
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L1_error)
   __pyx_v_self->game_result = __pyx_t_1;
 
   /* function exit code */
@@ -3835,7 +3837,7 @@ static int __pyx_pf_5board_5Board_11game_result_2__set__(struct __pyx_obj_5board
   return __pyx_r;
 }
 
-/* "board.pxd":18
+/* "board.pxd":19
  *     cdef public bitboard yellow_bitboard, red_bitboard
  *     cdef public int turn, turn_number, game_result
  *     cdef readonly bit_list past_moves             # <<<<<<<<<<<<<<
@@ -3862,7 +3864,7 @@ static PyObject *__pyx_pf_5board_5Board_10past_moves___get__(struct __pyx_obj_5b
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_v_self->past_moves); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 18, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_v_self->past_moves); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5283,6 +5285,7 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_n_s_BIT_LIST, __pyx_k_BIT_LIST, sizeof(__pyx_k_BIT_LIST), 0, 0, 1, 1},
   {&__pyx_n_s_Board, __pyx_k_Board, sizeof(__pyx_k_Board), 0, 0, 1, 1},
   {&__pyx_n_s_DOWN, __pyx_k_DOWN, sizeof(__pyx_k_DOWN), 0, 0, 1, 1},
   {&__pyx_n_s_DOWN_LEFT, __pyx_k_DOWN_LEFT, sizeof(__pyx_k_DOWN_LEFT), 0, 0, 1, 1},
@@ -5424,6 +5427,7 @@ static int __Pyx_modinit_variable_export_code(void) {
   if (__Pyx_ExportVoidPtr(__pyx_n_s_ONE, (void *)&__pyx_v_5board_ONE, "__pyx_t_5board_bitboard") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ExportVoidPtr(__pyx_n_s_EMPTY_BOARD, (void *)&__pyx_v_5board_EMPTY_BOARD, "__pyx_t_5board_bitboard") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ExportVoidPtr(__pyx_n_s_FULL_BOARD, (void *)&__pyx_v_5board_FULL_BOARD, "__pyx_t_5board_bitboard") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportVoidPtr(__pyx_n_s_BIT_LIST, (void *)&__pyx_v_5board_BIT_LIST, "__pyx_t_5board_bit_list") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;

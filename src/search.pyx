@@ -7,17 +7,15 @@ file: search.py
 description: contains code for the search implementation.
 """
 
-from libcpp.map cimport map
 from libcpp.unordered_map cimport unordered_map
+from libcpp.vector cimport vector
 
 cimport board
 cimport evaluate
 
-# define typedefs
-cdef struct tt_key:
-    board.bitboard yellow_bitboard
-    board.bitboard red_bitboard
+import random
 
+# define typedefs
 cdef struct tt_value:
     int score
     board.bitboard best_move
@@ -29,7 +27,34 @@ cdef unordered_map[board.bitboard, int] MOVES_LOOKUP = {
     board.ONE << i: 3 - abs(3 - (i // 7)) for i in range(49)
 }
 
-cdef dict TRANSPOSITION_TABLE = {}
+cdef unordered_map[unsigned long long, tt_value] TRANSPOSITION_TABLE
+TRANSPOSITION_TABLE.clear()
+
+# set zobrist hashing tables
+cdef unsigned long long max_long = 18446744073709551615
+cdef vector[board.bit_list] hashing_tables = []
+hashing_tables.reserve(49)
+for i in range(49):
+    hashing_tables.push_back([
+        int(random.random() * max_long),
+        int(random.random() * max_long)
+    ])
+
+cdef unsigned long long hash_key(board.bitboard ybb, board.bitboard rbb):
+    cdef unsigned long long h = 0
+    cdef board.bitboard p = ybb | rbb
+
+    cdef int i = 0
+    cdef board.bitboard b
+    for b in board.BIT_LIST:
+        if b & p:
+            if b & ybb:
+                h ^= hashing_tables[i][0]
+            else:
+                h ^= hashing_tables[i][1]
+        i += 1
+
+    return h
 
 cdef list order_moves(list moves_list):
     return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
@@ -48,12 +73,10 @@ cdef tt_value _negamax(board.Board b, int d,
     :return: (score, best move, nodes)
     """
 
-    cdef tuple key = (b.yellow_bitboard, b.red_bitboard)
+    cdef unsigned long long key = hash_key(b.yellow_bitboard, b.red_bitboard)
 
-    try:
+    if TRANSPOSITION_TABLE.find(key) != TRANSPOSITION_TABLE.end():
         return TRANSPOSITION_TABLE[key]
-    except KeyError:
-        pass
 
     cdef tt_value return_value
     if not d or b.is_game_over():
@@ -94,7 +117,7 @@ cdef tt_value _negamax(board.Board b, int d,
 
 cpdef tuple search(board.Board b, d: int):
     global TRANSPOSITION_TABLE
-    TRANSPOSITION_TABLE = {}
+    TRANSPOSITION_TABLE.clear()
 
     xD = _negamax(b, d, c=b.turn, alpha=-INFINITY, beta=INFINITY)
     return xD["score"], xD["best_move"], xD["nodes"]

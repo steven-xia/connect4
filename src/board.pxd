@@ -8,6 +8,7 @@ ctypedef vector[unsigned long long] bit_list
 cdef int YELLOW, RED, UNKNOWN, DRAW
 cdef int UP, RIGHT, DOWN, LEFT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT
 cdef bitboard ONE, EMPTY_BOARD, FULL_BOARD
+cdef bit_list BIT_LIST
 
 cdef bitboard shift(const bitboard b, const int d)
 cpdef bit_list split_bitboard(const bitboard b)

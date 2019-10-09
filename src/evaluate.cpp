@@ -876,7 +876,7 @@ struct __pyx_t_8evaluate_bits_score_pair {
   int score;
 };
 
-/* "board.pxd":15
+/* "board.pxd":16
  * cpdef bit_list split_bitboard(const bitboard b)
  * 
  * cdef class Board(object):             # <<<<<<<<<<<<<<
@@ -1410,6 +1410,8 @@ static __pyx_t_5board_bitboard *__pyx_vp_5board_EMPTY_BOARD = 0;
 #define __pyx_v_5board_EMPTY_BOARD (*__pyx_vp_5board_EMPTY_BOARD)
 static __pyx_t_5board_bitboard *__pyx_vp_5board_FULL_BOARD = 0;
 #define __pyx_v_5board_FULL_BOARD (*__pyx_vp_5board_FULL_BOARD)
+static __pyx_t_5board_bit_list *__pyx_vp_5board_BIT_LIST = 0;
+#define __pyx_v_5board_BIT_LIST (*__pyx_vp_5board_BIT_LIST)
 
 /* Module declarations from 'evaluate' */
 static int __pyx_v_8evaluate_TEMPO_VALUE;
@@ -2347,11 +2349,11 @@ static int __Pyx_modinit_type_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("board"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 15, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("board"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_ptype_5board_Board = __Pyx_ImportType(__pyx_t_1, "board", "Board", sizeof(struct __pyx_obj_5board_Board), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5board_Board) __PYX_ERR(2, 15, __pyx_L1_error)
-  __pyx_vtabptr_5board_Board = (struct __pyx_vtabstruct_5board_Board*)__Pyx_GetVtable(__pyx_ptype_5board_Board->tp_dict); if (unlikely(!__pyx_vtabptr_5board_Board)) __PYX_ERR(2, 15, __pyx_L1_error)
+   if (!__pyx_ptype_5board_Board) __PYX_ERR(2, 16, __pyx_L1_error)
+  __pyx_vtabptr_5board_Board = (struct __pyx_vtabstruct_5board_Board*)__Pyx_GetVtable(__pyx_ptype_5board_Board->tp_dict); if (unlikely(!__pyx_vtabptr_5board_Board)) __PYX_ERR(2, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -2382,6 +2384,7 @@ static int __Pyx_modinit_variable_import_code(void) {
   if (__Pyx_ImportVoidPtr(__pyx_t_1, "ONE", (void **)&__pyx_vp_5board_ONE, "__pyx_t_5board_bitboard") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportVoidPtr(__pyx_t_1, "EMPTY_BOARD", (void **)&__pyx_vp_5board_EMPTY_BOARD, "__pyx_t_5board_bitboard") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportVoidPtr(__pyx_t_1, "FULL_BOARD", (void **)&__pyx_vp_5board_FULL_BOARD, "__pyx_t_5board_bitboard") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportVoidPtr(__pyx_t_1, "BIT_LIST", (void **)&__pyx_vp_5board_BIT_LIST, "__pyx_t_5board_bit_list") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
