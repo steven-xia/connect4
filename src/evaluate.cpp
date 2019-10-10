@@ -978,12 +978,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 /* GetBuiltinName.proto */
 static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
-/* ArgTypeTest.proto */
-#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
-    ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
-        __Pyx__ArgTypeTest(obj, type, name, exact))
-static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
-
 /* DictGetItem.proto */
 #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
 static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key);
@@ -1333,9 +1327,6 @@ static void __Pyx_CppExn2PyErr() {
 #endif
 
 /* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
-
-/* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 /* None.proto */
@@ -1421,7 +1412,6 @@ static PyObject *__pyx_v_8evaluate__temp_piece_table = 0;
 static std::vector<struct __pyx_t_8evaluate_bits_score_pair>  __pyx_v_8evaluate_PIECE_TABLE;
 static struct __pyx_t_8evaluate_bits_score_pair __pyx_v_8evaluate_pair;
 static PyObject *__pyx_7genexpr__pyx_v_8evaluate_s;
-static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch); /*proto*/
 static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard); /*proto*/
 static struct __pyx_t_8evaluate_bits_score_pair __pyx_convert__from_py_struct____pyx_t_8evaluate_bits_score_pair(PyObject *); /*proto*/
 static std::vector<struct __pyx_t_8evaluate_bits_score_pair>  __pyx_convert_vector_from_py_struct____pyx_t_8evaluate_bits_score_pair(PyObject *); /*proto*/
@@ -1469,7 +1459,6 @@ static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_score;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_v;
-static PyObject *__pyx_pf_8evaluate_evaluate(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5board_Board *__pyx_v_b); /* proto */
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_23;
 static PyObject *__pyx_int_31;
@@ -1487,7 +1476,7 @@ static PyObject *__pyx_tuple__2;
 /* "evaluate.pyx":49
  * 
  * # define utility functions here.
- * cdef int popcount(board.bitboard b):             # <<<<<<<<<<<<<<
+ * cdef int popcount(board.bitboard b) nogil:             # <<<<<<<<<<<<<<
  *     """
  *     counts the number of bits in bitboard `b`.
  */
@@ -1495,9 +1484,7 @@ static PyObject *__pyx_tuple__2;
 static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
   int __pyx_v_n;
   int __pyx_r;
-  __Pyx_RefNannyDeclarations
   int __pyx_t_1;
-  __Pyx_RefNannySetupContext("popcount", 0);
 
   /* "evaluate.pyx":56
  *     """
@@ -1551,39 +1538,35 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
   /* "evaluate.pyx":49
  * 
  * # define utility functions here.
- * cdef int popcount(board.bitboard b):             # <<<<<<<<<<<<<<
+ * cdef int popcount(board.bitboard b) nogil:             # <<<<<<<<<<<<<<
  *     """
  *     counts the number of bits in bitboard `b`.
  */
 
   /* function exit code */
   __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
 /* "evaluate.pyx":63
  * 
  * # main evaluation function
- * cpdef int evaluate(board.Board b):             # <<<<<<<<<<<<<<
+ * cdef int evaluate(board.Board b) nogil:             # <<<<<<<<<<<<<<
  *     if b.game_result != board.UNKNOWN:
  *         return b.game_result * 4200
  */
 
-static PyObject *__pyx_pw_8evaluate_1evaluate(PyObject *__pyx_self, PyObject *__pyx_v_b); /*proto*/
-static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) {
   int __pyx_v_score;
   struct __pyx_t_8evaluate_bits_score_pair __pyx_v_pair;
   int __pyx_r;
-  __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   std::vector<struct __pyx_t_8evaluate_bits_score_pair> ::iterator __pyx_t_2;
   struct __pyx_t_8evaluate_bits_score_pair __pyx_t_3;
-  __Pyx_RefNannySetupContext("evaluate", 0);
 
   /* "evaluate.pyx":64
  * # main evaluation function
- * cpdef int evaluate(board.Board b):
+ * cdef int evaluate(board.Board b) nogil:
  *     if b.game_result != board.UNKNOWN:             # <<<<<<<<<<<<<<
  *         return b.game_result * 4200
  * 
@@ -1592,7 +1575,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
   if (__pyx_t_1) {
 
     /* "evaluate.pyx":65
- * cpdef int evaluate(board.Board b):
+ * cdef int evaluate(board.Board b) nogil:
  *     if b.game_result != board.UNKNOWN:
  *         return b.game_result * 4200             # <<<<<<<<<<<<<<
  * 
@@ -1603,7 +1586,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
 
     /* "evaluate.pyx":64
  * # main evaluation function
- * cpdef int evaluate(board.Board b):
+ * cdef int evaluate(board.Board b) nogil:
  *     if b.game_result != board.UNKNOWN:             # <<<<<<<<<<<<<<
  *         return b.game_result * 4200
  * 
@@ -1712,55 +1695,13 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b, 
   /* "evaluate.pyx":63
  * 
  * # main evaluation function
- * cpdef int evaluate(board.Board b):             # <<<<<<<<<<<<<<
+ * cdef int evaluate(board.Board b) nogil:             # <<<<<<<<<<<<<<
  *     if b.game_result != board.UNKNOWN:
  *         return b.game_result * 4200
  */
 
   /* function exit code */
   __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_8evaluate_1evaluate(PyObject *__pyx_self, PyObject *__pyx_v_b); /*proto*/
-static PyObject *__pyx_pw_8evaluate_1evaluate(PyObject *__pyx_self, PyObject *__pyx_v_b) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("evaluate (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_b), __pyx_ptype_5board_Board, 1, "b", 0))) __PYX_ERR(0, 63, __pyx_L1_error)
-  __pyx_r = __pyx_pf_8evaluate_evaluate(__pyx_self, ((struct __pyx_obj_5board_Board *)__pyx_v_b));
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_8evaluate_evaluate(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5board_Board *__pyx_v_b) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("evaluate", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_8evaluate_evaluate(__pyx_v_b, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("evaluate.evaluate", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
@@ -2172,7 +2113,6 @@ static std::vector<struct __pyx_t_8evaluate_bits_score_pair>  __pyx_convert_vect
 }
 
 static PyMethodDef __pyx_methods[] = {
-  {"evaluate", (PyCFunction)__pyx_pw_8evaluate_1evaluate, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -2328,7 +2268,8 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
-  if (__Pyx_ExportFunction("evaluate", (void (*)(void))__pyx_f_8evaluate_evaluate, "int (struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("popcount", (void (*)(void))__pyx_f_8evaluate_popcount, "int (__pyx_t_5board_bitboard)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("evaluate", (void (*)(void))__pyx_f_8evaluate_evaluate, "int (struct __pyx_obj_5board_Board *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3110,27 +3051,6 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
 #endif
     }
     return result;
-}
-
-/* ArgTypeTest */
-static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
-{
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    else if (exact) {
-        #if PY_MAJOR_VERSION == 2
-        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
-        #endif
-    }
-    else {
-        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
-    }
-    PyErr_Format(PyExc_TypeError,
-        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
-        name, type->tp_name, Py_TYPE(obj)->tp_name);
-    return 0;
 }
 
 /* DictGetItem */
@@ -4727,37 +4647,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_PY_LONG_LONG(unsigned P
         }\
         return (target_type) value;\
     }
-
-/* CIntToPy */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
-    const int neg_one = (int) ((int) 0 - (int) 1), const_zero = (int) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(int),
-                                     little, !is_unsigned);
-    }
-}
 
 /* CIntToPy */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {

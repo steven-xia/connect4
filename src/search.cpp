@@ -886,7 +886,7 @@ struct __pyx_t_6search_tt_value {
  * 
  * cdef tt_value _negamax(board.Board b, const int& d,             # <<<<<<<<<<<<<<
  *                        int alpha = -INFINITY, int beta = INFINITY,
- *                        int c = board.YELLOW):
+ *                        int c = board.YELLOW) nogil:
  */
 struct __pyx_opt_args_6search__negamax {
   int __pyx_n;
@@ -1411,7 +1411,7 @@ static __pyx_t_5board_bit_list *__pyx_vp_5board_BIT_LIST = 0;
 static __pyx_t_5board_bit_list (*__pyx_f_5board_split_bitboard)(__pyx_t_5board_bitboard const &, int __pyx_skip_dispatch); /*proto*/
 
 /* Module declarations from 'evaluate' */
-static int (*__pyx_f_8evaluate_evaluate)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch); /*proto*/
+static int (*__pyx_f_8evaluate_evaluate)(struct __pyx_obj_5board_Board *); /*proto*/
 
 /* Module declarations from 'search' */
 static int __pyx_v_6search_INFINITY;
@@ -1424,7 +1424,7 @@ static unsigned PY_LONG_LONG __pyx_f_6search_hash_key(__pyx_t_5board_bitboard co
 static int __pyx_f_6search_sort_comp(__pyx_t_5board_bitboard const &, __pyx_t_5board_bitboard const &); /*proto*/
 static void __pyx_f_6search_order_moves(__pyx_t_5board_bit_list &); /*proto*/
 static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj_5board_Board *, int const &, struct __pyx_opt_args_6search__negamax *__pyx_optional_args); /*proto*/
-static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *, PyObject *, int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *, int, int __pyx_skip_dispatch); /*proto*/
 static std::unordered_map<__pyx_t_5board_bitboard,int>  __pyx_convert_unordered_map_from_py___pyx_t_5board_bitboard__and_int(PyObject *); /*proto*/
 static std::vector<unsigned PY_LONG_LONG>  __pyx_convert_vector_from_py_unsigned_PY_LONG_LONG(PyObject *); /*proto*/
 static std::vector<__pyx_t_5board_bit_list>  __pyx_convert_vector_from_py___pyx_t_5board_bit_list(PyObject *); /*proto*/
@@ -1468,7 +1468,7 @@ static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_score;
 static PyObject *__pyx_n_u_score;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_pf_6search_search(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5board_Board *__pyx_v_b, PyObject *__pyx_v_d); /* proto */
+static PyObject *__pyx_pf_6search_search(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5board_Board *__pyx_v_b, int __pyx_v_d); /* proto */
 static PyObject *__pyx_int_3;
 static PyObject *__pyx_int_7;
 static int __pyx_k_;
@@ -1705,7 +1705,7 @@ static void __pyx_f_6search_order_moves(__pyx_t_5board_bit_list &__pyx_v_moves_l
  * 
  * cdef tt_value _negamax(board.Board b, const int& d,             # <<<<<<<<<<<<<<
  *                        int alpha = -INFINITY, int beta = INFINITY,
- *                        int c = board.YELLOW):
+ *                        int c = board.YELLOW) nogil:
  */
 
 static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj_5board_Board *__pyx_v_b, int const &__pyx_v_d, struct __pyx_opt_args_6search__negamax *__pyx_optional_args) {
@@ -1719,7 +1719,6 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
   int __pyx_v_child_score;
   struct __pyx_t_6search_tt_value __pyx_v_child_return_value;
   struct __pyx_t_6search_tt_value __pyx_r;
-  __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
   std::vector<unsigned PY_LONG_LONG> ::iterator __pyx_t_3;
@@ -1728,7 +1727,6 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
   struct __pyx_opt_args_6search__negamax __pyx_t_6;
   int __pyx_t_7;
   __pyx_t_5board_bitboard __pyx_t_8;
-  __Pyx_RefNannySetupContext("_negamax", 0);
   if (__pyx_optional_args) {
     if (__pyx_optional_args->__pyx_n > 0) {
       __pyx_v_alpha = __pyx_optional_args->alpha;
@@ -1804,7 +1802,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
  *         return_value.nodes = 1
  *         TRANSPOSITION_TABLE[key] = return_value
  */
-    __pyx_v_return_value.score = (__pyx_f_8evaluate_evaluate(__pyx_v_b, 0) * __pyx_v_c);
+    __pyx_v_return_value.score = (__pyx_f_8evaluate_evaluate(__pyx_v_b) * __pyx_v_c);
 
     /* "search.pyx":89
  *     if not d or b.is_game_over():
@@ -2079,7 +2077,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
  * 
  *     return return_value             # <<<<<<<<<<<<<<
  * 
- * cpdef tuple search(board.Board b, d: int):
+ * cpdef tuple search(board.Board b, int d):
  */
   __pyx_r = __pyx_v_return_value;
   goto __pyx_L0;
@@ -2089,40 +2087,38 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
  * 
  * cdef tt_value _negamax(board.Board b, const int& d,             # <<<<<<<<<<<<<<
  *                        int alpha = -INFINITY, int beta = INFINITY,
- *                        int c = board.YELLOW):
+ *                        int c = board.YELLOW) nogil:
  */
 
   /* function exit code */
   __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
 /* "search.pyx":125
  *     return return_value
  * 
- * cpdef tuple search(board.Board b, d: int):             # <<<<<<<<<<<<<<
+ * cpdef tuple search(board.Board b, int d):             # <<<<<<<<<<<<<<
  *     global TRANSPOSITION_TABLE
  *     TRANSPOSITION_TABLE.clear()
  */
 
 static PyObject *__pyx_pw_6search_1search(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *__pyx_v_b, PyObject *__pyx_v_d, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *__pyx_v_b, int __pyx_v_d, CYTHON_UNUSED int __pyx_skip_dispatch) {
   PyObject *__pyx_v_xD = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
-  int __pyx_t_2;
-  struct __pyx_t_6search_tt_value __pyx_t_3;
-  struct __pyx_opt_args_6search__negamax __pyx_t_4;
+  struct __pyx_t_6search_tt_value __pyx_t_2;
+  struct __pyx_opt_args_6search__negamax __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
-  PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("search", 0);
 
   /* "search.pyx":127
- * cpdef tuple search(board.Board b, d: int):
+ * cpdef tuple search(board.Board b, int d):
  *     global TRANSPOSITION_TABLE
  *     TRANSPOSITION_TABLE.clear()             # <<<<<<<<<<<<<<
  * 
@@ -2137,16 +2133,15 @@ static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *__pyx_v_b
  *     return xD["score"], xD["best_move"], xD["nodes"]
  */
   __pyx_t_1 = (-__pyx_v_6search_INFINITY);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_d); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
-  __pyx_t_4.__pyx_n = 3;
-  __pyx_t_4.alpha = __pyx_t_1;
-  __pyx_t_4.beta = __pyx_v_6search_INFINITY;
-  __pyx_t_4.c = __pyx_v_b->turn;
-  __pyx_t_3 = __pyx_f_6search__negamax(__pyx_v_b, __pyx_t_2, &__pyx_t_4); 
-  __pyx_t_5 = __pyx_convert__to_py_struct____pyx_t_6search_tt_value(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_v_xD = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __pyx_t_3.__pyx_n = 3;
+  __pyx_t_3.alpha = __pyx_t_1;
+  __pyx_t_3.beta = __pyx_v_6search_INFINITY;
+  __pyx_t_3.c = __pyx_v_b->turn;
+  __pyx_t_2 = __pyx_f_6search__negamax(__pyx_v_b, __pyx_v_d, &__pyx_t_3); 
+  __pyx_t_4 = __pyx_convert__to_py_struct____pyx_t_6search_tt_value(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_v_xD = __pyx_t_4;
+  __pyx_t_4 = 0;
 
   /* "search.pyx":130
  * 
@@ -2154,41 +2149,41 @@ static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *__pyx_v_b
  *     return xD["score"], xD["best_move"], xD["nodes"]             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_xD, __pyx_n_u_score); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_v_xD, __pyx_n_u_score); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_xD, __pyx_n_u_best_move); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_v_xD, __pyx_n_u_best_move); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_v_xD, __pyx_n_u_nodes); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_xD, __pyx_n_u_nodes); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 130, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_7);
-  PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_7);
+  PyTuple_SET_ITEM(__pyx_t_7, 2, __pyx_t_6);
+  __pyx_t_4 = 0;
   __pyx_t_5 = 0;
   __pyx_t_6 = 0;
+  __pyx_r = ((PyObject*)__pyx_t_7);
   __pyx_t_7 = 0;
-  __pyx_r = ((PyObject*)__pyx_t_8);
-  __pyx_t_8 = 0;
   goto __pyx_L0;
 
   /* "search.pyx":125
  *     return return_value
  * 
- * cpdef tuple search(board.Board b, d: int):             # <<<<<<<<<<<<<<
+ * cpdef tuple search(board.Board b, int d):             # <<<<<<<<<<<<<<
  *     global TRANSPOSITION_TABLE
  *     TRANSPOSITION_TABLE.clear()
  */
 
   /* function exit code */
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("search.search", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
@@ -2202,7 +2197,7 @@ static PyObject *__pyx_f_6search_search(struct __pyx_obj_5board_Board *__pyx_v_b
 static PyObject *__pyx_pw_6search_1search(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyObject *__pyx_pw_6search_1search(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_5board_Board *__pyx_v_b = 0;
-  PyObject *__pyx_v_d = 0;
+  int __pyx_v_d;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("search (wrapper)", 0);
@@ -2242,7 +2237,7 @@ static PyObject *__pyx_pw_6search_1search(PyObject *__pyx_self, PyObject *__pyx_
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_b = ((struct __pyx_obj_5board_Board *)values[0]);
-    __pyx_v_d = values[1];
+    __pyx_v_d = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_d == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 125, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -2264,7 +2259,7 @@ static PyObject *__pyx_pw_6search_1search(PyObject *__pyx_self, PyObject *__pyx_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6search_search(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5board_Board *__pyx_v_b, PyObject *__pyx_v_d) {
+static PyObject *__pyx_pf_6search_search(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_5board_Board *__pyx_v_b, int __pyx_v_d) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2820,7 +2815,7 @@ static int __Pyx_modinit_function_import_code(void) {
   if (__Pyx_ImportFunction(__pyx_t_1, "split_bitboard", (void (**)(void))&__pyx_f_5board_split_bitboard, "__pyx_t_5board_bit_list (__pyx_t_5board_bitboard const &, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_2 = PyImport_ImportModule("evaluate"); if (!__pyx_t_2) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportFunction(__pyx_t_2, "evaluate", (void (**)(void))&__pyx_f_8evaluate_evaluate, "int (struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_2, "evaluate", (void (**)(void))&__pyx_f_8evaluate_evaluate, "int (struct __pyx_obj_5board_Board *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -3278,7 +3273,7 @@ if (!__Pyx_RefNanny) {
  * 
  * cdef tt_value _negamax(board.Board b, const int& d,
  *                        int alpha = -INFINITY, int beta = INFINITY,             # <<<<<<<<<<<<<<
- *                        int c = board.YELLOW):
+ *                        int c = board.YELLOW) nogil:
  *     """
  */
   __pyx_k_ = (-__pyx_v_6search_INFINITY);
@@ -3287,7 +3282,7 @@ if (!__Pyx_RefNanny) {
   /* "search.pyx":69
  * cdef tt_value _negamax(board.Board b, const int& d,
  *                        int alpha = -INFINITY, int beta = INFINITY,
- *                        int c = board.YELLOW):             # <<<<<<<<<<<<<<
+ *                        int c = board.YELLOW) nogil:             # <<<<<<<<<<<<<<
  *     """
  *     implementation of negamax search algorithm with alpha-beta pruning.
  */

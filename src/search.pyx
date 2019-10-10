@@ -66,7 +66,7 @@ cdef void order_moves(board.bit_list& moves_list) nogil:
 
 cdef tt_value _negamax(board.Board b, const int& d,
                        int alpha = -INFINITY, int beta = INFINITY,
-                       int c = board.YELLOW):
+                       int c = board.YELLOW) nogil:
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
@@ -122,7 +122,7 @@ cdef tt_value _negamax(board.Board b, const int& d,
 
     return return_value
 
-cpdef tuple search(board.Board b, d: int):
+cpdef tuple search(board.Board b, int d):
     global TRANSPOSITION_TABLE
     TRANSPOSITION_TABLE.clear()
 

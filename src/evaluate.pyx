@@ -46,7 +46,7 @@ for k, v in _temp_piece_table.items():
     PIECE_TABLE.push_back(pair)
 
 # define utility functions here.
-cdef int popcount(board.bitboard b):
+cdef int popcount(board.bitboard b) nogil:
     """
     counts the number of bits in bitboard `b`.
     :param b: bitboard to count
@@ -60,7 +60,7 @@ cdef int popcount(board.bitboard b):
     return n
 
 # main evaluation function
-cpdef int evaluate(board.Board b):
+cdef int evaluate(board.Board b) nogil:
     if b.game_result != board.UNKNOWN:
         return b.game_result * 4200
 

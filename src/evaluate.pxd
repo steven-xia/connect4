@@ -2,4 +2,5 @@
 
 cimport board
 
-cpdef int evaluate(board.Board b)
+cdef int popcount(board.bitboard b) nogil
+cdef int evaluate(board.Board b) nogil
