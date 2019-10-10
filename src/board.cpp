@@ -878,7 +878,7 @@ struct __pyx_obj_5board___pyx_scope_struct_1_genexpr;
 typedef std::vector<unsigned PY_LONG_LONG>  __pyx_t_5board_bit_list;
 
 /* "board.pxd":16
- * cpdef bit_list split_bitboard(const bitboard& b) nogil
+ * cdef bit_list split_bitboard(const bitboard& b) nogil
  * 
  * cdef class Board(object):             # <<<<<<<<<<<<<<
  *     cdef public bitboard yellow_bitboard, red_bitboard
@@ -1522,7 +1522,7 @@ static int __pyx_v_5board__unknown;
 static int __pyx_v_5board__draw;
 static PyObject *__pyx_8genexpr2__pyx_v_5board_i;
 static __pyx_t_5board_bitboard __pyx_f_5board_shift(__pyx_t_5board_bitboard const &, int const &); /*proto*/
-static __pyx_t_5board_bit_list __pyx_f_5board_split_bitboard(__pyx_t_5board_bitboard const &, int __pyx_skip_dispatch); /*proto*/
+static __pyx_t_5board_bit_list __pyx_f_5board_split_bitboard(__pyx_t_5board_bitboard const &); /*proto*/
 static PyObject *__pyx_f_5board___pyx_unpickle_Board__set_state(struct __pyx_obj_5board_Board *, PyObject *); /*proto*/
 static PyObject *__pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(const std::vector<unsigned PY_LONG_LONG>  &); /*proto*/
 static std::vector<unsigned PY_LONG_LONG>  __pyx_convert_vector_from_py_unsigned_PY_LONG_LONG(PyObject *); /*proto*/
@@ -1656,8 +1656,7 @@ static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_ybb;
 static PyObject *__pyx_pf_5board_7genexpr_genexpr(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5board_2genexpr(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_5board_split_bitboard(CYTHON_UNUSED PyObject *__pyx_self, __pyx_t_5board_bitboard __pyx_v_b); /* proto */
+static PyObject *__pyx_pf_5board_genexpr(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
 static int __pyx_pf_5board_5Board___init__(struct __pyx_obj_5board_Board *__pyx_v_self, __pyx_t_5board_bitboard __pyx_v_ybb, __pyx_t_5board_bitboard __pyx_v_rbb, int __pyx_v_t); /* proto */
 static PyObject *__pyx_pf_5board_5Board_2__copy__(struct __pyx_obj_5board_Board *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5board_5Board_4__deepcopy__(struct __pyx_obj_5board_Board *__pyx_v_self); /* proto */
@@ -1674,7 +1673,7 @@ static int __pyx_pf_5board_5Board_11game_result_2__set__(struct __pyx_obj_5board
 static PyObject *__pyx_pf_5board_5Board_10past_moves___get__(struct __pyx_obj_5board_Board *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5board_5Board_6__reduce_cython__(struct __pyx_obj_5board_Board *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_5board_5Board_8__setstate_cython__(struct __pyx_obj_5board_Board *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_5board_5__pyx_unpickle_Board(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_5board_3__pyx_unpickle_Board(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_5board_Board(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_5board___pyx_scope_struct__genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_5board___pyx_scope_struct_1_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1686,7 +1685,7 @@ static int __pyx_k_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_codeobj__3;
 /* Late includes */
-static PyObject *__pyx_gb_5board_4generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_5board_2generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 static PyObject *__pyx_gb_5board_7genexpr_2generator1(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
 /* "board.pyx":29
@@ -1790,7 +1789,7 @@ static PyObject *__pyx_gb_5board_7genexpr_2generator1(__pyx_CoroutineObject *__p
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5board_2genexpr(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_5board_genexpr(CYTHON_UNUSED PyObject *__pyx_self) {
   struct __pyx_obj_5board___pyx_scope_struct__genexpr *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1804,7 +1803,7 @@ static PyObject *__pyx_pf_5board_2genexpr(CYTHON_UNUSED PyObject *__pyx_self) {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_5board_4generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_board); if (unlikely(!gen)) __PYX_ERR(0, 29, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_5board_2generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_board); if (unlikely(!gen)) __PYX_ERR(0, 29, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -1820,7 +1819,7 @@ static PyObject *__pyx_pf_5board_2genexpr(CYTHON_UNUSED PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_5board_4generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_5board_2generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_5board___pyx_scope_struct__genexpr *__pyx_cur_scope = ((struct __pyx_obj_5board___pyx_scope_struct__genexpr *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -1967,7 +1966,7 @@ static __pyx_t_5board_bitboard __pyx_f_5board_shift(__pyx_t_5board_bitboard cons
  * 
  *     return b << d             # <<<<<<<<<<<<<<
  * 
- * cpdef bit_list split_bitboard(const bitboard& b) nogil:
+ * cdef bit_list split_bitboard(const bitboard& b) nogil:
  */
   __pyx_r = (__pyx_v_b << __pyx_v_d);
   goto __pyx_L0;
@@ -1988,13 +1987,12 @@ static __pyx_t_5board_bitboard __pyx_f_5board_shift(__pyx_t_5board_bitboard cons
 /* "board.pyx":59
  *     return b << d
  * 
- * cpdef bit_list split_bitboard(const bitboard& b) nogil:             # <<<<<<<<<<<<<<
+ * cdef bit_list split_bitboard(const bitboard& b) nogil:             # <<<<<<<<<<<<<<
  *     """
  *     returns a list of the possible moves from the given bitboards.
  */
 
-static PyObject *__pyx_pw_5board_1split_bitboard(PyObject *__pyx_self, PyObject *__pyx_arg_b); /*proto*/
-static __pyx_t_5board_bit_list __pyx_f_5board_split_bitboard(__pyx_t_5board_bitboard const &__pyx_v_b, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static __pyx_t_5board_bit_list __pyx_f_5board_split_bitboard(__pyx_t_5board_bitboard const &__pyx_v_b) {
   __pyx_t_5board_bit_list __pyx_v_moves;
   __pyx_t_5board_bitboard __pyx_v_bit;
   __pyx_t_5board_bitboard __pyx_v_x;
@@ -2096,7 +2094,7 @@ static __pyx_t_5board_bit_list __pyx_f_5board_split_bitboard(__pyx_t_5board_bitb
   /* "board.pyx":59
  *     return b << d
  * 
- * cpdef bit_list split_bitboard(const bitboard& b) nogil:             # <<<<<<<<<<<<<<
+ * cdef bit_list split_bitboard(const bitboard& b) nogil:             # <<<<<<<<<<<<<<
  *     """
  *     returns a list of the possible moves from the given bitboards.
  */
@@ -2106,53 +2104,6 @@ static __pyx_t_5board_bit_list __pyx_f_5board_split_bitboard(__pyx_t_5board_bitb
   __Pyx_WriteUnraisable("board.split_bitboard", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 1);
   __Pyx_pretend_to_initialize(&__pyx_r);
   __pyx_L0:;
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_5board_1split_bitboard(PyObject *__pyx_self, PyObject *__pyx_arg_b); /*proto*/
-static char __pyx_doc_5board_split_bitboard[] = "\n    returns a list of the possible moves from the given bitboards.\n    :param b: bitboard to break down into individual moves.\n    :return: list of all moves\n    ";
-static PyObject *__pyx_pw_5board_1split_bitboard(PyObject *__pyx_self, PyObject *__pyx_arg_b) {
-  __pyx_t_5board_bitboard __pyx_v_b;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("split_bitboard (wrapper)", 0);
-  assert(__pyx_arg_b); {
-    __pyx_v_b = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_arg_b); if (unlikely((__pyx_v_b == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("board.split_bitboard", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5board_split_bitboard(__pyx_self, ((__pyx_t_5board_bitboard)__pyx_v_b));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_5board_split_bitboard(CYTHON_UNUSED PyObject *__pyx_self, __pyx_t_5board_bitboard __pyx_v_b) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("split_bitboard", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_f_5board_split_bitboard(__pyx_v_b, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("board.split_bitboard", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
@@ -3788,9 +3739,9 @@ static PyObject *__pyx_pf_5board_5Board_8__setstate_cython__(struct __pyx_obj_5b
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5board_6__pyx_unpickle_Board(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5board_6__pyx_unpickle_Board = {"__pyx_unpickle_Board", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5board_6__pyx_unpickle_Board, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5board_6__pyx_unpickle_Board(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5board_4__pyx_unpickle_Board(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5board_4__pyx_unpickle_Board = {"__pyx_unpickle_Board", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5board_4__pyx_unpickle_Board, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5board_4__pyx_unpickle_Board(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
@@ -3853,14 +3804,14 @@ static PyObject *__pyx_pw_5board_6__pyx_unpickle_Board(PyObject *__pyx_self, PyO
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5board_5__pyx_unpickle_Board(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_5board_3__pyx_unpickle_Board(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5board_5__pyx_unpickle_Board(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_5board_3__pyx_unpickle_Board(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -4814,7 +4765,6 @@ static PyTypeObject __pyx_type_5board___pyx_scope_struct_1_genexpr = {
 };
 
 static PyMethodDef __pyx_methods[] = {
-  {"split_bitboard", (PyCFunction)__pyx_pw_5board_1split_bitboard, METH_O, __pyx_doc_5board_split_bitboard},
   {0, 0, 0, 0}
 };
 
@@ -5012,7 +4962,7 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
   if (__Pyx_ExportFunction("shift", (void (*)(void))__pyx_f_5board_shift, "__pyx_t_5board_bitboard (__pyx_t_5board_bitboard const &, int const &)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ExportFunction("split_bitboard", (void (*)(void))__pyx_f_5board_split_bitboard, "__pyx_t_5board_bit_list (__pyx_t_5board_bitboard const &, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportFunction("split_bitboard", (void (*)(void))__pyx_f_5board_split_bitboard, "__pyx_t_5board_bit_list (__pyx_t_5board_bitboard const &)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5388,7 +5338,7 @@ if (!__Pyx_RefNanny) {
  * )
  * 
  */
-  __pyx_t_1 = __pyx_pf_5board_2genexpr(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = __pyx_pf_5board_genexpr(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
   /* "board.pyx":28
@@ -5572,7 +5522,7 @@ if (!__Pyx_RefNanny) {
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_3 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_t_2); if (unlikely((__pyx_t_3 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_f_5board_split_bitboard(__pyx_t_3, 0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
+    __pyx_t_2 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_f_5board_split_bitboard(__pyx_t_3)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
@@ -5593,7 +5543,7 @@ if (!__Pyx_RefNanny) {
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_5 = PyCFunction_NewEx(&__pyx_mdef_5board_6__pyx_unpickle_Board, NULL, __pyx_n_s_board); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_t_5 = PyCFunction_NewEx(&__pyx_mdef_5board_4__pyx_unpickle_Board, NULL, __pyx_n_s_board); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Board, __pyx_t_5) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;

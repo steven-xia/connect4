@@ -877,7 +877,7 @@ struct __pyx_t_8evaluate_bits_score_pair {
 };
 
 /* "board.pxd":16
- * cpdef bit_list split_bitboard(const bitboard& b) nogil
+ * cdef bit_list split_bitboard(const bitboard& b) nogil
  * 
  * cdef class Board(object):             # <<<<<<<<<<<<<<
  *     cdef public bitboard yellow_bitboard, red_bitboard

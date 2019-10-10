@@ -56,7 +56,7 @@ cdef bitboard shift(const bitboard& b, const int& d) nogil:
 
     return b << d
 
-cpdef bit_list split_bitboard(const bitboard& b) nogil:
+cdef bit_list split_bitboard(const bitboard& b) nogil:
     """
     returns a list of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.

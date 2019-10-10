@@ -896,7 +896,7 @@ struct __pyx_opt_args_6search__negamax {
 };
 
 /* "board.pxd":16
- * cpdef bit_list split_bitboard(const bitboard& b) nogil
+ * cdef bit_list split_bitboard(const bitboard& b) nogil
  * 
  * cdef class Board(object):             # <<<<<<<<<<<<<<
  *     cdef public bitboard yellow_bitboard, red_bitboard
@@ -1408,7 +1408,7 @@ static __pyx_t_5board_bitboard *__pyx_vp_5board_FULL_BOARD = 0;
 #define __pyx_v_5board_FULL_BOARD (*__pyx_vp_5board_FULL_BOARD)
 static __pyx_t_5board_bit_list *__pyx_vp_5board_BIT_LIST = 0;
 #define __pyx_v_5board_BIT_LIST (*__pyx_vp_5board_BIT_LIST)
-static __pyx_t_5board_bit_list (*__pyx_f_5board_split_bitboard)(__pyx_t_5board_bitboard const &, int __pyx_skip_dispatch); /*proto*/
+static __pyx_t_5board_bit_list (*__pyx_f_5board_split_bitboard)(__pyx_t_5board_bitboard const &); /*proto*/
 
 /* Module declarations from 'evaluate' */
 static int (*__pyx_f_8evaluate_evaluate)(struct __pyx_obj_5board_Board *); /*proto*/
@@ -1876,7 +1876,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
  *     order_moves(legal_moves)
  * 
  */
-  __pyx_v_legal_moves = __pyx_f_5board_split_bitboard(((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->get_legal_moves(__pyx_v_b), 0);
+  __pyx_v_legal_moves = __pyx_f_5board_split_bitboard(((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->get_legal_moves(__pyx_v_b));
 
   /* "search.pyx":97
  *     return_value.nodes = 0
@@ -2812,7 +2812,7 @@ static int __Pyx_modinit_function_import_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_import_code", 0);
   /*--- Function import code ---*/
   __pyx_t_1 = PyImport_ImportModule("board"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportFunction(__pyx_t_1, "split_bitboard", (void (**)(void))&__pyx_f_5board_split_bitboard, "__pyx_t_5board_bit_list (__pyx_t_5board_bitboard const &, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_1, "split_bitboard", (void (**)(void))&__pyx_f_5board_split_bitboard, "__pyx_t_5board_bit_list (__pyx_t_5board_bitboard const &)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_2 = PyImport_ImportModule("evaluate"); if (!__pyx_t_2) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportFunction(__pyx_t_2, "evaluate", (void (**)(void))&__pyx_f_8evaluate_evaluate, "int (struct __pyx_obj_5board_Board *)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)

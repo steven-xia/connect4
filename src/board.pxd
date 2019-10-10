@@ -11,7 +11,7 @@ cdef bitboard ONE, EMPTY_BOARD, FULL_BOARD
 cdef bit_list BIT_LIST
 
 cdef bitboard shift(const bitboard& b, const int& d) nogil
-cpdef bit_list split_bitboard(const bitboard& b) nogil
+cdef bit_list split_bitboard(const bitboard& b) nogil
 
 cdef class Board(object):
     cdef public bitboard yellow_bitboard, red_bitboard
