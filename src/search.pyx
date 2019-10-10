@@ -7,6 +7,7 @@ file: search.py
 description: contains code for the search implementation.
 """
 
+from libcpp.algorithm cimport sort
 from libcpp.unordered_map cimport unordered_map
 from libcpp.vector cimport vector
 
@@ -40,7 +41,8 @@ for i in range(49):
         int(random.random() * max_long)
     ])
 
-cdef unsigned long long hash_key(board.bitboard ybb, board.bitboard rbb):
+cdef unsigned long long hash_key(const board.bitboard& ybb,
+                                 const board.bitboard& rbb) nogil:
     cdef unsigned long long h = 0
     cdef board.bitboard p = ybb | rbb
 
@@ -56,10 +58,13 @@ cdef unsigned long long hash_key(board.bitboard ybb, board.bitboard rbb):
 
     return h
 
-cdef list order_moves(list moves_list):
-    return sorted(moves_list, key=lambda m: MOVES_LOOKUP[m], reverse=True)
+cdef int sort_comp(const board.bitboard& b1, const board.bitboard& b2) nogil:
+    return MOVES_LOOKUP[b1] > MOVES_LOOKUP[b2]
 
-cdef tt_value _negamax(board.Board b, int d,
+cdef void order_moves(board.bit_list& moves_list) nogil:
+    sort(moves_list.begin(), moves_list.end(), sort_comp)
+
+cdef tt_value _negamax(board.Board b, const int& d,
                        int alpha = -INFINITY, int beta = INFINITY,
                        int c = board.YELLOW):
     """
@@ -88,11 +93,13 @@ cdef tt_value _negamax(board.Board b, int d,
     return_value.score = -INFINITY
     return_value.best_move = 0
     return_value.nodes = 0
-    cdef list legal_moves = board.split_bitboard(b.get_legal_moves())
+    cdef board.bit_list legal_moves = board.split_bitboard(b.get_legal_moves())
+    order_moves(legal_moves)
 
+    cdef board.bitboard move
     cdef int child_score
     cdef tt_value child_return_value
-    for move in order_moves(legal_moves):
+    for move in legal_moves:
         b.make_move(move)
         child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)
         b.undo_move()

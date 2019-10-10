@@ -46,7 +46,7 @@ cdef int DOWN_RIGHT = DOWN + RIGHT
 cdef int DOWN_LEFT = DOWN + LEFT
 
 # define utility functions here.
-cdef bitboard shift(const bitboard b, const int d):
+cdef bitboard shift(const bitboard& b, const int& d) nogil:
     """
     returns a copy of the bitboard `b` after shifting by direction `d`.
     :param b: the bitboard to shift
@@ -56,14 +56,14 @@ cdef bitboard shift(const bitboard b, const int d):
 
     return b << d
 
-cpdef bit_list split_bitboard(const bitboard b):
+cpdef bit_list split_bitboard(const bitboard& b) nogil:
     """
     returns a list of the possible moves from the given bitboards.
     :param b: bitboard to break down into individual moves.
     :return: list of all moves
     """
 
-    cdef bit_list moves = []
+    cdef bit_list moves
     moves.reserve(7)
 
     cdef bitboard bit, x
@@ -102,7 +102,7 @@ cdef class Board(object):
     def __deepcopy__(self):
         return self.__copy__()
 
-    cpdef bitboard get_legal_moves(self):
+    cdef bitboard get_legal_moves(self) nogil:
         """
         generates all legal moves from the current board position.
         :return: bitboard representation of all legal moves
@@ -111,7 +111,7 @@ cdef class Board(object):
         cdef bitboard pieces = self.yellow_bitboard | self.red_bitboard | EMPTY_BOARD
         return shift(pieces, UP) & (~pieces)
 
-    cpdef int is_game_over(self):
+    cdef int is_game_over(self) nogil:
         """
         checks whether or not the current game position is over.
         :return: whether the game is over
@@ -168,7 +168,7 @@ cdef class Board(object):
         self.game_result = _unknown
         return False
 
-    cpdef void make_move(self, const bitboard m):
+    cdef void make_move(self, const bitboard& m) nogil:
         """
         makes a move on the current game position.
         :param m: bitboard representation of the move.
@@ -185,7 +185,7 @@ cdef class Board(object):
             self.red_bitboard += m
             self.turn = _yellow
 
-    cpdef void undo_move(self):
+    cdef void undo_move(self) nogil:
         """
         undoes a move from the current game state.
         :return: None

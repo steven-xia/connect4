@@ -877,7 +877,7 @@ struct __pyx_t_8evaluate_bits_score_pair {
 };
 
 /* "board.pxd":16
- * cpdef bit_list split_bitboard(const bitboard b)
+ * cpdef bit_list split_bitboard(const bitboard& b) nogil
  * 
  * cdef class Board(object):             # <<<<<<<<<<<<<<
  *     cdef public bitboard yellow_bitboard, red_bitboard
@@ -897,10 +897,10 @@ struct __pyx_obj_5board_Board {
 
 
 struct __pyx_vtabstruct_5board_Board {
-  __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
-  int (*is_game_over)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
-  void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const , int __pyx_skip_dispatch);
-  void (*undo_move)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
+  __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *);
+  int (*is_game_over)(struct __pyx_obj_5board_Board *);
+  void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
+  void (*undo_move)(struct __pyx_obj_5board_Board *);
 };
 static struct __pyx_vtabstruct_5board_Board *__pyx_vtabptr_5board_Board;
 
