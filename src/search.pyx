@@ -96,10 +96,13 @@ cdef tt_value _negamax(board.Board b, const int& d,
     cdef board.bit_list legal_moves = board.split_bitboard(b.get_legal_moves())
     order_moves(legal_moves)
 
+    cdef int move_index
     cdef board.bitboard move
     cdef int child_score
     cdef tt_value child_return_value
-    for move in legal_moves:
+    for move_index in range(legal_moves.size()):
+        move = legal_moves[move_index]
+
         b.make_move(move)
         child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)
         b.undo_move()
