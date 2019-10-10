@@ -71,7 +71,6 @@ cdef int evaluate(board.Board b) nogil:
     else:
         score -= TEMPO_VALUE
 
-    cdef int s
     cdef board.bitboard bits
     cdef bits_score_pair pair
     for pair in PIECE_TABLE:

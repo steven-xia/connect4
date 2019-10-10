@@ -1636,14 +1636,14 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  *     else:
  *         score -= TEMPO_VALUE             # <<<<<<<<<<<<<<
  * 
- *     cdef int s
+ *     cdef board.bitboard bits
  */
   /*else*/ {
     __pyx_v_score = (__pyx_v_score - __pyx_v_8evaluate_TEMPO_VALUE);
   }
   __pyx_L4:;
 
-  /* "evaluate.pyx":77
+  /* "evaluate.pyx":76
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1657,7 +1657,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
     ++__pyx_t_2;
     __pyx_v_pair = __pyx_t_3;
 
-    /* "evaluate.pyx":78
+    /* "evaluate.pyx":77
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1666,7 +1666,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score + (__pyx_f_8evaluate_popcount((__pyx_v_b->yellow_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":79
+    /* "evaluate.pyx":78
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1675,7 +1675,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score - (__pyx_f_8evaluate_popcount((__pyx_v_b->red_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":77
+    /* "evaluate.pyx":76
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1684,7 +1684,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
   }
 
-  /* "evaluate.pyx":81
+  /* "evaluate.pyx":80
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score
  * 
  *     return score             # <<<<<<<<<<<<<<
