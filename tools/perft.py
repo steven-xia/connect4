@@ -9,7 +9,6 @@ import sys
 import time
 
 import board
-import evaluate
 import search
 
 
@@ -74,7 +73,7 @@ if __name__ == "__main__":
         sys.stdout.write("\n")
         sys.stdout.flush()
 
-        max_depth = 13
+        max_depth = 14
 
         for depth in range(max_depth):
             start_time = time.time()
