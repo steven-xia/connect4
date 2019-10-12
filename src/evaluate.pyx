@@ -65,6 +65,8 @@ cdef int evaluate(board.Board b) nogil:
         return 4200 - popcount(b.yellow_bitboard)
     if b.game_result == board.RED:
         return -4200 + popcount(b.red_bitboard)
+    if b.game_result == board.DRAW:
+        return 0
 
     cdef int score = 0
 

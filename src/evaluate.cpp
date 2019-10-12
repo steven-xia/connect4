@@ -1601,7 +1601,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  *         return 4200 - popcount(b.yellow_bitboard)
  *     if b.game_result == board.RED:             # <<<<<<<<<<<<<<
  *         return -4200 + popcount(b.red_bitboard)
- * 
+ *     if b.game_result == board.DRAW:
  */
   __pyx_t_1 = ((__pyx_v_b->game_result == __pyx_v_5board_RED) != 0);
   if (__pyx_t_1) {
@@ -1610,8 +1610,8 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  *         return 4200 - popcount(b.yellow_bitboard)
  *     if b.game_result == board.RED:
  *         return -4200 + popcount(b.red_bitboard)             # <<<<<<<<<<<<<<
- * 
- *     cdef int score = 0
+ *     if b.game_result == board.DRAW:
+ *         return 0
  */
     __pyx_r = (-4200L + __pyx_f_8evaluate_popcount(__pyx_v_b->red_bitboard));
     goto __pyx_L0;
@@ -1621,12 +1621,41 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  *         return 4200 - popcount(b.yellow_bitboard)
  *     if b.game_result == board.RED:             # <<<<<<<<<<<<<<
  *         return -4200 + popcount(b.red_bitboard)
+ *     if b.game_result == board.DRAW:
+ */
+  }
+
+  /* "evaluate.pyx":68
+ *     if b.game_result == board.RED:
+ *         return -4200 + popcount(b.red_bitboard)
+ *     if b.game_result == board.DRAW:             # <<<<<<<<<<<<<<
+ *         return 0
+ * 
+ */
+  __pyx_t_1 = ((__pyx_v_b->game_result == __pyx_v_5board_DRAW) != 0);
+  if (__pyx_t_1) {
+
+    /* "evaluate.pyx":69
+ *         return -4200 + popcount(b.red_bitboard)
+ *     if b.game_result == board.DRAW:
+ *         return 0             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int score = 0
+ */
+    __pyx_r = 0;
+    goto __pyx_L0;
+
+    /* "evaluate.pyx":68
+ *     if b.game_result == board.RED:
+ *         return -4200 + popcount(b.red_bitboard)
+ *     if b.game_result == board.DRAW:             # <<<<<<<<<<<<<<
+ *         return 0
  * 
  */
   }
 
-  /* "evaluate.pyx":69
- *         return -4200 + popcount(b.red_bitboard)
+  /* "evaluate.pyx":71
+ *         return 0
  * 
  *     cdef int score = 0             # <<<<<<<<<<<<<<
  * 
@@ -1634,7 +1663,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
   __pyx_v_score = 0;
 
-  /* "evaluate.pyx":71
+  /* "evaluate.pyx":73
  *     cdef int score = 0
  * 
  *     if b.turn == board.YELLOW:             # <<<<<<<<<<<<<<
@@ -1644,7 +1673,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
   __pyx_t_1 = ((__pyx_v_b->turn == __pyx_v_5board_YELLOW) != 0);
   if (__pyx_t_1) {
 
-    /* "evaluate.pyx":72
+    /* "evaluate.pyx":74
  * 
  *     if b.turn == board.YELLOW:
  *         score += TEMPO_VALUE             # <<<<<<<<<<<<<<
@@ -1653,17 +1682,17 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score + __pyx_v_8evaluate_TEMPO_VALUE);
 
-    /* "evaluate.pyx":71
+    /* "evaluate.pyx":73
  *     cdef int score = 0
  * 
  *     if b.turn == board.YELLOW:             # <<<<<<<<<<<<<<
  *         score += TEMPO_VALUE
  *     else:
  */
-    goto __pyx_L5;
+    goto __pyx_L6;
   }
 
-  /* "evaluate.pyx":74
+  /* "evaluate.pyx":76
  *         score += TEMPO_VALUE
  *     else:
  *         score -= TEMPO_VALUE             # <<<<<<<<<<<<<<
@@ -1673,9 +1702,9 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
   /*else*/ {
     __pyx_v_score = (__pyx_v_score - __pyx_v_8evaluate_TEMPO_VALUE);
   }
-  __pyx_L5:;
+  __pyx_L6:;
 
-  /* "evaluate.pyx":78
+  /* "evaluate.pyx":80
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1689,7 +1718,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
     ++__pyx_t_2;
     __pyx_v_pair = __pyx_t_3;
 
-    /* "evaluate.pyx":79
+    /* "evaluate.pyx":81
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1698,7 +1727,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score + (__pyx_f_8evaluate_popcount((__pyx_v_b->yellow_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":80
+    /* "evaluate.pyx":82
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1707,7 +1736,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score - (__pyx_f_8evaluate_popcount((__pyx_v_b->red_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":78
+    /* "evaluate.pyx":80
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1716,7 +1745,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
   }
 
-  /* "evaluate.pyx":82
+  /* "evaluate.pyx":84
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score
  * 
  *     return score             # <<<<<<<<<<<<<<
