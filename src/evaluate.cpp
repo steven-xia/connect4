@@ -899,8 +899,9 @@ struct __pyx_obj_5board_Board {
 struct __pyx_vtabstruct_5board_Board {
   __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *);
   int (*is_game_over)(struct __pyx_obj_5board_Board *);
-  void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
+  void (*cmake_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
   void (*undo_move)(struct __pyx_obj_5board_Board *);
+  void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const , int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5board_Board *__pyx_vtabptr_5board_Board;
 

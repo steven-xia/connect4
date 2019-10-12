@@ -168,7 +168,7 @@ cdef class Board(object):
         self.game_result = _unknown
         return False
 
-    cdef void make_move(self, const bitboard& m) nogil:
+    cdef void cmake_move(self, const bitboard& m) nogil:
         """
         makes a move on the current game position.
         :param m: bitboard representation of the move.
@@ -184,6 +184,9 @@ cdef class Board(object):
         else:
             self.red_bitboard += m
             self.turn = _yellow
+
+    cpdef void make_move(self, const bitboard m):
+        self.cmake_move(m)
 
     cdef void undo_move(self) nogil:
         """

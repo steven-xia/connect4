@@ -103,7 +103,7 @@ cdef tt_value _negamax(board.Board b, const int& d,
     for move_index in range(legal_moves.size()):
         move = legal_moves[move_index]
 
-        b.make_move(move)
+        b.cmake_move(move)
         child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)
         b.undo_move()
 

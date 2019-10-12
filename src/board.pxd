@@ -20,5 +20,7 @@ cdef class Board(object):
 
     cdef bitboard get_legal_moves(self) nogil
     cdef int is_game_over(self) nogil
-    cdef void make_move(self, const bitboard& m) nogil
+    cdef void cmake_move(self, const bitboard& m) nogil
     cdef void undo_move(self) nogil
+
+    cpdef void make_move(self, const bitboard m)

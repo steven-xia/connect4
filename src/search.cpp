@@ -918,8 +918,9 @@ struct __pyx_obj_5board_Board {
 struct __pyx_vtabstruct_5board_Board {
   __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *);
   int (*is_game_over)(struct __pyx_obj_5board_Board *);
-  void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
+  void (*cmake_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
   void (*undo_move)(struct __pyx_obj_5board_Board *);
+  void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const , int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5board_Board *__pyx_vtabptr_5board_Board;
 
@@ -1904,22 +1905,22 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
  *     for move_index in range(legal_moves.size()):
  *         move = legal_moves[move_index]             # <<<<<<<<<<<<<<
  * 
- *         b.make_move(move)
+ *         b.cmake_move(move)
  */
     __pyx_v_move = (__pyx_v_legal_moves[__pyx_v_move_index]);
 
     /* "search.pyx":106
  *         move = legal_moves[move_index]
  * 
- *         b.make_move(move)             # <<<<<<<<<<<<<<
+ *         b.cmake_move(move)             # <<<<<<<<<<<<<<
  *         child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)
  *         b.undo_move()
  */
-    ((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->make_move(__pyx_v_b, __pyx_v_move);
+    ((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->cmake_move(__pyx_v_b, __pyx_v_move);
 
     /* "search.pyx":107
  * 
- *         b.make_move(move)
+ *         b.cmake_move(move)
  *         child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)             # <<<<<<<<<<<<<<
  *         b.undo_move()
  * 
@@ -1932,7 +1933,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
     __pyx_v_child_return_value = __pyx_t_6;
 
     /* "search.pyx":108
- *         b.make_move(move)
+ *         b.cmake_move(move)
  *         child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)
  *         b.undo_move()             # <<<<<<<<<<<<<<
  * 
