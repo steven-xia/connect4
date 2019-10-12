@@ -102,7 +102,7 @@ cdef class Board(object):
     def __deepcopy__(self):
         return self.__copy__()
 
-    cdef bitboard get_legal_moves(self) nogil:
+    cdef bitboard cget_legal_moves(self) nogil:
         """
         generates all legal moves from the current board position.
         :return: bitboard representation of all legal moves
@@ -110,6 +110,9 @@ cdef class Board(object):
 
         cdef bitboard pieces = self.yellow_bitboard | self.red_bitboard | EMPTY_BOARD
         return shift(pieces, UP) & (~pieces)
+
+    cpdef bitboard get_legal_moves(self):
+        return self.cget_legal_moves()
 
     cdef int is_game_over(self) nogil:
         """

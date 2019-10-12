@@ -916,10 +916,11 @@ struct __pyx_obj_5board_Board {
 
 
 struct __pyx_vtabstruct_5board_Board {
-  __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *);
+  __pyx_t_5board_bitboard (*cget_legal_moves)(struct __pyx_obj_5board_Board *);
   int (*is_game_over)(struct __pyx_obj_5board_Board *);
   void (*cmake_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
   void (*undo_move)(struct __pyx_obj_5board_Board *);
+  __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
   void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const , int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5board_Board *__pyx_vtabptr_5board_Board;
@@ -1857,7 +1858,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
  *     return_value.score = -INFINITY
  *     return_value.best_move = 0             # <<<<<<<<<<<<<<
  *     return_value.nodes = 0
- *     cdef board.bit_list legal_moves = board.split_bitboard(b.get_legal_moves())
+ *     cdef board.bit_list legal_moves = board.split_bitboard(b.cget_legal_moves())
  */
   __pyx_v_return_value.best_move = 0;
 
@@ -1865,7 +1866,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
  *     return_value.score = -INFINITY
  *     return_value.best_move = 0
  *     return_value.nodes = 0             # <<<<<<<<<<<<<<
- *     cdef board.bit_list legal_moves = board.split_bitboard(b.get_legal_moves())
+ *     cdef board.bit_list legal_moves = board.split_bitboard(b.cget_legal_moves())
  *     order_moves(legal_moves)
  */
   __pyx_v_return_value.nodes = 0;
@@ -1873,15 +1874,15 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
   /* "search.pyx":96
  *     return_value.best_move = 0
  *     return_value.nodes = 0
- *     cdef board.bit_list legal_moves = board.split_bitboard(b.get_legal_moves())             # <<<<<<<<<<<<<<
+ *     cdef board.bit_list legal_moves = board.split_bitboard(b.cget_legal_moves())             # <<<<<<<<<<<<<<
  *     order_moves(legal_moves)
  * 
  */
-  __pyx_v_legal_moves = __pyx_f_5board_split_bitboard(((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->get_legal_moves(__pyx_v_b));
+  __pyx_v_legal_moves = __pyx_f_5board_split_bitboard(((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->cget_legal_moves(__pyx_v_b));
 
   /* "search.pyx":97
  *     return_value.nodes = 0
- *     cdef board.bit_list legal_moves = board.split_bitboard(b.get_legal_moves())
+ *     cdef board.bit_list legal_moves = board.split_bitboard(b.cget_legal_moves())
  *     order_moves(legal_moves)             # <<<<<<<<<<<<<<
  * 
  *     cdef int move_index

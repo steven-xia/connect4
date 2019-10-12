@@ -93,7 +93,7 @@ cdef tt_value _negamax(board.Board b, const int& d,
     return_value.score = -INFINITY
     return_value.best_move = 0
     return_value.nodes = 0
-    cdef board.bit_list legal_moves = board.split_bitboard(b.get_legal_moves())
+    cdef board.bit_list legal_moves = board.split_bitboard(b.cget_legal_moves())
     order_moves(legal_moves)
 
     cdef int move_index
