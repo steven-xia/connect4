@@ -114,7 +114,7 @@ cdef class Board(object):
     cpdef bitboard get_legal_moves(self):
         return self.cget_legal_moves()
 
-    cdef int is_game_over(self) nogil:
+    cdef int cis_game_over(self) nogil:
         """
         checks whether or not the current game position is over.
         :return: whether the game is over
@@ -170,6 +170,9 @@ cdef class Board(object):
 
         self.game_result = _unknown
         return False
+
+    cpdef int is_game_over(self):
+        return self.cis_game_over()
 
     cdef void cmake_move(self, const bitboard& m) nogil:
         """

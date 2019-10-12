@@ -917,10 +917,11 @@ struct __pyx_obj_5board_Board {
 
 struct __pyx_vtabstruct_5board_Board {
   __pyx_t_5board_bitboard (*cget_legal_moves)(struct __pyx_obj_5board_Board *);
-  int (*is_game_over)(struct __pyx_obj_5board_Board *);
+  int (*cis_game_over)(struct __pyx_obj_5board_Board *);
   void (*cmake_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
   void (*undo_move)(struct __pyx_obj_5board_Board *);
   __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
+  int (*is_game_over)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
   void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const , int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5board_Board *__pyx_vtabptr_5board_Board;
@@ -1783,7 +1784,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
   /* "search.pyx":87
  * 
  *     cdef tt_value return_value
- *     if not d or b.is_game_over():             # <<<<<<<<<<<<<<
+ *     if not d or b.cis_game_over():             # <<<<<<<<<<<<<<
  *         return_value.score = evaluate.evaluate(b) * c
  *         return_value.nodes = 1
  */
@@ -1793,14 +1794,14 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
     __pyx_t_1 = __pyx_t_2;
     goto __pyx_L5_bool_binop_done;
   }
-  __pyx_t_2 = (((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->is_game_over(__pyx_v_b) != 0);
+  __pyx_t_2 = (((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->cis_game_over(__pyx_v_b) != 0);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_1) {
 
     /* "search.pyx":88
  *     cdef tt_value return_value
- *     if not d or b.is_game_over():
+ *     if not d or b.cis_game_over():
  *         return_value.score = evaluate.evaluate(b) * c             # <<<<<<<<<<<<<<
  *         return_value.nodes = 1
  *         TRANSPOSITION_TABLE[key] = return_value
@@ -1808,7 +1809,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
     __pyx_v_return_value.score = (__pyx_f_8evaluate_evaluate(__pyx_v_b) * __pyx_v_c);
 
     /* "search.pyx":89
- *     if not d or b.is_game_over():
+ *     if not d or b.cis_game_over():
  *         return_value.score = evaluate.evaluate(b) * c
  *         return_value.nodes = 1             # <<<<<<<<<<<<<<
  *         TRANSPOSITION_TABLE[key] = return_value
@@ -1838,7 +1839,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
     /* "search.pyx":87
  * 
  *     cdef tt_value return_value
- *     if not d or b.is_game_over():             # <<<<<<<<<<<<<<
+ *     if not d or b.cis_game_over():             # <<<<<<<<<<<<<<
  *         return_value.score = evaluate.evaluate(b) * c
  *         return_value.nodes = 1
  */

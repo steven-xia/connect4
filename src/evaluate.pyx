@@ -61,8 +61,10 @@ cdef int popcount(board.bitboard b) nogil:
 
 # main evaluation function
 cdef int evaluate(board.Board b) nogil:
-    if b.game_result != board.UNKNOWN:
-        return b.game_result * 4200
+    if b.game_result == board.YELLOW:
+        return 4200 - popcount(b.yellow_bitboard)
+    if b.game_result == board.RED:
+        return -4200 + popcount(b.red_bitboard)
 
     cdef int score = 0
 

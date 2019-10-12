@@ -898,10 +898,11 @@ struct __pyx_obj_5board_Board {
 
 struct __pyx_vtabstruct_5board_Board {
   __pyx_t_5board_bitboard (*cget_legal_moves)(struct __pyx_obj_5board_Board *);
-  int (*is_game_over)(struct __pyx_obj_5board_Board *);
+  int (*cis_game_over)(struct __pyx_obj_5board_Board *);
   void (*cmake_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const &);
   void (*undo_move)(struct __pyx_obj_5board_Board *);
   __pyx_t_5board_bitboard (*get_legal_moves)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
+  int (*is_game_over)(struct __pyx_obj_5board_Board *, int __pyx_skip_dispatch);
   void (*make_move)(struct __pyx_obj_5board_Board *, __pyx_t_5board_bitboard const , int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5board_Board *__pyx_vtabptr_5board_Board;
@@ -1554,8 +1555,8 @@ static int __pyx_f_8evaluate_popcount(__pyx_t_5board_bitboard __pyx_v_b) {
  * 
  * # main evaluation function
  * cdef int evaluate(board.Board b) nogil:             # <<<<<<<<<<<<<<
- *     if b.game_result != board.UNKNOWN:
- *         return b.game_result * 4200
+ *     if b.game_result == board.YELLOW:
+ *         return 4200 - popcount(b.yellow_bitboard)
  */
 
 static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) {
@@ -1569,34 +1570,63 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
   /* "evaluate.pyx":64
  * # main evaluation function
  * cdef int evaluate(board.Board b) nogil:
- *     if b.game_result != board.UNKNOWN:             # <<<<<<<<<<<<<<
- *         return b.game_result * 4200
- * 
+ *     if b.game_result == board.YELLOW:             # <<<<<<<<<<<<<<
+ *         return 4200 - popcount(b.yellow_bitboard)
+ *     if b.game_result == board.RED:
  */
-  __pyx_t_1 = ((__pyx_v_b->game_result != __pyx_v_5board_UNKNOWN) != 0);
+  __pyx_t_1 = ((__pyx_v_b->game_result == __pyx_v_5board_YELLOW) != 0);
   if (__pyx_t_1) {
 
     /* "evaluate.pyx":65
  * cdef int evaluate(board.Board b) nogil:
- *     if b.game_result != board.UNKNOWN:
- *         return b.game_result * 4200             # <<<<<<<<<<<<<<
- * 
- *     cdef int score = 0
+ *     if b.game_result == board.YELLOW:
+ *         return 4200 - popcount(b.yellow_bitboard)             # <<<<<<<<<<<<<<
+ *     if b.game_result == board.RED:
+ *         return -4200 + popcount(b.red_bitboard)
  */
-    __pyx_r = (__pyx_v_b->game_result * 0x1068);
+    __pyx_r = (0x1068 - __pyx_f_8evaluate_popcount(__pyx_v_b->yellow_bitboard));
     goto __pyx_L0;
 
     /* "evaluate.pyx":64
  * # main evaluation function
  * cdef int evaluate(board.Board b) nogil:
- *     if b.game_result != board.UNKNOWN:             # <<<<<<<<<<<<<<
- *         return b.game_result * 4200
+ *     if b.game_result == board.YELLOW:             # <<<<<<<<<<<<<<
+ *         return 4200 - popcount(b.yellow_bitboard)
+ *     if b.game_result == board.RED:
+ */
+  }
+
+  /* "evaluate.pyx":66
+ *     if b.game_result == board.YELLOW:
+ *         return 4200 - popcount(b.yellow_bitboard)
+ *     if b.game_result == board.RED:             # <<<<<<<<<<<<<<
+ *         return -4200 + popcount(b.red_bitboard)
+ * 
+ */
+  __pyx_t_1 = ((__pyx_v_b->game_result == __pyx_v_5board_RED) != 0);
+  if (__pyx_t_1) {
+
+    /* "evaluate.pyx":67
+ *         return 4200 - popcount(b.yellow_bitboard)
+ *     if b.game_result == board.RED:
+ *         return -4200 + popcount(b.red_bitboard)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int score = 0
+ */
+    __pyx_r = (-4200L + __pyx_f_8evaluate_popcount(__pyx_v_b->red_bitboard));
+    goto __pyx_L0;
+
+    /* "evaluate.pyx":66
+ *     if b.game_result == board.YELLOW:
+ *         return 4200 - popcount(b.yellow_bitboard)
+ *     if b.game_result == board.RED:             # <<<<<<<<<<<<<<
+ *         return -4200 + popcount(b.red_bitboard)
  * 
  */
   }
 
-  /* "evaluate.pyx":67
- *         return b.game_result * 4200
+  /* "evaluate.pyx":69
+ *         return -4200 + popcount(b.red_bitboard)
  * 
  *     cdef int score = 0             # <<<<<<<<<<<<<<
  * 
@@ -1604,7 +1634,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
   __pyx_v_score = 0;
 
-  /* "evaluate.pyx":69
+  /* "evaluate.pyx":71
  *     cdef int score = 0
  * 
  *     if b.turn == board.YELLOW:             # <<<<<<<<<<<<<<
@@ -1614,7 +1644,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
   __pyx_t_1 = ((__pyx_v_b->turn == __pyx_v_5board_YELLOW) != 0);
   if (__pyx_t_1) {
 
-    /* "evaluate.pyx":70
+    /* "evaluate.pyx":72
  * 
  *     if b.turn == board.YELLOW:
  *         score += TEMPO_VALUE             # <<<<<<<<<<<<<<
@@ -1623,17 +1653,17 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score + __pyx_v_8evaluate_TEMPO_VALUE);
 
-    /* "evaluate.pyx":69
+    /* "evaluate.pyx":71
  *     cdef int score = 0
  * 
  *     if b.turn == board.YELLOW:             # <<<<<<<<<<<<<<
  *         score += TEMPO_VALUE
  *     else:
  */
-    goto __pyx_L4;
+    goto __pyx_L5;
   }
 
-  /* "evaluate.pyx":72
+  /* "evaluate.pyx":74
  *         score += TEMPO_VALUE
  *     else:
  *         score -= TEMPO_VALUE             # <<<<<<<<<<<<<<
@@ -1643,9 +1673,9 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
   /*else*/ {
     __pyx_v_score = (__pyx_v_score - __pyx_v_8evaluate_TEMPO_VALUE);
   }
-  __pyx_L4:;
+  __pyx_L5:;
 
-  /* "evaluate.pyx":76
+  /* "evaluate.pyx":78
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1659,7 +1689,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
     ++__pyx_t_2;
     __pyx_v_pair = __pyx_t_3;
 
-    /* "evaluate.pyx":77
+    /* "evaluate.pyx":79
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1668,7 +1698,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score + (__pyx_f_8evaluate_popcount((__pyx_v_b->yellow_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":78
+    /* "evaluate.pyx":80
  *     for pair in PIECE_TABLE:
  *         score += popcount(b.yellow_bitboard & pair.bits) * pair.score
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score             # <<<<<<<<<<<<<<
@@ -1677,7 +1707,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
     __pyx_v_score = (__pyx_v_score - (__pyx_f_8evaluate_popcount((__pyx_v_b->red_bitboard & __pyx_v_pair.bits)) * __pyx_v_pair.score));
 
-    /* "evaluate.pyx":76
+    /* "evaluate.pyx":78
  *     cdef board.bitboard bits
  *     cdef bits_score_pair pair
  *     for pair in PIECE_TABLE:             # <<<<<<<<<<<<<<
@@ -1686,7 +1716,7 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  */
   }
 
-  /* "evaluate.pyx":80
+  /* "evaluate.pyx":82
  *         score -= popcount(b.red_bitboard & pair.bits) * pair.score
  * 
  *     return score             # <<<<<<<<<<<<<<
@@ -1698,8 +1728,8 @@ static int __pyx_f_8evaluate_evaluate(struct __pyx_obj_5board_Board *__pyx_v_b) 
  * 
  * # main evaluation function
  * cdef int evaluate(board.Board b) nogil:             # <<<<<<<<<<<<<<
- *     if b.game_result != board.UNKNOWN:
- *         return b.game_result * 4200
+ *     if b.game_result == board.YELLOW:
+ *         return 4200 - popcount(b.yellow_bitboard)
  */
 
   /* function exit code */

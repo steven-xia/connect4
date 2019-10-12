@@ -19,9 +19,10 @@ cdef class Board(object):
     cdef readonly bit_list past_moves
 
     cdef bitboard cget_legal_moves(self) nogil
-    cdef int is_game_over(self) nogil
+    cdef int cis_game_over(self) nogil
     cdef void cmake_move(self, const bitboard& m) nogil
     cdef void undo_move(self) nogil
 
     cpdef bitboard get_legal_moves(self)
+    cpdef int is_game_over(self)
     cpdef void make_move(self, const bitboard m)
