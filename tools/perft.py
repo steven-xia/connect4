@@ -35,16 +35,15 @@ def get_confidence(past_times, p=0.95):
     return conf
 
 
-def confidence_benchmark(d, r=24, c=4.0):
+def confidence_benchmark(d, c=4.0):
     past_times = []
     conf = 1 << 15
     while 1000 * conf > c:
         s_time = time.time()
-        for _ in range(r):
-            _, l, n = perft_func(d)
+        _, l, n = perft_func(d)
         e_time = time.time()
 
-        past_times.append((e_time - s_time) / r)
+        past_times.append(e_time - s_time)
 
         med = sorted(past_times)[len(past_times) // 2]
         conf = get_confidence(past_times)
@@ -99,14 +98,12 @@ if __name__ == "__main__":
             sys.stdout.flush()
     else:
         CONFIDENCE = 4.0
-        RUN_TIMES = 1
         DEPTH = 12
 
-        initial_message = f"Benchmark for: {RUN_TIMES}*d{DEPTH} " \
-                          f"+- {CONFIDENCE}"
+        initial_message = f"Benchmark for: d{DEPTH} +- {CONFIDENCE}"
         try:
-            print(initial_message.replace("*", "×").replace("+-", "±"))
+            print(initial_message.replace("+-", "±"))
         except UnicodeEncodeError:
             print(initial_message)
 
-        confidence_benchmark(d=DEPTH, r=RUN_TIMES)
+        confidence_benchmark(d=DEPTH)
