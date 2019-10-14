@@ -24,6 +24,9 @@ def perft_func(d):
 
 
 def get_confidence(past_times, p=0.95):
+    if len(past_times) == 1:
+        return 1 << 15
+
     avg = sum(past_times) / len(past_times)
     std = sum((n - avg) ** 2 for n in past_times)
     std = math.sqrt(95 * std) / len(past_times)  # just too look nice. ;)
@@ -32,10 +35,10 @@ def get_confidence(past_times, p=0.95):
     return conf
 
 
-def time_search(t, d, r=24):
-    t /= r
+def confidence_benchmark(d, r=24, c=4.0):
     past_times = []
-    while sum(past_times) < t:
+    conf = 1 << 15
+    while 1000 * conf > c:
         s_time = time.time()
         for _ in range(r):
             _, l, n = perft_func(d)
@@ -43,12 +46,10 @@ def time_search(t, d, r=24):
 
         past_times.append((e_time - s_time) / r)
 
-        pct = min(100, 100 * sum(past_times) / t)
         med = sorted(past_times)[len(past_times) // 2]
         conf = get_confidence(past_times)
 
-        output = "\rProgress {}%:  {} ms +- {} ms (95%)".format(
-            round(pct, 1),
+        output = "\rCurrent:  {} ms +- {} ms (95%)".format(
             round(1000 * med, 1),
             round(1000 * conf, 1)
         )
@@ -97,14 +98,15 @@ if __name__ == "__main__":
             sys.stdout.write("\n")
             sys.stdout.flush()
     else:
-        RUN_SECONDS = 3600
+        CONFIDENCE = 4.0
         RUN_TIMES = 1
         DEPTH = 12
 
-        initial_message = f"Benchmark for: {RUN_SECONDS}s/{RUN_TIMES}*d{DEPTH}"
+        initial_message = f"Benchmark for: {RUN_TIMES}*d{DEPTH} " \
+                          f"+- {CONFIDENCE}"
         try:
-            print(initial_message.replace("*", "×"))
+            print(initial_message.replace("*", "×").replace("+-", "±"))
         except UnicodeEncodeError:
             print(initial_message)
 
-        time_search(t=RUN_SECONDS, d=DEPTH, r=RUN_TIMES)
+        confidence_benchmark(d=DEPTH, r=RUN_TIMES)
