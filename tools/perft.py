@@ -10,6 +10,7 @@ import time
 
 import board
 import search
+import stat_utils
 
 
 try:
@@ -20,6 +21,15 @@ except IndexError:
 
 def perft_func(d):
     return search.search(board.Board(), d)
+
+
+def get_confidence(past_times, p=0.95):
+    avg = sum(past_times) / len(past_times)
+    std = sum((n - avg) ** 2 for n in past_times)
+    std = math.sqrt(95 * std) / len(past_times)  # just too look nice. ;)
+    # std = math.sqrt(std / len(past_times))  # actual calculation
+    conf = stat_utils.phi_inv(0.50 + p / 2) * std
+    return conf
 
 
 def time_search(t, d, r=24, v=True):
@@ -36,14 +46,12 @@ def time_search(t, d, r=24, v=True):
         if v:
             pct = min(100, 100 * sum(past_times) / t)
             med = sorted(past_times)[len(past_times) // 2]
-            avg = sum(past_times) / len(past_times)
-            std = sum((n - avg) ** 2 for n in past_times)
-            std = math.sqrt(std / len(past_times))
+            conf = get_confidence(past_times)
 
             output = "\rProgress {}%:  {} ms +- {} ms (95%)".format(
                 round(pct, 1),
                 round(1000 * med, 1),
-                round(2 * 1000 * std, 1)
+                round(1000 * conf, 1)
             )
             try:
                 sys.stdout.write(output.replace("+-", "±"))
