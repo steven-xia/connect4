@@ -32,7 +32,7 @@ def get_confidence(past_times, p=0.95):
     return conf
 
 
-def time_search(t, d, r=24, v=True):
+def time_search(t, d, r=24):
     t /= r
     past_times = []
     while sum(past_times) < t:
@@ -43,25 +43,23 @@ def time_search(t, d, r=24, v=True):
 
         past_times.append((e_time - s_time) / r)
 
-        if v:
-            pct = min(100, 100 * sum(past_times) / t)
-            med = sorted(past_times)[len(past_times) // 2]
-            conf = get_confidence(past_times)
+        pct = min(100, 100 * sum(past_times) / t)
+        med = sorted(past_times)[len(past_times) // 2]
+        conf = get_confidence(past_times)
 
-            output = "\rProgress {}%:  {} ms +- {} ms (95%)".format(
-                round(pct, 1),
-                round(1000 * med, 1),
-                round(1000 * conf, 1)
-            )
-            try:
-                sys.stdout.write(output.replace("+-", "±"))
-            except UnicodeEncodeError:
-                sys.stdout.write(output)
+        output = "\rProgress {}%:  {} ms +- {} ms (95%)".format(
+            round(pct, 1),
+            round(1000 * med, 1),
+            round(1000 * conf, 1)
+        )
+        try:
+            sys.stdout.write(output.replace("+-", "±"))
+        except UnicodeEncodeError:
+            sys.stdout.write(output)
 
-            sys.stdout.flush()
+        sys.stdout.flush()
 
-    if v:
-        sys.stdout.write("\n")
+    sys.stdout.write("\n")
 
     avg = sum(past_times) / len(past_times)
     std = sum((n - avg) ** 2 for n in past_times)
@@ -99,7 +97,7 @@ if __name__ == "__main__":
             sys.stdout.write("\n")
             sys.stdout.flush()
     else:
-        RUN_SECONDS = 300
+        RUN_SECONDS = 3600
         RUN_TIMES = 1
         DEPTH = 12
 
