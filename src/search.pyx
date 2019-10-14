@@ -32,13 +32,28 @@ cdef unordered_map[unsigned long long, tt_value] TRANSPOSITION_TABLE
 TRANSPOSITION_TABLE.clear()
 
 # set zobrist hashing tables
+cdef set past_hashes = set()
 cdef unsigned long long max_long = 18446744073709551615
 cdef vector[board.bit_list] hashing_tables = []
 hashing_tables.reserve(49)
+cdef board.bitboard first_hash, second_hash, temp_hash
 for i in range(49):
+    while True:
+        temp_hash = int(random.random() * max_long)
+        if temp_hash not in past_hashes:
+            past_hashes.add(temp_hash)
+            first_hash = temp_hash
+            break
+
+    while True:
+        temp_hash = int(random.random() * max_long)
+        if temp_hash not in past_hashes:
+            past_hashes.add(temp_hash)
+            second_hash = temp_hash
+            break
+
     hashing_tables.push_back([
-        int(random.random() * max_long),
-        int(random.random() * max_long)
+        first_hash, second_hash
     ])
 
 cdef unsigned long long hash_key(const board.bitboard& ybb,
