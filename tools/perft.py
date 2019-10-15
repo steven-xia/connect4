@@ -25,7 +25,7 @@ def perft_func(d):
 
 def get_confidence(past_times, p=0.95):
     if len(past_times) == 1:
-        return 1 << 15
+        return (1 << 63) / 1000
 
     avg = sum(past_times) / len(past_times)
     std = sum((n - avg) ** 2 for n in past_times)
@@ -61,11 +61,8 @@ def confidence_benchmark(d, c=4.0):
 
     sys.stdout.write("\n")
 
-    avg = sum(past_times) / len(past_times)
-    std = sum((n - avg) ** 2 for n in past_times)
-    std = math.sqrt(std / len(past_times))
-
-    return avg, std
+    med = sorted(past_times)[len(past_times) // 2]
+    return med
 
 
 if __name__ == "__main__":
@@ -106,4 +103,5 @@ if __name__ == "__main__":
         except UnicodeEncodeError:
             print(initial_message)
 
-        confidence_benchmark(d=DEPTH)
+        median = confidence_benchmark(d=DEPTH)
+        print(f"Final time: {1000 * median} ms")
