@@ -99,8 +99,9 @@ cdef tt_value _negamax(board.Board b, const int& d,
     cdef tt_value return_value
     if not d or b.cis_game_over():
         return_value.score = evaluate.evaluate(b) * c
-        return_value.nodes = 1
+        return_value.nodes = 0
         TRANSPOSITION_TABLE[key] = return_value
+        return_value.nodes = 1
         return return_value
 
     return_value.score = -INFINITY
@@ -132,7 +133,7 @@ cdef tt_value _negamax(board.Board b, const int& d,
 
     child_return_value.score = return_value.score
     child_return_value.best_move = return_value.best_move
-    child_return_value.nodes = 1
+    child_return_value.nodes = 0
     TRANSPOSITION_TABLE[key] = child_return_value
 
     return return_value
