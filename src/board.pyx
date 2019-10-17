@@ -208,11 +208,9 @@ cdef class Board(object):
 
         if self.turn == _yellow:
             self.red_bitboard -= self.past_moves[self.turn_number]
-            self.past_moves.pop_back()
             self.turn = _red
         else:
             self.yellow_bitboard -= self.past_moves[self.turn_number]
-            self.past_moves.pop_back()
             self.turn = _yellow
 
 if __name__ == "__main__":

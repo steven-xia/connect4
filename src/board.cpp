@@ -3349,7 +3349,7 @@ static void __pyx_f_5board_5Board_undo_move(struct __pyx_obj_5board_Board *__pyx
  * 
  *         if self.turn == _yellow:             # <<<<<<<<<<<<<<
  *             self.red_bitboard -= self.past_moves[self.turn_number]
- *             self.past_moves.pop_back()
+ *             self.turn = _red
  */
   __pyx_t_1 = ((__pyx_v_self->turn == __pyx_v_5board__yellow) != 0);
   if (__pyx_t_1) {
@@ -3358,23 +3358,14 @@ static void __pyx_f_5board_5Board_undo_move(struct __pyx_obj_5board_Board *__pyx
  * 
  *         if self.turn == _yellow:
  *             self.red_bitboard -= self.past_moves[self.turn_number]             # <<<<<<<<<<<<<<
- *             self.past_moves.pop_back()
  *             self.turn = _red
+ *         else:
  */
     __pyx_v_self->red_bitboard = (__pyx_v_self->red_bitboard - (__pyx_v_self->past_moves[__pyx_v_self->turn_number]));
 
     /* "board.pyx":211
  *         if self.turn == _yellow:
  *             self.red_bitboard -= self.past_moves[self.turn_number]
- *             self.past_moves.pop_back()             # <<<<<<<<<<<<<<
- *             self.turn = _red
- *         else:
- */
-    __pyx_v_self->past_moves.pop_back();
-
-    /* "board.pyx":212
- *             self.red_bitboard -= self.past_moves[self.turn_number]
- *             self.past_moves.pop_back()
  *             self.turn = _red             # <<<<<<<<<<<<<<
  *         else:
  *             self.yellow_bitboard -= self.past_moves[self.turn_number]
@@ -3386,33 +3377,24 @@ static void __pyx_f_5board_5Board_undo_move(struct __pyx_obj_5board_Board *__pyx
  * 
  *         if self.turn == _yellow:             # <<<<<<<<<<<<<<
  *             self.red_bitboard -= self.past_moves[self.turn_number]
- *             self.past_moves.pop_back()
+ *             self.turn = _red
  */
     goto __pyx_L3;
   }
 
-  /* "board.pyx":214
+  /* "board.pyx":213
  *             self.turn = _red
  *         else:
  *             self.yellow_bitboard -= self.past_moves[self.turn_number]             # <<<<<<<<<<<<<<
- *             self.past_moves.pop_back()
  *             self.turn = _yellow
+ * 
  */
   /*else*/ {
     __pyx_v_self->yellow_bitboard = (__pyx_v_self->yellow_bitboard - (__pyx_v_self->past_moves[__pyx_v_self->turn_number]));
 
-    /* "board.pyx":215
+    /* "board.pyx":214
  *         else:
  *             self.yellow_bitboard -= self.past_moves[self.turn_number]
- *             self.past_moves.pop_back()             # <<<<<<<<<<<<<<
- *             self.turn = _yellow
- * 
- */
-    __pyx_v_self->past_moves.pop_back();
-
-    /* "board.pyx":216
- *             self.yellow_bitboard -= self.past_moves[self.turn_number]
- *             self.past_moves.pop_back()
  *             self.turn = _yellow             # <<<<<<<<<<<<<<
  * 
  * if __name__ == "__main__":
@@ -5300,7 +5282,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_sum = __Pyx_GetBuiltinName(__pyx_n_s_sum); if (!__pyx_builtin_sum) __PYX_ERR(0, 28, __pyx_L1_error)
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 220, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 218, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 29, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 29, __pyx_L1_error)
   return 0;
@@ -5964,53 +5946,53 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_k_ = __pyx_v_5board__yellow;
 
-  /* "board.pyx":218
+  /* "board.pyx":216
  *             self.turn = _yellow
  * 
  * if __name__ == "__main__":             # <<<<<<<<<<<<<<
  *     board = Board()
  *     print(split_bitboard(board.get_legal_moves()))
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_main, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_n_u_main, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_8) {
 
-    /* "board.pyx":219
+    /* "board.pyx":217
  * 
  * if __name__ == "__main__":
  *     board = Board()             # <<<<<<<<<<<<<<
  *     print(split_bitboard(board.get_legal_moves()))
  */
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_5board_Board)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_5board_Board)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_board, __pyx_t_2) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_board, __pyx_t_2) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "board.pyx":220
+    /* "board.pyx":218
  * if __name__ == "__main__":
  *     board = Board()
  *     print(split_bitboard(board.get_legal_moves()))             # <<<<<<<<<<<<<<
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_board); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_board); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_legal_moves); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get_legal_moves); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_3 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_t_2); if (unlikely((__pyx_t_3 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(__pyx_t_2); if (unlikely((__pyx_t_3 == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_f_5board_split_bitboard(__pyx_t_3)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_2 = __pyx_convert_vector_to_py_unsigned_PY_LONG_LONG(__pyx_f_5board_split_bitboard(__pyx_t_3)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "board.pyx":218
+    /* "board.pyx":216
  *             self.turn = _yellow
  * 
  * if __name__ == "__main__":             # <<<<<<<<<<<<<<
