@@ -7,6 +7,10 @@ file: search.py
 description: contains code for the search implementation.
 """
 
+# todo: keep hash key whilst traversing the game tree and simply tweak
+#  according to what move was played (much faster than recalculating the hash
+#  every single position we go through).
+
 from libcpp.algorithm cimport sort
 from libcpp.unordered_map cimport unordered_map
 from libcpp.vector cimport vector
