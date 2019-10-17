@@ -34,6 +34,10 @@ cdef bitboard FULL_BOARD = ~EMPTY_BOARD
 # define bit list (list of all bits)
 cdef bit_list BIT_LIST = [ONE << i for i in range(49)]
 
+# define column list (list of all column bits)
+cdef bitboard first_column = (1 << 8) - 1
+cdef bit_list COLUMN_LIST = [first_column << 7 * i for i in range(7)]
+
 # directions for shifting the bitboard representation.
 cdef int UP = 1
 cdef int RIGHT = 7
@@ -66,9 +70,9 @@ cdef bit_list split_bitboard(const bitboard& b) nogil:
     cdef bit_list moves
     moves.reserve(7)
 
-    cdef bitboard bit, x
-    for bit in BIT_LIST:
-        x = b & bit
+    cdef bitboard column, x
+    for column in COLUMN_LIST:
+        x = b & column
         if x:
             moves.push_back(x)
 
