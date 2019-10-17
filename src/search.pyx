@@ -84,7 +84,6 @@ cdef tt_value _negamax(board.Board b, const int& d,
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
-    :param e: evaluation function
     :param d: depth to search to
     :param alpha: parameter for alpha-beta pruning
     :param beta: parameter for alpha-beta pruning
