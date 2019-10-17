@@ -75,7 +75,6 @@ cdef int evaluate(board.Board b) nogil:
     else:
         score -= TEMPO_VALUE
 
-    cdef board.bitboard bits
     cdef bits_score_pair pair
     for pair in PIECE_TABLE:
         score += popcount(b.yellow_bitboard & pair.bits) * pair.score
