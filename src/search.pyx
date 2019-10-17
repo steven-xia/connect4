@@ -64,11 +64,10 @@ cdef unsigned long long hash_key(const board.bitboard& ybb,
     cdef int i = 0
     cdef board.bitboard b
     for b in board.BIT_LIST:
-        if b & p:
-            if b & ybb:
-                h ^= hashing_tables[i][0]
-            else:
-                h ^= hashing_tables[i][1]
+        if b & ybb:
+            h ^= hashing_tables[i][0]
+        elif b & rbb:
+            h ^= hashing_tables[i][1]
         i += 1
 
     return h
