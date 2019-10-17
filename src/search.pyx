@@ -59,7 +59,6 @@ for i in range(49):
 cdef unsigned long long hash_key(const board.bitboard& ybb,
                                  const board.bitboard& rbb) nogil:
     cdef unsigned long long h = 0
-    cdef board.bitboard p = ybb | rbb
 
     cdef int i = 0
     cdef board.bitboard b
