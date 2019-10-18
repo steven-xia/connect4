@@ -7,10 +7,6 @@ file: search.py
 description: contains code for the search implementation.
 """
 
-# todo: keep hash key whilst traversing the game tree and simply tweak
-#  according to what move was played (much faster than recalculating the hash
-#  every single position we go through).
-
 from libcpp.algorithm cimport sort
 from libcpp.unordered_map cimport unordered_map
 from libcpp.vector cimport vector
@@ -60,6 +56,10 @@ for i in range(49):
         first_hash, second_hash
     ])
 
+cdef unordered_map[unsigned long long, int] bit_to_index
+for i in range(49):
+    bit_to_index[board.ONE << i] = i
+
 cdef unsigned long long hash_key(const board.bitboard& ybb,
                                  const board.bitboard& rbb) nogil:
     cdef unsigned long long h = 0
@@ -83,7 +83,8 @@ cdef void order_moves(board.bit_list& moves_list) nogil:
 
 cdef tt_value _negamax(board.Board b, const int& d,
                        int alpha = -INFINITY, int beta = INFINITY,
-                       int c = board.YELLOW) nogil:
+                       int c = board.YELLOW,
+                       unsigned long long key = 0) nogil:
     """
     implementation of negamax search algorithm with alpha-beta pruning.
     :param b: board to search
@@ -93,8 +94,6 @@ cdef tt_value _negamax(board.Board b, const int& d,
     :param c: perspective to search by
     :return: (score, best move, nodes)
     """
-
-    cdef unsigned long long key = hash_key(b.yellow_bitboard, b.red_bitboard)
 
     if TRANSPOSITION_TABLE.find(key) != TRANSPOSITION_TABLE.end():
         return TRANSPOSITION_TABLE[key]
@@ -115,12 +114,19 @@ cdef tt_value _negamax(board.Board b, const int& d,
     cdef int move_index
     cdef board.bitboard move
     cdef int child_score
+    cdef unsigned long long child_hash
     cdef tt_value child_return_value
     for move_index in range(legal_moves.size()):
         move = legal_moves[move_index]
 
+        if b.turn == board.YELLOW:
+            child_hash = key ^ hashing_tables[bit_to_index[move]][0]
+        else:
+            child_hash = key ^ hashing_tables[bit_to_index[move]][1]
+
         b.cmake_move(move)
-        child_return_value = _negamax(b, d - 1, -beta, -alpha, -c)
+        child_return_value = _negamax(b, d - 1, -beta, -alpha, -c,
+                                      child_hash)
         b.undo_move()
 
         child_score = -child_return_value.score
@@ -145,5 +151,6 @@ cpdef tuple search(board.Board b, int d):
     global TRANSPOSITION_TABLE
     TRANSPOSITION_TABLE.clear()
 
-    xD = _negamax(b, d, c=b.turn, alpha=-INFINITY, beta=INFINITY)
-    return xD["score"], xD["best_move"], xD["nodes"]
+    result = _negamax(b, d, c=b.turn, alpha=-INFINITY, beta=INFINITY,
+                            key=hash_key(b.yellow_bitboard, b.red_bitboard))
+    return result["score"], result["best_move"], result["nodes"]
