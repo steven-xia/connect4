@@ -124,10 +124,6 @@ cdef class Board(object):
         :return: whether the game is over
         """
 
-        if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
-            self.game_result = _draw
-            return True
-
         cdef int win_result
         cdef bitboard current_pieces
         if self.turn == _yellow:
@@ -170,6 +166,10 @@ cdef class Board(object):
                     & shift(current_pieces, 2 * DOWN_RIGHT)
                     & shift(current_pieces, 3 * DOWN_RIGHT)):
             self.game_result = win_result
+            return True
+
+        if self.turn_number == 42:
+            self.game_result = _draw
             return True
 
         self.game_result = _unknown

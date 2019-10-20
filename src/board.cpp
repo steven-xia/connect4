@@ -2675,45 +2675,7 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   __pyx_t_5board_bitboard __pyx_t_2;
   int __pyx_t_3;
 
-  /* "board.pyx":127
- *         """
- * 
- *         if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:             # <<<<<<<<<<<<<<
- *             self.game_result = _draw
- *             return True
- */
-  __pyx_t_1 = (((__pyx_v_self->yellow_bitboard | __pyx_v_self->red_bitboard) == __pyx_v_5board_FULL_BOARD) != 0);
-  if (__pyx_t_1) {
-
-    /* "board.pyx":128
- * 
- *         if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
- *             self.game_result = _draw             # <<<<<<<<<<<<<<
- *             return True
- * 
- */
-    __pyx_v_self->game_result = __pyx_v_5board__draw;
-
-    /* "board.pyx":129
- *         if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:
- *             self.game_result = _draw
- *             return True             # <<<<<<<<<<<<<<
- * 
- *         cdef int win_result
- */
-    __pyx_r = 1;
-    goto __pyx_L0;
-
-    /* "board.pyx":127
- *         """
- * 
- *         if self.yellow_bitboard | self.red_bitboard == FULL_BOARD:             # <<<<<<<<<<<<<<
- *             self.game_result = _draw
- *             return True
- */
-  }
-
-  /* "board.pyx":133
+  /* "board.pyx":129
  *         cdef int win_result
  *         cdef bitboard current_pieces
  *         if self.turn == _yellow:             # <<<<<<<<<<<<<<
@@ -2723,7 +2685,7 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   __pyx_t_1 = ((__pyx_v_self->turn == __pyx_v_5board__yellow) != 0);
   if (__pyx_t_1) {
 
-    /* "board.pyx":134
+    /* "board.pyx":130
  *         cdef bitboard current_pieces
  *         if self.turn == _yellow:
  *             win_result = _red             # <<<<<<<<<<<<<<
@@ -2732,7 +2694,7 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
  */
     __pyx_v_win_result = __pyx_v_5board__red;
 
-    /* "board.pyx":135
+    /* "board.pyx":131
  *         if self.turn == _yellow:
  *             win_result = _red
  *             current_pieces = self.red_bitboard             # <<<<<<<<<<<<<<
@@ -2742,17 +2704,17 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
     __pyx_t_2 = __pyx_v_self->red_bitboard;
     __pyx_v_current_pieces = __pyx_t_2;
 
-    /* "board.pyx":133
+    /* "board.pyx":129
  *         cdef int win_result
  *         cdef bitboard current_pieces
  *         if self.turn == _yellow:             # <<<<<<<<<<<<<<
  *             win_result = _red
  *             current_pieces = self.red_bitboard
  */
-    goto __pyx_L4;
+    goto __pyx_L3;
   }
 
-  /* "board.pyx":137
+  /* "board.pyx":133
  *             current_pieces = self.red_bitboard
  *         else:
  *             win_result = _yellow             # <<<<<<<<<<<<<<
@@ -2762,7 +2724,7 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   /*else*/ {
     __pyx_v_win_result = __pyx_v_5board__yellow;
 
-    /* "board.pyx":138
+    /* "board.pyx":134
  *         else:
  *             win_result = _yellow
  *             current_pieces = self.yellow_bitboard             # <<<<<<<<<<<<<<
@@ -2772,9 +2734,9 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
     __pyx_t_2 = __pyx_v_self->yellow_bitboard;
     __pyx_v_current_pieces = __pyx_t_2;
   }
-  __pyx_L4:;
+  __pyx_L3:;
 
-  /* "board.pyx":143
+  /* "board.pyx":139
  *             & shift(current_pieces, UP)
  *             & shift(current_pieces, 2 * UP)
  *             & shift(current_pieces, 3 * UP)) \             # <<<<<<<<<<<<<<
@@ -2785,10 +2747,10 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
+    goto __pyx_L5_bool_binop_done;
   }
 
-  /* "board.pyx":147
+  /* "board.pyx":143
  *                     & shift(current_pieces, DOWN)
  *                     & shift(current_pieces, 2 * DOWN)
  *                     & shift(current_pieces, 3 * DOWN)) \             # <<<<<<<<<<<<<<
@@ -2799,10 +2761,10 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
+    goto __pyx_L5_bool_binop_done;
   }
 
-  /* "board.pyx":151
+  /* "board.pyx":147
  *                     & shift(current_pieces, LEFT)
  *                     & shift(current_pieces, 2 * LEFT)
  *                     & shift(current_pieces, 3 * LEFT)) \             # <<<<<<<<<<<<<<
@@ -2813,10 +2775,10 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
+    goto __pyx_L5_bool_binop_done;
   }
 
-  /* "board.pyx":155
+  /* "board.pyx":151
  *                     & shift(current_pieces, RIGHT)
  *                     & shift(current_pieces, 2 * RIGHT)
  *                     & shift(current_pieces, 3 * RIGHT)) \             # <<<<<<<<<<<<<<
@@ -2827,10 +2789,10 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
+    goto __pyx_L5_bool_binop_done;
   }
 
-  /* "board.pyx":159
+  /* "board.pyx":155
  *                     & shift(current_pieces, UP_LEFT)
  *                     & shift(current_pieces, 2 * UP_LEFT)
  *                     & shift(current_pieces, 3 * UP_LEFT)) \             # <<<<<<<<<<<<<<
@@ -2841,10 +2803,10 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
+    goto __pyx_L5_bool_binop_done;
   }
 
-  /* "board.pyx":163
+  /* "board.pyx":159
  *                     & shift(current_pieces, UP_RIGHT)
  *                     & shift(current_pieces, 2 * UP_RIGHT)
  *                     & shift(current_pieces, 3 * UP_RIGHT)) \             # <<<<<<<<<<<<<<
@@ -2855,10 +2817,10 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
+    goto __pyx_L5_bool_binop_done;
   }
 
-  /* "board.pyx":167
+  /* "board.pyx":163
  *                     & shift(current_pieces, DOWN_LEFT)
  *                     & shift(current_pieces, 2 * DOWN_LEFT)
  *                     & shift(current_pieces, 3 * DOWN_LEFT)) \             # <<<<<<<<<<<<<<
@@ -2869,10 +2831,10 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
+    goto __pyx_L5_bool_binop_done;
   }
 
-  /* "board.pyx":171
+  /* "board.pyx":167
  *                     & shift(current_pieces, DOWN_RIGHT)
  *                     & shift(current_pieces, 2 * DOWN_RIGHT)
  *                     & shift(current_pieces, 3 * DOWN_RIGHT)):             # <<<<<<<<<<<<<<
@@ -2881,9 +2843,9 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
  */
   __pyx_t_3 = ((((__pyx_v_current_pieces & __pyx_f_5board_shift(__pyx_v_current_pieces, __pyx_v_5board_DOWN_RIGHT)) & __pyx_f_5board_shift(__pyx_v_current_pieces, (2 * __pyx_v_5board_DOWN_RIGHT))) & __pyx_f_5board_shift(__pyx_v_current_pieces, (3 * __pyx_v_5board_DOWN_RIGHT))) != 0);
   __pyx_t_1 = __pyx_t_3;
-  __pyx_L6_bool_binop_done:;
+  __pyx_L5_bool_binop_done:;
 
-  /* "board.pyx":140
+  /* "board.pyx":136
  *             current_pieces = self.yellow_bitboard
  * 
  *         if (current_pieces             # <<<<<<<<<<<<<<
@@ -2892,7 +2854,7 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
  */
   if (__pyx_t_1) {
 
-    /* "board.pyx":172
+    /* "board.pyx":168
  *                     & shift(current_pieces, 2 * DOWN_RIGHT)
  *                     & shift(current_pieces, 3 * DOWN_RIGHT)):
  *             self.game_result = win_result             # <<<<<<<<<<<<<<
@@ -2901,9 +2863,47 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
  */
     __pyx_v_self->game_result = __pyx_v_win_result;
 
-    /* "board.pyx":173
+    /* "board.pyx":169
  *                     & shift(current_pieces, 3 * DOWN_RIGHT)):
  *             self.game_result = win_result
+ *             return True             # <<<<<<<<<<<<<<
+ * 
+ *         if self.turn_number == 42:
+ */
+    __pyx_r = 1;
+    goto __pyx_L0;
+
+    /* "board.pyx":136
+ *             current_pieces = self.yellow_bitboard
+ * 
+ *         if (current_pieces             # <<<<<<<<<<<<<<
+ *             & shift(current_pieces, UP)
+ *             & shift(current_pieces, 2 * UP)
+ */
+  }
+
+  /* "board.pyx":171
+ *             return True
+ * 
+ *         if self.turn_number == 42:             # <<<<<<<<<<<<<<
+ *             self.game_result = _draw
+ *             return True
+ */
+  __pyx_t_1 = ((__pyx_v_self->turn_number == 42) != 0);
+  if (__pyx_t_1) {
+
+    /* "board.pyx":172
+ * 
+ *         if self.turn_number == 42:
+ *             self.game_result = _draw             # <<<<<<<<<<<<<<
+ *             return True
+ * 
+ */
+    __pyx_v_self->game_result = __pyx_v_5board__draw;
+
+    /* "board.pyx":173
+ *         if self.turn_number == 42:
+ *             self.game_result = _draw
  *             return True             # <<<<<<<<<<<<<<
  * 
  *         self.game_result = _unknown
@@ -2911,12 +2911,12 @@ static int __pyx_f_5board_5Board_cis_game_over(struct __pyx_obj_5board_Board *__
     __pyx_r = 1;
     goto __pyx_L0;
 
-    /* "board.pyx":140
- *             current_pieces = self.yellow_bitboard
+    /* "board.pyx":171
+ *             return True
  * 
- *         if (current_pieces             # <<<<<<<<<<<<<<
- *             & shift(current_pieces, UP)
- *             & shift(current_pieces, 2 * UP)
+ *         if self.turn_number == 42:             # <<<<<<<<<<<<<<
+ *             self.game_result = _draw
+ *             return True
  */
   }
 
@@ -5771,11 +5771,11 @@ if (!__Pyx_RefNanny) {
   /* "board.pyx":32
  * )
  * 
- * cdef bitboard FULL_BOARD = ~EMPTY_BOARD             # <<<<<<<<<<<<<<
+ * cdef bitboard FULL_BOARD = ((ONE << 50) - 1) ^ EMPTY_BOARD             # <<<<<<<<<<<<<<
  * 
  * # define bit list (list of all bits)
  */
-  __pyx_v_5board_FULL_BOARD = (~__pyx_v_5board_EMPTY_BOARD);
+  __pyx_v_5board_FULL_BOARD = (((__pyx_v_5board_ONE << 50) - 1) ^ __pyx_v_5board_EMPTY_BOARD);
 
   /* "board.pyx":35
  * 
