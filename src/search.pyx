@@ -18,6 +18,7 @@ cdef extern from "<utility>" namespace "std" nogil:
     void swap(unsigned long long &x, unsigned long long &y) nogil
 
 import random
+random.seed(0)
 
 # define typedefs
 cdef struct tt_value:
