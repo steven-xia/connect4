@@ -29,7 +29,7 @@ cdef bitboard EMPTY_BOARD = sum(
     1 << i for i, x in enumerate(not i % 7 for i in range(49)) if x
 )
 
-cdef bitboard FULL_BOARD = ~EMPTY_BOARD
+cdef bitboard FULL_BOARD = ((ONE << 50) - 1) ^ EMPTY_BOARD
 
 # define bit list (list of all bits)
 cdef bit_list BIT_LIST = [ONE << i for i in range(49)]
