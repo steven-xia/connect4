@@ -116,7 +116,7 @@ def timed_search(b: board.Board, t: float) -> typing.Tuple:
             if abs(s):
                 pass
             return bm, d, s
-    return bm, "full search", s
+    return bm, "full", s
 
 
 if __name__ == "__main__":
