@@ -1872,24 +1872,24 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
   /* "search.pyx":122
  * 
  *     cdef tt_value return_value
- *     if not d or b.cis_game_over():             # <<<<<<<<<<<<<<
+ *     if b.cis_game_over() or not d:             # <<<<<<<<<<<<<<
  *         return_value.score = evaluate.evaluate(b) * c
  *         return_value.nodes = 0
  */
-  __pyx_t_2 = ((!(__pyx_v_d != 0)) != 0);
+  __pyx_t_2 = (((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->cis_game_over(__pyx_v_b) != 0);
   if (!__pyx_t_2) {
   } else {
     __pyx_t_1 = __pyx_t_2;
     goto __pyx_L5_bool_binop_done;
   }
-  __pyx_t_2 = (((struct __pyx_vtabstruct_5board_Board *)__pyx_v_b->__pyx_vtab)->cis_game_over(__pyx_v_b) != 0);
+  __pyx_t_2 = ((!(__pyx_v_d != 0)) != 0);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_1) {
 
     /* "search.pyx":123
  *     cdef tt_value return_value
- *     if not d or b.cis_game_over():
+ *     if b.cis_game_over() or not d:
  *         return_value.score = evaluate.evaluate(b) * c             # <<<<<<<<<<<<<<
  *         return_value.nodes = 0
  *         TRANSPOSITION_TABLE[key] = return_value
@@ -1897,7 +1897,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
     __pyx_v_return_value.score = (__pyx_f_8evaluate_evaluate(__pyx_v_b) * __pyx_v_c);
 
     /* "search.pyx":124
- *     if not d or b.cis_game_over():
+ *     if b.cis_game_over() or not d:
  *         return_value.score = evaluate.evaluate(b) * c
  *         return_value.nodes = 0             # <<<<<<<<<<<<<<
  *         TRANSPOSITION_TABLE[key] = return_value
@@ -1936,7 +1936,7 @@ static struct __pyx_t_6search_tt_value __pyx_f_6search__negamax(struct __pyx_obj
     /* "search.pyx":122
  * 
  *     cdef tt_value return_value
- *     if not d or b.cis_game_over():             # <<<<<<<<<<<<<<
+ *     if b.cis_game_over() or not d:             # <<<<<<<<<<<<<<
  *         return_value.score = evaluate.evaluate(b) * c
  *         return_value.nodes = 0
  */
