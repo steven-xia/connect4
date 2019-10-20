@@ -5818,15 +5818,15 @@ if (!__Pyx_RefNanny) {
   /* "board.pyx":38
  * 
  * # define column list (list of all column bits)
- * cdef bitboard first_column = (1 << 8) - 1             # <<<<<<<<<<<<<<
+ * cdef bitboard first_column = (1 << 7) - 1             # <<<<<<<<<<<<<<
  * cdef bit_list COLUMN_LIST = [first_column << 7 * i for i in range(7)]
  * 
  */
-  __pyx_v_5board_first_column = 0xFF;
+  __pyx_v_5board_first_column = 0x7F;
 
   /* "board.pyx":39
  * # define column list (list of all column bits)
- * cdef bitboard first_column = (1 << 8) - 1
+ * cdef bitboard first_column = (1 << 7) - 1
  * cdef bit_list COLUMN_LIST = [first_column << 7 * i for i in range(7)]             # <<<<<<<<<<<<<<
  * 
  * # directions for shifting the bitboard representation.

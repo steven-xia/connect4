@@ -35,7 +35,7 @@ cdef bitboard FULL_BOARD = ((ONE << 50) - 1) ^ EMPTY_BOARD
 cdef bit_list BIT_LIST = [ONE << i for i in range(49)]
 
 # define column list (list of all column bits)
-cdef bitboard first_column = (1 << 8) - 1
+cdef bitboard first_column = (1 << 7) - 1
 cdef bit_list COLUMN_LIST = [first_column << 7 * i for i in range(7)]
 
 # directions for shifting the bitboard representation.
