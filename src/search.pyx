@@ -14,6 +14,9 @@ from libcpp.vector cimport vector
 cimport board
 cimport evaluate
 
+cdef extern from "<utility>" namespace "std" nogil:
+    void swap(unsigned long long &x, unsigned long long &y) nogil
+
 import random
 
 # define typedefs
@@ -30,6 +33,11 @@ cdef unordered_map[board.bitboard, int] MOVES_LOOKUP = {
 
 cdef unordered_map[unsigned long long, tt_value] TRANSPOSITION_TABLE
 TRANSPOSITION_TABLE.clear()
+
+# set last position carry-overs
+cdef unordered_map[unsigned long long, tt_value] LAST_SEARCH_POSITIONS
+LAST_SEARCH_POSITIONS.clear()
+cdef unsigned long long LAST_SEARCH_POSITION
 
 # set zobrist hashing tables
 cdef set past_hashes = set()
@@ -78,8 +86,19 @@ cdef unsigned long long hash_key(const board.bitboard& ybb,
 cdef int sort_comp(const board.bitboard& b1, const board.bitboard& b2) nogil:
     return MOVES_LOOKUP[b1] > MOVES_LOOKUP[b2]
 
-cdef void order_moves(board.bit_list& moves_list) nogil:
+cdef void order_moves(unsigned long long position_hash,
+                      board.bit_list& moves_list) nogil:
+    cdef board.bitboard best_move
+    cdef int move_index
+
     sort(moves_list.begin(), moves_list.end(), sort_comp)
+
+    if LAST_SEARCH_POSITIONS.find(position_hash) != LAST_SEARCH_POSITIONS.end():
+        best_move = LAST_SEARCH_POSITIONS[position_hash].best_move
+        for move_index in range(moves_list.size()):
+            if moves_list[move_index] == best_move:
+                swap(moves_list[0], moves_list[move_index])
+                break
 
 cdef tt_value _negamax(board.Board b, const int& d,
                        int alpha = -INFINITY, int beta = INFINITY,
@@ -109,7 +128,7 @@ cdef tt_value _negamax(board.Board b, const int& d,
     return_value.score = -INFINITY
     return_value.nodes = 0
     cdef board.bit_list legal_moves = board.split_bitboard(b.cget_legal_moves())
-    order_moves(legal_moves)
+    order_moves(key, legal_moves)
 
     cdef int move_index
     cdef board.bitboard move
@@ -148,9 +167,15 @@ cdef tt_value _negamax(board.Board b, const int& d,
     return return_value
 
 cpdef tuple search(board.Board b, int d):
-    global TRANSPOSITION_TABLE
+    global TRANSPOSITION_TABLE, LAST_SEARCH_POSITIONS, LAST_SEARCH_POSITION
     TRANSPOSITION_TABLE.clear()
+
+    if LAST_SEARCH_POSITION != hash_key(b.yellow_bitboard, b.red_bitboard):
+        LAST_SEARCH_POSITIONS.clear()
 
     result = _negamax(b, d, c=b.turn, alpha=-INFINITY, beta=INFINITY,
                             key=hash_key(b.yellow_bitboard, b.red_bitboard))
+    LAST_SEARCH_POSITIONS = TRANSPOSITION_TABLE
+    LAST_SEARCH_POSITION = hash_key(b.yellow_bitboard, b.red_bitboard)
+
     return result["score"], result["best_move"], result["nodes"]
