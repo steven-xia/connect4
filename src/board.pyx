@@ -95,7 +95,7 @@ cdef class Board(object):
         self.red_bitboard = rbb
 
         self.turn = t
-        self.turn_number = 1
+        self.turn_number = 0
         self.past_moves = []
         self.past_moves.reserve(42)
         self.game_result = _unknown

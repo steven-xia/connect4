@@ -2255,7 +2255,7 @@ static int __pyx_pf_5board_5Board___init__(struct __pyx_obj_5board_Board *__pyx_
  *         self.red_bitboard = rbb
  * 
  *         self.turn = t             # <<<<<<<<<<<<<<
- *         self.turn_number = 1
+ *         self.turn_number = 0
  *         self.past_moves = []
  */
   __pyx_v_self->turn = __pyx_v_t;
@@ -2263,15 +2263,15 @@ static int __pyx_pf_5board_5Board___init__(struct __pyx_obj_5board_Board *__pyx_
   /* "board.pyx":98
  * 
  *         self.turn = t
- *         self.turn_number = 1             # <<<<<<<<<<<<<<
+ *         self.turn_number = 0             # <<<<<<<<<<<<<<
  *         self.past_moves = []
  *         self.past_moves.reserve(42)
  */
-  __pyx_v_self->turn_number = 1;
+  __pyx_v_self->turn_number = 0;
 
   /* "board.pyx":99
  *         self.turn = t
- *         self.turn_number = 1
+ *         self.turn_number = 0
  *         self.past_moves = []             # <<<<<<<<<<<<<<
  *         self.past_moves.reserve(42)
  *         self.game_result = _unknown
@@ -2283,7 +2283,7 @@ static int __pyx_pf_5board_5Board___init__(struct __pyx_obj_5board_Board *__pyx_
   __pyx_v_self->past_moves = __pyx_t_2;
 
   /* "board.pyx":100
- *         self.turn_number = 1
+ *         self.turn_number = 0
  *         self.past_moves = []
  *         self.past_moves.reserve(42)             # <<<<<<<<<<<<<<
  *         self.game_result = _unknown
