@@ -124,9 +124,9 @@ if __name__ == "__main__":
 
     game_board: board.Board = board.Board()
 
-    for turn_number in range(1, 43):
+    for turn_number in range(42):
         print_board(game_board)
-        if turn_number % 2 == 1:
+        if turn_number % 2 == 0:
             game_board.make_move(get_legal_input(game_board))
         else:
             best_move, depth, score = timed_search(game_board, 0.5)
