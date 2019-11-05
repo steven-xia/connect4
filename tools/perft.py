@@ -94,7 +94,7 @@ if __name__ == "__main__":
             sys.stdout.write("\n")
             sys.stdout.flush()
     else:
-        CONFIDENCE = 4.0
+        CONFIDENCE = 2.0
         DEPTH = 12
 
         initial_message = f"Benchmark for: d{DEPTH} +- {CONFIDENCE}"
@@ -103,5 +103,5 @@ if __name__ == "__main__":
         except UnicodeEncodeError:
             print(initial_message)
 
-        median = confidence_benchmark(d=DEPTH)
+        median = confidence_benchmark(d=DEPTH, c=CONFIDENCE)
         print(f"Final time: {1000 * median} ms")
